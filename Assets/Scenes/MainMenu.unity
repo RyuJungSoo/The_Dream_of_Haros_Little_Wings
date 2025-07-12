@@ -2808,6 +2808,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1589550470}
   - component: {fileID: 1589550471}
+  - component: {fileID: 1589550472}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -2845,6 +2846,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: bbc8e1d5f5e692747ac2c005cb3f210b, type: 2}
+  BGM: {fileID: 0}
+  SFX: {fileID: 0}
+--- !u!114 &1589550472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589550468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7510060bd03db8046b5f60b6f02ea6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGM_List:
+  - {fileID: 8300000, guid: 9b0d1742fa048fc46a6c5aea7a72d420, type: 3}
+  - {fileID: 8300000, guid: 0a7267b30c88e4f49bdab91bbb85e227, type: 3}
+  - {fileID: 8300000, guid: 231db9acf0a645d4e8fc4ed0add7c5b5, type: 3}
+  - {fileID: 8300000, guid: 922e76ec57227da4a9ed6880d6ba2745, type: 3}
+  StageBGM_List:
+  - {fileID: 8300000, guid: caba5ea269791ff40aec8bd4c4d3fb16, type: 3}
+  - {fileID: 8300000, guid: af91c652ae5bc9141b1d5e4f3e4fd081, type: 3}
+  SFX_List:
+  - {fileID: 8300000, guid: bba26e4708aa2e040898af1aa7c671d9, type: 3}
+  - {fileID: 8300000, guid: b12b7f7c5c4248a4d8d21849b63689dc, type: 3}
+  - {fileID: 8300000, guid: d22088eb15a15d045bc763413b861025, type: 3}
+  - {fileID: 8300000, guid: e49753a642acf91479df86bf6876756b, type: 3}
+  - {fileID: 8300000, guid: e437bb6d12e726949a57ab6405d1fca2, type: 3}
 --- !u!1 &1603830839
 GameObject:
   m_ObjectHideFlags: 0
