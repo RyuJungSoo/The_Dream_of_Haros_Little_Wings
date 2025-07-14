@@ -27,33 +27,6 @@ public class Stat_Data : ScriptableObject
     [Header("민첩성 설정")]
     public int Agility_Stat = 0;
 
-    [Header("훈련별 스탯 성장 기준값")]
-    public int StaminaTraining_StaminaGrowth = 4;  // 스테미나 훈련시 성장 기준값
-    public int StaminaTraining_FlightpowerGrowth = 1;
-    public int StaminaTraining_BalanceGrowth = 0;
-    public int StaminaTraining_AgilityGrowth = 0;
-    public int StaminaTraining_StaminaChange = -20;
-
-    public int FlightpowerTraining_StaminaGrowth = 1;  // 비상력 훈련시 성장 기준값
-    public int FlightpowerTraining_FlightpowerGrowth = 4;
-    public int FlightpowerTraining_BalanceGrowth = 0;
-    public int FlightpowerTraining_AgilityGrowth = 1;
-    public int FlightpowerTraining_StaminaChange = -25;
-
-    public int BalanceTraining_StaminaGrowth = 0;   // 균형감 훈련시 성장 기준값
-    public int BalanceTraining_FlightpowerGrowth = 1;
-    public int BalanceTraining_BalanceGrowth = 4;
-    public int BalanceTraining_AgilityGrowth = 0;
-    public int BalanceTraining_StaminaChange = -15;
-
-    public int AgilityTraining_StaminaGrowth = 0;   // 민첩성 훈련시 성장 기준값
-    public int AgilityTraining_FlightpowerGrowth = 0;
-    public int AgilityTraining_BalanceGrowth = 0;
-    public int AgilityTraining_AgilityGrowth = 4;
-    public int AgilityTraining_StaminaChange = -20;
-
-    public int Rest_StaminaChange = +30;  // 훈련말고 휴식 시 성장 기준값
-
 
     // 스탯 수치값 반영한 데이터들
     // 스태미나 최댓값(스태미나 스탯 관련)
