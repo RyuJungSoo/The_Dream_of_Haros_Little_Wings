@@ -16,7 +16,10 @@ MonoBehaviour:
   Basic_FlightSpeed: 5
   Basic_Stamina_DecreaseSpeed: 5
   Basic_Flight_Stamina_DecreaseSpeed: 6
-  Stamina_Stat: 0
-  Flightpower_Stat: 0
-  Balance_Stat: 0
-  Agility_Stat: 0
+  Stamina_Stat: 30
+  Flightpower_Stat: 45
+  Balance_Stat: 5
+  Agility_Stat: 30
+  staminaMultiplier: 0.5
+  flightSpeedMultiplier: 1
+  staminaDrainMultiplier: 1
