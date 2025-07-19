@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872df31a5c35a0e4f93d5c0cf76898d4, type: 3}
+  m_Name: Apple
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 63399239303517523, guid: 78ecade3013b8d94d8f97ace2f8f5e06, type: 3}
+  image: {fileID: 21300000, guid: 146d2c13c16656340ba13cc18d851635, type: 3}
+  obstacle_name: apple
+  tag: Obj - 02
+  Factor: 0.9
+  damage: 6
+  moveType: 2
