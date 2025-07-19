@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872df31a5c35a0e4f93d5c0cf76898d4, type: 3}
   m_Name: Bee
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2076502310888404189, guid: 8609eb6c68181ca43a25353f50d49324, type: 3}
+  prefab: {fileID: 63399239303517523, guid: cd22ba58555fa804bbf58b5dd4433ef7, type: 3}
   image: {fileID: 0}
   obstacle_name: bee
   tag: Obj - 05

@@ -7,21 +7,21 @@ public class StaminaSlider : MonoBehaviour
 {
     public Slider slider;
 
-    float stamina;
-    float fullStamina;
+    public float stamina;
+    public float fullStamina;
 
     public Stat_Data data;
 
     public GameOver gameover;
 
 
-    void Start()
+    public void Start()
     {
         fullStamina = data.Stamina_Max;
         stamina = fullStamina;
     }
 
-    void Update()
+    public void Update()
     {
         if(stamina <= 0)
         {
@@ -31,7 +31,7 @@ public class StaminaSlider : MonoBehaviour
         else if(stamina > 0 && !gameover.gameover)
         {
         slider.value = stamina/fullStamina;
-        stamina -= data.Total_Stamina_DecreaseSpeed * Time.deltaTime;
+        stamina -= data.Total_Stamina_DecreaseSpeed * Time.deltaTime / 10;
         }
 
     }

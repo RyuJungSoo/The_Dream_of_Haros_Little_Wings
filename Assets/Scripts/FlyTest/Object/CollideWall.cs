@@ -7,11 +7,14 @@ public class CollideWall : MonoBehaviour
     [SerializeField]
     Collider2D Player;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public Player player;
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.collider.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player") && !player.isInvincible)
         {
-            Debug.Log("플레이어가 Wall에 충돌했습니다.");
+            Debug.Log("플레이어가 Wall 트리거에 접촉했습니다.");
+            StartCoroutine(player.HitInvincible(20));
         }
     }
 
