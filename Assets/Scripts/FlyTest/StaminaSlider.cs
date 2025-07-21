@@ -31,13 +31,14 @@ public class StaminaSlider : MonoBehaviour
         {
             stamina = fullStamina;
         }
-
-        if(stamina <= 0)
+        if (stamina <= 0)
         {
-            stamina = 0;
+            slider.value = 0;
             gameover.Gameover();
         }
-        else if(item.onWind && !gameover.gameover)
+
+
+        if(item.onWind && !gameover.gameover)
         {
             slider.value = stamina / fullStamina;
         }

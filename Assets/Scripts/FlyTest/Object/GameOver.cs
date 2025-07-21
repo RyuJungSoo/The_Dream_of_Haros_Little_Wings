@@ -9,6 +9,9 @@ public class GameOver : MonoBehaviour
     TextMeshProUGUI txt;
 
     [SerializeField]
+    Player player;
+
+    [SerializeField]
     public bool gameover = false;
 
     // Start is called before the first frame update
@@ -20,6 +23,7 @@ public class GameOver : MonoBehaviour
     public void Gameover()
     {
         txt.enabled = true;
+        player.rb.constraints = RigidbodyConstraints2D.FreezeAll;
         gameover = true;
     }
 }

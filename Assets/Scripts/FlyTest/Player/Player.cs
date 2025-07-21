@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Collider2D Obstacle;
+    public Rigidbody2D rb;
 
     public StaminaSlider slider;
     public ObstacleSO obstacleData;
@@ -13,6 +14,10 @@ public class Player : MonoBehaviour
     public bool onCollide = false;
     public bool isInvincible = false;
 
+    public void Awake()
+    {
+         rb = GetComponent<Rigidbody2D>();
+    }
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Obstacle") && !isInvincible)
