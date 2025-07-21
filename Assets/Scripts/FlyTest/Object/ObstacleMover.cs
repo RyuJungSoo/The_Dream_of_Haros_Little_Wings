@@ -17,7 +17,7 @@ public class ObstacleMover : MonoBehaviour
     {
         switch (moveType)
         {
-            case MoveType.forward: return Vector3.right;
+            case MoveType.forward: return Vector3.left;
             case MoveType.fall: return Vector3.down;
             case MoveType.curve: return new Vector3(Mathf.Sin(Time.time), -1, 0).normalized;
             default: return Vector3.zero;
