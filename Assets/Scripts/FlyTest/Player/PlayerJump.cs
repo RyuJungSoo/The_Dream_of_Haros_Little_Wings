@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerJump : MonoBehaviour
 {
     public GameOver gameover;
+    public CollideItem item;
 
     [SerializeField]
     Rigidbody2D rb;
@@ -24,9 +25,13 @@ public class PlayerJump : MonoBehaviour
         {
             Jump();
         }
+        else if(!gameover.gameover && item.onWind)
+        {
+            Jump();
+        }
     }
 
-    private void Jump()
+    public void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpPower);
         // rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Force);

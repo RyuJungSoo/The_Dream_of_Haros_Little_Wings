@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     public StaminaSlider slider;
     public ObstacleSO obstacleData;
+    public CollideItem item;
 
     public bool onCollide = false;
     public bool isInvincible = false;
@@ -22,6 +23,10 @@ public class Player : MonoBehaviour
                 Debug.Log($"플레이어가 {obstacle.obstacleData.name} 와(과) 트리거 접촉했습니다.");
                 StartCoroutine(HitInvincible(damage));
             }
+            if(other.CompareTag("Obstacle") && isInvincible)
+            {
+                StartCoroutine(HitDuringInvincible());
+            }
         }
     }
 
@@ -33,9 +38,16 @@ public class Player : MonoBehaviour
         isInvincible = false;
         onCollide = false;
     }
+    public IEnumerator HitDuringInvincible()
+    {
+        yield return new WaitForSeconds(1f);
+        isInvincible = false;
+        onCollide = false;
+    }
 
     public void Hit(int damage)
     {
+        item.onShield = false;
         slider.stamina -= damage;
         Debug.Log($"플레이어가 {damage} 만큼의 대미지를 입었습니다.");
     }
