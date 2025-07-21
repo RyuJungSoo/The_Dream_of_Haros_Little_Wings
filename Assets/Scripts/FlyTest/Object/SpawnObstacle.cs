@@ -7,6 +7,8 @@ public class SpawnObstacle : MonoBehaviour
     public ObstacleSO objectData;
     public bool canSpawn = false;
 
+    [SerializeField]
+    private float spawnDelay = 3f;
 
     private Camera mainCamera;
 
@@ -24,15 +26,16 @@ public class SpawnObstacle : MonoBehaviour
 
         if (canSpawn)
         {
-            Spawn();
-            Destroy(gameObject);
+            StartCoroutine(Spawn());
             canSpawn = false;
         }
     }
-    public void Spawn()
+    public IEnumerator Spawn()
     {
-        Debug.Log("스폰 호출");
+        Debug.Log($"{spawnDelay} 뒤 스폰 호출");
+        yield return new WaitForSeconds(spawnDelay);
         Instantiate(objectData.prefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
     private bool IsInCameraView()
     {
