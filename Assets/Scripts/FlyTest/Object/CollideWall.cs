@@ -13,7 +13,6 @@ public class CollideWall : MonoBehaviour
     {
         if (other.CompareTag("Player") && !player.isInvincible)
         {
-            Debug.Log("플레이어가 Wall 트리거에 접촉했습니다.");
             StartCoroutine(player.HitInvincible(20));
         }
         else if(other.CompareTag("Player") && player.isInvincible)
