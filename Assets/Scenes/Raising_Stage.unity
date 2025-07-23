@@ -340,7 +340,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 51299214}
-  - component: {fileID: 51299213}
+  - component: {fileID: 51299215}
+  - component: {fileID: 51299216}
+  - component: {fileID: 51299217}
   m_Layer: 0
   m_Name: StatManager
   m_TagString: Untagged
@@ -348,27 +350,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &51299213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 51299212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190ee894564d19f42b071dd1ceff60f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  increase_Stamina_Button: {fileID: 616858324}
-  increase_FlightSpeed_Button: {fileID: 107628267}
-  increase_Balance_Button: {fileID: 109047401}
-  increase_Agility_Button: {fileID: 1755670276}
-  statData: {fileID: 11400000, guid: 11ee405f5d4efad40810b0a024e85a87, type: 2}
-  StaminaText: {fileID: 2056281944}
-  FlightSpeedText: {fileID: 2049735262}
-  BalanceText: {fileID: 452745235}
-  AgilityText: {fileID: 1094923914}
 --- !u!4 &51299214
 Transform:
   m_ObjectHideFlags: 0
@@ -384,6 +365,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &51299215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51299212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27b63a24063623549b74b67333425c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staminaValueText: {fileID: 6380661}
+  flightpowerValueText: {fileID: 855756715}
+  balanceValueText: {fileID: 1177450016}
+  agilityValueText: {fileID: 2140975822}
+  staminaGradeText: {fileID: 2112526541}
+  flightpowerGradeText: {fileID: 307851478}
+  balanceGradeText: {fileID: 1272244857}
+  agilityGradeText: {fileID: 158547410}
+  staminaButton: {fileID: 616858324}
+  flightpowerButton: {fileID: 107628267}
+  balanceButton: {fileID: 109047401}
+  agilityButton: {fileID: 1755670276}
+  restButton: {fileID: 1897873620}
+  turnText: {fileID: 993137010}
+  staminaBarFiller: {fileID: 1869990991}
+  staminaCostPerTraining: 14
+  recoveryAmount: 10
+  Stamina_failureRatePanel: {fileID: 1891568110}
+  FlightSpeed_failureRatePanel: {fileID: 774879019}
+  Balance_failureRatePanel: {fileID: 1862278621}
+  Aglilty_failureRatePanel: {fileID: 1006438053}
+--- !u!114 &51299216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51299212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab1e653f631c784aa5876ea3b4ee7a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statData: {fileID: 0}
+  Stamina_Stat: 0
+  Flightpower_Stat: 0
+  Balance_Stat: 0
+  Agility_Stat: 0
+  currentStamina: 100
+  maxStamina: 100
+--- !u!114 &51299217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51299212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7114140a94d438b45bd79945fbb7648d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxTurn: 12
 --- !u!1 &107628262
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +443,8 @@ GameObject:
   - component: {fileID: 107628265}
   - component: {fileID: 107628267}
   - component: {fileID: 107628264}
+  - component: {fileID: 107628268}
+  - component: {fileID: 107628269}
   m_Layer: 5
   m_Name: 'FlightSpeedButton '
   m_TagString: Untagged
@@ -436,15 +484,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190ee894564d19f42b071dd1ceff60f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  increase_Stamina_Button: {fileID: 616858324}
-  increase_FlightSpeed_Button: {fileID: 107628267}
-  increase_Balance_Button: {fileID: 109047401}
-  increase_Agility_Button: {fileID: 1755670276}
-  statData: {fileID: 11400000, guid: 11ee405f5d4efad40810b0a024e85a87, type: 2}
-  StaminaText: {fileID: 2056281944}
-  FlightSpeedText: {fileID: 2049735262}
-  BalanceText: {fileID: 452745235}
-  AgilityText: {fileID: 1094923914}
 --- !u!114 &107628265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,7 +544,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.8068447, b: 0.5707547, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -539,6 +578,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &107628268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107628262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0.84313726, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 0
+--- !u!114 &107628269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107628262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473dca5d85a1b0a46b68f8dae0df9928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &109047396
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,6 +618,8 @@ GameObject:
   - component: {fileID: 109047399}
   - component: {fileID: 109047401}
   - component: {fileID: 109047398}
+  - component: {fileID: 109047402}
+  - component: {fileID: 109047403}
   m_Layer: 5
   m_Name: 'BalanceButton '
   m_TagString: Untagged
@@ -591,15 +659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190ee894564d19f42b071dd1ceff60f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  increase_Stamina_Button: {fileID: 616858324}
-  increase_FlightSpeed_Button: {fileID: 107628267}
-  increase_Balance_Button: {fileID: 109047401}
-  increase_Agility_Button: {fileID: 1755670276}
-  statData: {fileID: 11400000, guid: 11ee405f5d4efad40810b0a024e85a87, type: 2}
-  StaminaText: {fileID: 2056281944}
-  FlightSpeedText: {fileID: 2049735262}
-  BalanceText: {fileID: 452745235}
-  AgilityText: {fileID: 1094923914}
 --- !u!114 &109047399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -613,7 +672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8612033, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -660,7 +719,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.8068447, b: 0.5707547, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -694,6 +753,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &109047402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109047396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0.84313726, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 0
+--- !u!114 &109047403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109047396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473dca5d85a1b0a46b68f8dae0df9928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &137974207
 GameObject:
   m_ObjectHideFlags: 0
@@ -2160,8 +2246,10 @@ GameObject:
   - component: {fileID: 616858323}
   - component: {fileID: 616858326}
   - component: {fileID: 616858325}
+  - component: {fileID: 616858329}
   - component: {fileID: 616858324}
   - component: {fileID: 616858327}
+  - component: {fileID: 616858328}
   m_Layer: 5
   m_Name: StaminaButton
   m_TagString: Untagged
@@ -2211,7 +2299,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.8068447, b: 0.5707547, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -2295,15 +2383,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190ee894564d19f42b071dd1ceff60f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  increase_Stamina_Button: {fileID: 616858324}
-  increase_FlightSpeed_Button: {fileID: 107628267}
-  increase_Balance_Button: {fileID: 109047401}
-  increase_Agility_Button: {fileID: 1755670276}
-  statData: {fileID: 11400000, guid: 11ee405f5d4efad40810b0a024e85a87, type: 2}
-  StaminaText: {fileID: 2056281944}
-  FlightSpeedText: {fileID: 2049735262}
-  BalanceText: {fileID: 452745235}
-  AgilityText: {fileID: 1094923914}
+--- !u!114 &616858328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616858322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473dca5d85a1b0a46b68f8dae0df9928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &616858329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616858322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0.84313726, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 0
 --- !u!1 &643832640
 GameObject:
   m_ObjectHideFlags: 0
@@ -3152,7 +3258,7 @@ GameObject:
   - component: {fileID: 993137011}
   - component: {fileID: 993137010}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: turnText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3197,7 +3303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "0\uD134\n"
+  m_text: "12\uD134\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: af7616705939e1d47876161a827bdbc1, type: 2}
   m_sharedMaterial: {fileID: 8140237308228266832, guid: af7616705939e1d47876161a827bdbc1, type: 2}
@@ -6240,6 +6346,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.9411765
       objectReference: {fileID: 0}
+    - target: {fileID: 114860394311012990, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.525
+      objectReference: {fileID: 0}
     - target: {fileID: 114958415113853462, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
       propertyPath: m_Color.b
       value: 0.62611246
@@ -6575,6 +6685,8 @@ GameObject:
   - component: {fileID: 1755670277}
   - component: {fileID: 1755670276}
   - component: {fileID: 1755670278}
+  - component: {fileID: 1755670281}
+  - component: {fileID: 1755670282}
   m_Layer: 5
   m_Name: 'AgilityButton '
   m_TagString: Untagged
@@ -6604,7 +6716,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.8068447, b: 0.5707547, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -6680,15 +6792,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190ee894564d19f42b071dd1ceff60f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  increase_Stamina_Button: {fileID: 616858324}
-  increase_FlightSpeed_Button: {fileID: 107628267}
-  increase_Balance_Button: {fileID: 109047401}
-  increase_Agility_Button: {fileID: 1755670276}
-  statData: {fileID: 11400000, guid: 11ee405f5d4efad40810b0a024e85a87, type: 2}
-  StaminaText: {fileID: 2056281944}
-  FlightSpeedText: {fileID: 2049735262}
-  BalanceText: {fileID: 452745235}
-  AgilityText: {fileID: 1094923914}
 --- !u!222 &1755670279
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6717,6 +6820,33 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000030517578, y: 1.5999985}
   m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1755670281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755670275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0.84313726, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 0
+--- !u!114 &1755670282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755670275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473dca5d85a1b0a46b68f8dae0df9928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1803538605
 GameObject:
   m_ObjectHideFlags: 0
@@ -6915,6 +7045,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862278621}
   m_CullTransparentMesh: 1
+--- !u!114 &1869990991 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114860394311012990, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
+  m_PrefabInstance: {fileID: 1594900050}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1876064560
 GameObject:
   m_ObjectHideFlags: 0
@@ -7215,7 +7356,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.4669811, g: 0.7586329, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}

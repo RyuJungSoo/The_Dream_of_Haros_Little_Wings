@@ -12,7 +12,7 @@ public class StaminaSlider : MonoBehaviour
     public float stamina;
     public float fullStamina;
 
-    public Stat_Data data;
+    public StatManager data;
 
     public GameOver gameover;
 
@@ -45,7 +45,7 @@ public class StaminaSlider : MonoBehaviour
         else if (stamina > 0 && !gameover.gameover)
         {
             slider.value = stamina / fullStamina;
-            stamina -= data.Total_Stamina_DecreaseSpeed * Time.deltaTime / 10;
+            stamina -= StatManager.Instance.GetStaminaDrainSpeed() * Time.deltaTime / 10f;
         }
     }
 }
