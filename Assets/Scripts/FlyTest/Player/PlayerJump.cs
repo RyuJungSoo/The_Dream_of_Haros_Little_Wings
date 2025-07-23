@@ -11,13 +11,14 @@ public class PlayerJump : MonoBehaviour
     Rigidbody2D rb;
 
     [SerializeField]
-    Stat_Data data;
+    StatManager data;
 
     public float jumpPower;
 
     private void Awake()
     {
-        jumpPower = data.Total_FlightSpeed;
+        jumpPower = StatManager.Instance.Total_FlightSpeed;
+
     }
     public void Update()
     {
