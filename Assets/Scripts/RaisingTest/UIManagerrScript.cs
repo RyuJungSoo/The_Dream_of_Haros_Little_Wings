@@ -7,40 +7,50 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [Header("ìŠ¤íƒ¯ ìˆ˜ì¹˜ í…ìŠ¤íŠ¸")]
-    public TextMeshProUGUI staminaValueText;
-    public TextMeshProUGUI flightpowerValueText;
-    public TextMeshProUGUI balanceValueText;
-    public TextMeshProUGUI agilityValueText;
+    [Header("½ºÅÈ ¼öÄ¡ ÅØ½ºÆ®")]
+    public TextMeshProUGUI staminaValueText;           // Ã¼·Â ½ºÅÈ ¼öÄ¡ Ç¥½Ã ÅØ½ºÆ®
+    public TextMeshProUGUI flightpowerValueText;       // ºñÇà·Â ½ºÅÈ ¼öÄ¡ Ç¥½Ã ÅØ½ºÆ®
+    public TextMeshProUGUI balanceValueText;           // ±ÕÇü°¨ ½ºÅÈ ¼öÄ¡ Ç¥½Ã ÅØ½ºÆ®
+    public TextMeshProUGUI agilityValueText;           // ¹ÎÃ¸¼º ½ºÅÈ ¼öÄ¡ Ç¥½Ã ÅØ½ºÆ®
 
-    [Header("ìŠ¤íƒ¯ ë“±ê¸‰ í…ìŠ¤íŠ¸")]
-    public TextMeshProUGUI staminaGradeText;
-    public TextMeshProUGUI flightpowerGradeText;
-    public TextMeshProUGUI balanceGradeText;
-    public TextMeshProUGUI agilityGradeText;
+    [Header("½ºÅÈ µî±Ş ÅØ½ºÆ®")]
+    public TextMeshProUGUI staminaGradeText;           // Ã¼·Â µî±Ş Ç¥½Ã ÅØ½ºÆ®
+    public TextMeshProUGUI flightpowerGradeText;       // ºñÇà·Â µî±Ş Ç¥½Ã ÅØ½ºÆ®
+    public TextMeshProUGUI balanceGradeText;           // ±ÕÇü°¨ µî±Ş Ç¥½Ã ÅØ½ºÆ®
+    public TextMeshProUGUI agilityGradeText;           // ¹ÎÃ¸¼º µî±Ş Ç¥½Ã ÅØ½ºÆ®
 
-    [Header("ìŠ¤íƒ¯ ì¦ê°€ ë²„íŠ¼")]
-    public Button staminaButton;
-    public Button flightpowerButton;
-    public Button balanceButton;
-    public Button agilityButton;
+    [Header("½ºÅÈ Áõ°¡ ¹öÆ°")]
+    public Button staminaButton;                       // Ã¼·Â ÈÆ·Ã ¹öÆ°
+    public Button flightpowerButton;                   // ºñÇà·Â ÈÆ·Ã ¹öÆ°
+    public Button balanceButton;                       // ±ÕÇü°¨ ÈÆ·Ã ¹öÆ°
+    public Button agilityButton;                       // ¹ÎÃ¸¼º ÈÆ·Ã ¹öÆ°
 
-    [Header("íœ´ì‹ ë²„íŠ¼")]
-    public Button restButton;
+    [Header("¼±ÅÃ Ç¥½Ã ¿ÀºêÁ§Æ®")]
+    public GameObject chosenCheckStamina;              // Ã¼·Â ¼±ÅÃ Ç¥½Ã UI
+    public GameObject chosenCheckFlight;               // ºñÇà·Â ¼±ÅÃ Ç¥½Ã UI
+    public GameObject chosenCheckBalance;              // ±ÕÇü°¨ ¼±ÅÃ Ç¥½Ã UI
+    public GameObject chosenCheckAgility;              // ¹ÎÃ¸¼º ¼±ÅÃ Ç¥½Ã UI
 
-    [Header("í„´ìˆ˜ í™•ì¸")]
-    public TextMeshProUGUI turnText;
+    [Header("ÈŞ½Ä ¹öÆ°")]
+    public Button restButton;                          // ÈŞ½Ä ¹öÆ°
 
-    [Header("ì²´ë ¥ UI")]
-    public Image staminaBarFiller;
-    public float staminaCostPerTraining = 10f;
-    public float recoveryAmount = 20f;
+    [Header("ÅÏ¼ö È®ÀÎ")]
+    public TextMeshProUGUI turnText;                   // ÇöÀç ÅÏ¼ö ÅØ½ºÆ®
 
-    [Header("ì‹¤íŒ¨ìœ¨ UI")]
-    public GameObject Stamina_failureRatePanel;
-    public GameObject FlightSpeed_failureRatePanel;
-    public GameObject Balance_failureRatePanel;
-    public GameObject Aglilty_failureRatePanel;
+    [Header("Ã¼·Â UI")]
+    public Image staminaBarFiller;                     // Ã¼·Â °ÔÀÌÁö ¹Ù
+    public float recoveryAmount = 30f;                 // ÈŞ½Ä ½Ã È¸º¹ Ã¼·Â
+
+    [Header("ÁÖ/º¸Á¶ ½ºÅÈ ¿¹»ó ÅØ½ºÆ®")]
+    public TextMeshProUGUI staminaMainText;            // Ã¼·Â ÁÖ ½ºÅÈ ¿¹»ó ÅØ½ºÆ®
+    public TextMeshProUGUI staminaSubText;             // Ã¼·Â º¸Á¶ ½ºÅÈ ¿¹»ó ÅØ½ºÆ®
+    public TextMeshProUGUI flightpowerMainText;        // ºñÇà·Â ÁÖ ½ºÅÈ ¿¹»ó ÅØ½ºÆ®
+    public TextMeshProUGUI flightpowerSubText;         // ºñÇà·Â º¸Á¶ ½ºÅÈ ¿¹»ó ÅØ½ºÆ®
+    public TextMeshProUGUI flightpowerSubText2;  
+    public TextMeshProUGUI balanceMainText;            // ±ÕÇü°¨ ÁÖ ½ºÅÈ ¿¹»ó ÅØ½ºÆ®
+    public TextMeshProUGUI balanceSubText;             // ±ÕÇü°¨ º¸Á¶ ½ºÅÈ ¿¹»ó ÅØ½ºÆ®
+    public TextMeshProUGUI agilityMainText;            // ¹ÎÃ¸¼º ÁÖ ½ºÅÈ ¿¹»ó ÅØ½ºÆ®
+    public TextMeshProUGUI agilitySubText;             // ¹ÎÃ¸¼º º¸Á¶ ½ºÅÈ ¿¹»ó ÅØ½ºÆ®
 
     private void Awake()
     {
@@ -50,102 +60,196 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        // ¹öÆ°º° ¸¶¿ì½º ¿À¹ö ÀÌº¥Æ® ¼³Á¤ (ÁÖ/º¸Á¶ ¿¹»ó ½ºÅÈ Ç¥½Ã)
+        AddHoverEvents(staminaButton, chosenCheckStamina, staminaMainText, staminaSubText, "Stamina");
+        AddHoverEventsFlightPower(flightpowerButton, chosenCheckFlight,flightpowerMainText, flightpowerSubText, flightpowerSubText2);
+
+        AddHoverEvents(balanceButton, chosenCheckBalance, balanceMainText, balanceSubText, "Balance");
+        AddHoverEvents(agilityButton, chosenCheckAgility, agilityMainText, agilitySubText, "Agility");
+
+        // ¹öÆ° Å¬¸¯ ¸®½º³Ê µî·Ï
         staminaButton.onClick.AddListener(() => OnClickIncreaseStat(StatType.Stamina_Stat));
         flightpowerButton.onClick.AddListener(() => OnClickIncreaseStat(StatType.Flightpower_Stat));
         balanceButton.onClick.AddListener(() => OnClickIncreaseStat(StatType.Balance_Stat));
         agilityButton.onClick.AddListener(() => OnClickIncreaseStat(StatType.Agility_Stat));
         restButton.onClick.AddListener(OnClickRest);
 
-        AddHoverEvents(staminaButton, Stamina_failureRatePanel);
-        AddHoverEvents(flightpowerButton, FlightSpeed_failureRatePanel);
-        AddHoverEvents(balanceButton, Balance_failureRatePanel);
-        AddHoverEvents(agilityButton, Aglilty_failureRatePanel);
-
-        UpdateStatUI();
+        HideAllChosenChecks(); // ½ÃÀÛ ½Ã UI ¼û±â±â
     }
 
-    private void AddHoverEvents(Button button, GameObject panel)
+    // ¸¶¿ì½º ¿À¹ö ½Ã ¿¹»ó ½ºÅÈ UI Ç¥½Ã Ã³¸®
+    private void AddHoverEvents(Button button, GameObject chosen, TextMeshProUGUI mainText, TextMeshProUGUI subText, string statName)
     {
         EventTrigger trigger = button.gameObject.GetComponent<EventTrigger>();
         if (trigger == null) trigger = button.gameObject.AddComponent<EventTrigger>();
 
         EventTrigger.Entry entryEnter = new EventTrigger.Entry();
         entryEnter.eventID = EventTriggerType.PointerEnter;
-        entryEnter.callback.AddListener((data) => { ShowFailureRate(panel); });
+        entryEnter.callback.AddListener((data) => {
+            ShowChosenCheck(chosen);
+            (string main, string sub) = StatManager.Instance.GetMainAndSubStatText(statName);
+            mainText.text = $"<color=#FF0000>{main}</color>"; // ÁÖ ½ºÅÈ ÅØ½ºÆ® »¡°£»ö
+            subText.text = $"<color=#FFBA00>{sub}</color>";   // º¸Á¶ ½ºÅÈ ÅØ½ºÆ® ÁÖÈ²»ö
+            mainText.gameObject.SetActive(true);
+            subText.gameObject.SetActive(true);
+        });
         trigger.triggers.Add(entryEnter);
 
         EventTrigger.Entry entryExit = new EventTrigger.Entry();
         entryExit.eventID = EventTriggerType.PointerExit;
-        entryExit.callback.AddListener((data) => { HideAllFailureRates(); });
+        entryExit.callback.AddListener((data) => {
+            HideAllChosenChecks();
+            mainText.gameObject.SetActive(false);
+            subText.gameObject.SetActive(false);
+        });
         trigger.triggers.Add(entryExit);
     }
 
-    public void ShowFailureRate(GameObject panel)
+    private void AddHoverEventsFlightPower(Button button, GameObject chosen,
+                                            TextMeshProUGUI mainText,
+                                            TextMeshProUGUI subText1,
+                                            TextMeshProUGUI subText2)
     {
-        float rate = CalculateFailureRate();
-        int rateInt = Mathf.Clamp(Mathf.RoundToInt(rate), 0, 100);
-        Fail_Chance_UI ui = panel.GetComponent<Fail_Chance_UI>();
-        if (ui != null)
+        EventTrigger trigger = button.gameObject.GetComponent<EventTrigger>();
+        if (trigger == null) trigger = button.gameObject.AddComponent<EventTrigger>();
+
+        EventTrigger.Entry entryEnter = new EventTrigger.Entry();
+        entryEnter.eventID = EventTriggerType.PointerEnter;
+        entryEnter.callback.AddListener((data) =>
         {
-            ui.UIUpdate(rateInt);
-            panel.SetActive(true);
+            ShowChosenCheck(chosen);
+
+            // ? ¿©±â¸¦ °íÁ¤°ª ´ë½Å StatManager¿¡¼­ °¡Á®¿Àµµ·Ï º¯°æ
+            int main = StatManager.Instance.GetExpectedMainIncrease("Flightpower");
+            int sub = StatManager.Instance.GetExpectedSubIncrease("Flightpower");
+
+            mainText.text = $"<color=#FF0000>+{main}</color>";
+            subText1.text = $"<color=#FFBA00>+{sub}</color>";
+            subText2.text = $"<color=#FFBA00>+{sub}</color>"; // °°Àº º¸Á¶ ½ºÅÈÀÌ¸é µ¿ÀÏ°ª »ç¿ë
+
+            mainText.gameObject.SetActive(true);
+            subText1.gameObject.SetActive(true);
+            subText2.gameObject.SetActive(true);
+        });
+        trigger.triggers.Add(entryEnter);
+
+        EventTrigger.Entry entryExit = new EventTrigger.Entry();
+        entryExit.eventID = EventTriggerType.PointerExit;
+        entryExit.callback.AddListener((data) =>
+        {
+            HideAllChosenChecks();
+            mainText.gameObject.SetActive(false);
+            subText1.gameObject.SetActive(false);
+            subText2.gameObject.SetActive(false);
+        });
+        trigger.triggers.Add(entryExit);
+    }
+
+
+    // ¼±ÅÃ È¿°ú ¹× ½ÇÆĞÈ®·ü UI Ç¥½Ã
+    public void ShowChosenCheck(GameObject chosen)
+    {
+        HideAllChosenChecks();
+        if (chosen != null)
+        {
+            chosen.SetActive(true);
+
+            Transform parent = chosen.transform.parent;
+            if (parent != null)
+            {
+                var failChance = parent.Find("Fail_Chance");
+                if (failChance != null)
+                {
+                    var failUI = failChance.GetComponent<Fail_Chance_UI>();
+                    if (failUI != null)
+                    {
+                        int failureRate = Mathf.Clamp(Mathf.RoundToInt(100f - StatManager.Instance.currentStamina), 0, 100);
+                        failUI.UIUpdate(failureRate);
+                        failChance.gameObject.SetActive(true);
+                    }
+                }
+            }
         }
     }
 
-    public void HideAllFailureRates()
+    // ¼±ÅÃ È¿°ú ¹× ¿¹»óÄ¡ UI ¼û±â±â
+    public void HideAllChosenChecks()
     {
-        Stamina_failureRatePanel.SetActive(false);
-        FlightSpeed_failureRatePanel.SetActive(false);
-        Balance_failureRatePanel.SetActive(false);
-        Aglilty_failureRatePanel.SetActive(false);
+        chosenCheckStamina.SetActive(false);
+        chosenCheckFlight.SetActive(false);
+        chosenCheckBalance.SetActive(false);
+        chosenCheckAgility.SetActive(false);
+
+        HideFailChance(chosenCheckStamina);
+        HideFailChance(chosenCheckFlight);
+        HideFailChance(chosenCheckBalance);
+        HideFailChance(chosenCheckAgility);
     }
 
-    private float CalculateFailureRate()
+    // ½ÇÆĞ È®·ü UI ¼û±â±â
+    private void HideFailChance(GameObject chosen)
     {
-        float stamina = StatManager.Instance.currentStamina;
-        float failureRate = 100f - stamina;
-        return Mathf.Clamp(failureRate, 0f, 100f);
+        if (chosen == null) return;
+        Transform parent = chosen.transform.parent;
+        if (parent != null)
+        {
+            var failChance = parent.Find("Fail_Chance");
+            if (failChance != null)
+                failChance.gameObject.SetActive(false);
+        }
     }
 
     public void OnClickIncreaseStat(StatType type)
     {
-        if (!GameManager.Instance.IsTurnAvailable())
+        if (!GameManager.Instance.IsTurnAvailable()) return;
+
+        // 1. ÈÆ·Ã ¿¹»ó°ª ¸ÕÀú »ı¼º
+        StatManager.Instance.GenerateExpectedStatIncreases();
+
+        // 2. ÈÆ·Ã ½ÇÆĞÀ² ¹× ¼º°ø ¿©ºÎ ÆÇÁ¤
+        int failureRate = StatManager.Instance.GetTrainingFailureRate();
+        int roll = Random.Range(0, 100); // 0~99
+        float staminaCost = StatManager.Instance.GetStaminaCost(type);
+
+        Debug.Log($"[ÈÆ·Ã½Ãµµ] ½ÇÆĞÀ²: {failureRate}%, ·£´ı°ª: {roll}");
+
+        // 3. Ã¼·ÂÀº ¹«Á¶°Ç ¸ÕÀú °¨¼Ò
+        StatManager.Instance.DecreaseStamina(staminaCost);
+
+        // 4. ½ÇÆĞ
+        if (roll < failureRate)
         {
-            Debug.LogWarning("í„´ì´ ë¶€ì¡±í•˜ì—¬ í›ˆë ¨í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
-            return;
+            Debug.LogWarning($"[ÈÆ·Ã ½ÇÆĞ] {type} ÈÆ·ÃÀÌ ½ÇÆĞÇß½À´Ï´Ù. ½ºÅÈ Áõ°¡ ¾øÀ½!");
+        }
+        else
+        {
+            // 5. ¼º°ø
+            Debug.Log($"[ÈÆ·Ã ¼º°ø] {type} ÈÆ·Ã¿¡ ¼º°øÇß½À´Ï´Ù!");
+            StatManager.Instance.IncreaseStat(type);
         }
 
-        if (StatManager.Instance.currentStamina < staminaCostPerTraining)
-        {
-            Debug.LogWarning("ì²´ë ¥ì´ ë¶€ì¡±í•˜ì—¬ í›ˆë ¨í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
-            return;
-        }
-
-        StatManager.Instance.currentStamina -= staminaCostPerTraining;
-        StatManager.Instance.IncreaseStat(type);
+        // 6. ÅÏ ¼Ò¸ğ ¹× UI °»½Å
         GameManager.Instance.UseTurn();
-        UpdateStatUI();
+        UIManager.Instance.UpdateStatUI();
     }
 
+
+    // ÈŞ½Ä ¹öÆ° Å¬¸¯ ½Ã Ã¼·Â È¸º¹ Ã³¸®
     public void OnClickRest()
     {
         if (GameManager.Instance != null && GameManager.Instance.IsTurnAvailable())
         {
-            StatManager.Instance.ResetStats();
-
             StatManager.Instance.currentStamina += recoveryAmount;
             if (StatManager.Instance.currentStamina > StatManager.Instance.maxStamina)
                 StatManager.Instance.currentStamina = StatManager.Instance.maxStamina;
 
             GameManager.Instance.UseTurn();
             UpdateStatUI();
-        }
-        else
-        {
-            Debug.LogWarning("í„´ì´ ë¶€ì¡±í•˜ì—¬ íœ´ì‹í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+            HideAllChosenChecks();
         }
     }
 
+    // ÀüÃ¼ ½ºÅÈ UI ¾÷µ¥ÀÌÆ®
     public void UpdateStatUI()
     {
         staminaValueText.text = $"{StatManager.Instance.Stamina_Stat} / 180";
@@ -162,11 +266,13 @@ public class UIManager : MonoBehaviour
         UpdateStaminaBar();
     }
 
+    // ÅÏ ¼ö UI ¾÷µ¥ÀÌÆ®
     public void UpdateTurnText(int turn)
     {
-        turnText.text = $"{turn} í„´";
+        turnText.text = $"{turn} ÅÏ";
     }
 
+    // Ã¼·Â ¹Ù ¾÷µ¥ÀÌÆ®
     public void UpdateStaminaBar()
     {
         if (staminaBarFiller != null)

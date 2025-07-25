@@ -26,27 +26,35 @@ public class GameManager : MonoBehaviour
     }
 
     // 게임 시작 시 턴 초기화
-        public void InitGame()
+    public void InitGame()
     {
         currentTurn = maxTurn;
         Debug.Log($"[GameManager] InitGame 실행됨 - 현재 턴: {currentTurn}");
+
+        StatManager.Instance.GenerateExpectedStatIncreases();  // ① 게임 시작 시 첫 예측 스탯 생성
         UIManager.Instance.UpdateTurnText(currentTurn);
+        UIManager.Instance.UpdateStatUI();                     // ② 예측값 UI에 반영
     }
 
-    // 턴 사용
     public void UseTurn()
     {
         if (currentTurn > 0)
         {
             currentTurn--;
-            if (UIManager.Instance != null)
-                UIManager.Instance.UpdateTurnText(currentTurn);
+
+            // 👉 다음 턴 주/보조 예상값 생성
+            StatManager.Instance.GenerateExpectedStatIncreases();
+
+            // 👉 UI 갱신
+            UIManager.Instance.UpdateTurnText(currentTurn);
+            UIManager.Instance.UpdateStatUI();
         }
         else
         {
             Debug.LogWarning("턴이 0입니다. 더 이상 행동할 수 없습니다.");
         }
     }
+
 
     // 현재 턴 가져오기
     public int GetCurrentTurn()
@@ -59,4 +67,5 @@ public class GameManager : MonoBehaviour
     {
         return currentTurn > 0;
     }
+    
 }
