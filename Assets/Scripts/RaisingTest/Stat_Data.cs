@@ -44,4 +44,6 @@ public class Stat_Data : ScriptableObject
     {
         throw new NotImplementedException();
     }
+
+    
 }
