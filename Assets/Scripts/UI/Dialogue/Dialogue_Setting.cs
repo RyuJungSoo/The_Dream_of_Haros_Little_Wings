@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 
 public class Dialogue_Setting : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class Dialogue_Setting : MonoBehaviour
     private int Dialogue_idx = 0;
     private int Context_idx = 0;
     private string SpriteFolder_Name;
+    public bool isTextTypeOver = true;
 
     [SerializeField]
     private TextMeshProUGUI Name_UI;
@@ -19,7 +20,6 @@ public class Dialogue_Setting : MonoBehaviour
     private TextMeshProUGUI Context_UI;
     [SerializeField]
     private Image Sprite_UI;
-    
 
     /*int name_index = 0;
     int contexts_index = 0;
@@ -28,45 +28,57 @@ public class Dialogue_Setting : MonoBehaviour
     bool isFinish = true;*/
 
 
-    public void ShowDialogue(Dialogue[] p_dialogues)
+    public void ShowDialogue(Dialogue[] p_dialogues) // dialogue 데이터 가져오기
     {
         dialogues = p_dialogues;
-        SpriteFolder_Name = GetComponent<InteractionEvent>().name;
+        SpriteFolder_Name = GetComponent<InteractionEvent>().GetName();
+        //SpriteFolder_Name = GetComponent<InteractionEvent>().name;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         ShowDialogue(GetComponent<InteractionEvent>().GetDialogues());
+        //isTextTypeOver = false;
+        //DialogueSetting();
         //GetUISprite("Scene_1_1");
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonUp("Submit") && isTextTypeOver)
             DialogueSetting();
     }
 
-    public void indexInitialize()
+    public void indexInitialize() // 인덱스 초기화
     {
         Dialogue_idx = 0;
         Context_idx = 0;
     }
 
-    private Sprite GetUISprite(string SpriteCode)
+    private Sprite GetUISprite(string SpriteCode) // 전달된 SpriteCode에 해당하는 경로에서 스프라이트 가져오기
     {
-        //Debug.Log("Sprite/UI/TalkUISprite/" + SpriteFolder_Name + "/" + SpriteCode);
-        //Debug.Log(Resources.Load<Sprite>("Sprite/UI/TalkUISprite/" + SpriteFolder_Name + "/" + SpriteCode) == null);
         Sprite_UI.sprite = Resources.Load<Sprite>("Sprite/UI/TalkUISprite/" + SpriteFolder_Name + "/" + SpriteCode);
+        Debug.Log("Sprite/UI/TalkUISprite/" + SpriteFolder_Name + "/" + SpriteCode);
         return Resources.Load<Sprite>("Sprite/UI/TalkUISprite/" + SpriteFolder_Name + "/" + SpriteCode);
     }
 
-    public void TalkUISetting(int Dialogue_idx, int Context_idx)
+    public void TalkUIUpdate(int Dialogue_idx, int Context_idx) // 대화창 UI 업데이트
     {
-        if(Name_UI)
+        if (Name_UI)
+        {
+            if (dialogues[Dialogue_idx].name == "")
+                return;
+
             Name_UI.text = dialogues[Dialogue_idx].name;
-        if(Context_UI)
-            Context_UI.text = dialogues[Dialogue_idx].contexts[Context_idx];
+        }
+        if (Context_UI)
+        {
+            
+            StartCoroutine(TypeText(dialogues[Dialogue_idx].contexts[Context_idx]));
+        }
+            //Context_UI.text = dialogues[Dialogue_idx].contexts[Context_idx];
+        
         if (Sprite_UI)
         {
             // 엔터 키 값이면 값이 없기 때문에 리턴
@@ -82,13 +94,41 @@ public class Dialogue_Setting : MonoBehaviour
     {
         // 모든 Dialogue를 출력한 후
         if (Dialogue_idx >= dialogues.Length)
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName == "MainMenu")
+                //SceneManager.LoadScene("Raising_Stage");
             return;
+        }
 
+        Context_UI.text = "";
         if (Dialogue_idx < dialogues.Length && Context_idx < dialogues[Dialogue_idx].contexts.Length)
         {
-            TalkUISetting(Dialogue_idx, Context_idx);
-            Context_idx++;
+            isTextTypeOver = false;
+            TalkUIUpdate(Dialogue_idx, Context_idx);
+            //Context_idx++;
         }
+    }
+
+    IEnumerator TypeText(string texttoType)
+    {
+        foreach (char letter in texttoType)
+        {
+            if (Input.GetButton("Submit") && !isTextTypeOver)
+            {
+                Context_UI.text = texttoType;
+                Debug.Log("Skip");
+                yield return new WaitForSeconds(0.5f); // 문자열이 초기화되지 않는 경우를 피하기 위한 대기
+                break;
+            }
+
+            Context_UI.text += letter;
+            yield return new WaitForSeconds(0.1f);
+
+        }
+
+        Context_idx++;
+        isTextTypeOver = true;
 
         if (Context_idx >= dialogues[Dialogue_idx].contexts.Length)
         {
