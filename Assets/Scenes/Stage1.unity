@@ -487,7 +487,7 @@ MonoBehaviour:
   slider: {fileID: 348692073}
   stamina: 0
   fullStamina: 0
-  data: {fileID: 11400000, guid: 11ee405f5d4efad40810b0a024e85a87, type: 2}
+  data: {fileID: 1045451285}
   gameover: {fileID: 2033001503}
   item: {fileID: 832958745}
 --- !u!1 &350354078
@@ -1495,6 +1495,57 @@ MonoBehaviour:
   objectData: {fileID: 11400000, guid: 73a4d79cb0a18954ca7c704c9db7a14f, type: 2}
   canSpawn: 0
   spawnDelay: 3
+--- !u!1 &1045451284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1045451286}
+  - component: {fileID: 1045451285}
+  m_Layer: 0
+  m_Name: StatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1045451285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045451284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab1e653f631c784aa5876ea3b4ee7a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statData: {fileID: 11400000, guid: 11ee405f5d4efad40810b0a024e85a87, type: 2}
+  Stamina_Stat: 0
+  Flightpower_Stat: 0
+  Balance_Stat: 0
+  Agility_Stat: 0
+  currentStamina: 100
+  maxStamina: 100
+--- !u!4 &1045451286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045451284}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.606632, y: -4.8879437, z: -0.06144198}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1061266140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1785,7 +1836,7 @@ GameObject:
   - component: {fileID: 1314344846}
   - component: {fileID: 1314344850}
   m_Layer: 12
-  m_Name: Wall (4)
+  m_Name: Clear
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2600,7 +2651,7 @@ MonoBehaviour:
   gameover: {fileID: 2033001503}
   item: {fileID: 832958745}
   rb: {fileID: 1810877714}
-  data: {fileID: 11400000, guid: 11ee405f5d4efad40810b0a024e85a87, type: 2}
+  data: {fileID: 1045451285}
   jumpPower: 5
 --- !u!114 &1810877716
 MonoBehaviour:
@@ -2631,11 +2682,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Obstacle: {fileID: 979913170}
   rb: {fileID: 0}
+  anim: {fileID: 1810877718}
   slider: {fileID: 348692074}
   obstacleData: {fileID: 0}
   item: {fileID: 832958745}
   onCollide: 0
-  isInvincible: 0
+  isInvincible: 1
 --- !u!95 &1810877718
 Animator:
   serializedVersion: 5
@@ -2884,3 +2936,4 @@ SceneRoots:
   - {fileID: 979913172}
   - {fileID: 832958744}
   - {fileID: 623612413}
+  - {fileID: 1045451286}
