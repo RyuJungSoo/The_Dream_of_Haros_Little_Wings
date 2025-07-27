@@ -18,7 +18,6 @@ public class PlayerJump : MonoBehaviour
     private void Awake()
     {
         jumpPower = StatManager.Instance.Total_FlightSpeed;
-
     }
     public void Update()
     {
