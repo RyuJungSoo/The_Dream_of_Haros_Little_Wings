@@ -385,27 +385,12 @@ MonoBehaviour:
   flightpowerGradeText: {fileID: 307851478}
   balanceGradeText: {fileID: 1272244857}
   agilityGradeText: {fileID: 158547410}
-  staminaButton: {fileID: 616858324}
-  flightpowerButton: {fileID: 107628267}
-  balanceButton: {fileID: 109047401}
-  agilityButton: {fileID: 1755670276}
   chosenCheckStamina: {fileID: 1487446323}
   chosenCheckFlight: {fileID: 1321915450}
   chosenCheckBalance: {fileID: 39607095}
   chosenCheckAgility: {fileID: 1583774448}
-  restButton: {fileID: 1897873620}
   turnText: {fileID: 993137010}
   staminaBarFiller: {fileID: 1869990991}
-  recoveryAmount: 30
-  staminaMainText: {fileID: 540332465}
-  staminaSubText: {fileID: 1597233993}
-  flightpowerMainText: {fileID: 1597233993}
-  flightpowerSubText: {fileID: 906455794}
-  flightpowerSubText2: {fileID: 540332465}
-  balanceMainText: {fileID: 853641028}
-  balanceSubText: {fileID: 1597233993}
-  agilityMainText: {fileID: 906455794}
-  agilitySubText: {fileID: 853641028}
 --- !u!114 &51299216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,8 +435,7 @@ GameObject:
   - component: {fileID: 107628266}
   - component: {fileID: 107628265}
   - component: {fileID: 107628267}
-  - component: {fileID: 107628264}
-  - component: {fileID: 107628269}
+  - component: {fileID: 107628270}
   m_Layer: 5
   m_Name: 'FlightSpeedButton '
   m_TagString: Untagged
@@ -479,18 +463,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1.5999985}
   m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &107628264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107628262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190ee894564d19f42b071dd1ceff60f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &107628265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,19 +545,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 107628270}
+        m_TargetAssemblyTypeName: TrainButtonHandler, Assembly-CSharp
+        m_MethodName: OnClickTrain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &107628269
+--- !u!114 &107628270
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -594,10 +566,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 107628262}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 473dca5d85a1b0a46b68f8dae0df9928, type: 3}
+  m_Script: {fileID: 11500000, guid: bdfdf1a4e853bf74e92d97dfaa87eee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outline: {fileID: 0}
+  statType: 1
 --- !u!1 &109047396
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,6 +584,7 @@ GameObject:
   - component: {fileID: 109047401}
   - component: {fileID: 109047398}
   - component: {fileID: 109047403}
+  - component: {fileID: 109047404}
   m_Layer: 5
   m_Name: 'BalanceButton '
   m_TagString: Untagged
@@ -733,13 +706,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 109047404}
+        m_TargetAssemblyTypeName: TrainButtonHandler, Assembly-CSharp
+        m_MethodName: OnClickTrain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -757,7 +730,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473dca5d85a1b0a46b68f8dae0df9928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outline: {fileID: 0}
+--- !u!114 &109047404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109047396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdfdf1a4e853bf74e92d97dfaa87eee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statType: 2
 --- !u!1 &137974207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,6 +1038,7 @@ GameObject:
   m_Component:
   - component: {fileID: 191747043}
   - component: {fileID: 191747044}
+  - component: {fileID: 191747045}
   m_Layer: 5
   m_Name: Stamina
   m_TagString: Untagged
@@ -1091,6 +1077,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191747042}
   m_CullTransparentMesh: 1
+--- !u!114 &191747045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191747042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3331f95c5760112499dc39c1c8165d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChoesnCheck: {fileID: 1487446323}
+  FailChance: {fileID: 1891568110}
+  statName: Stamina
+  mainText: {fileID: 540332465}
+  subText1: {fileID: 1597233993}
+  subText2: {fileID: 0}
 --- !u!1 &233976351
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,6 +2328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 573577570}
   - component: {fileID: 573577571}
+  - component: {fileID: 573577572}
   m_Layer: 5
   m_Name: Balance
   m_TagString: Untagged
@@ -2362,6 +2367,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573577569}
   m_CullTransparentMesh: 1
+--- !u!114 &573577572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573577569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3331f95c5760112499dc39c1c8165d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChoesnCheck: {fileID: 39607095}
+  FailChance: {fileID: 1862278621}
+  statName: Balance
+  mainText: {fileID: 853641028}
+  subText1: {fileID: 1597233993}
+  subText2: {fileID: 0}
 --- !u!1 &616858322
 GameObject:
   m_ObjectHideFlags: 0
@@ -2374,8 +2397,7 @@ GameObject:
   - component: {fileID: 616858326}
   - component: {fileID: 616858325}
   - component: {fileID: 616858324}
-  - component: {fileID: 616858327}
-  - component: {fileID: 616858328}
+  - component: {fileID: 616858329}
   m_Layer: 5
   m_Name: StaminaButton
   m_TagString: Untagged
@@ -2447,13 +2469,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 616858329}
+        m_TargetAssemblyTypeName: TrainButtonHandler, Assembly-CSharp
+        m_MethodName: OnClickTrain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2497,7 +2519,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616858322}
   m_CullTransparentMesh: 1
---- !u!114 &616858327
+--- !u!114 &616858329
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2506,22 +2528,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 616858322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190ee894564d19f42b071dd1ceff60f5, type: 3}
+  m_Script: {fileID: 11500000, guid: bdfdf1a4e853bf74e92d97dfaa87eee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &616858328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 616858322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 473dca5d85a1b0a46b68f8dae0df9928, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outline: {fileID: 0}
+  statType: 0
 --- !u!1 &643832640
 GameObject:
   m_ObjectHideFlags: 0
@@ -4332,6 +4342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1081869828}
   - component: {fileID: 1081869829}
+  - component: {fileID: 1081869830}
   m_Layer: 5
   m_Name: Agility
   m_TagString: Untagged
@@ -4370,6 +4381,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081869827}
   m_CullTransparentMesh: 1
+--- !u!114 &1081869830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081869827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3331f95c5760112499dc39c1c8165d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChoesnCheck: {fileID: 1583774448}
+  FailChance: {fileID: 1006438053}
+  statName: Agility
+  mainText: {fileID: 906455794}
+  subText1: {fileID: 853641028}
+  subText2: {fileID: 0}
 --- !u!1 &1094923912
 GameObject:
   m_ObjectHideFlags: 0
@@ -6753,7 +6782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114860394311012990, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
       propertyPath: m_FillAmount
-      value: 0.525
+      value: 0.721
       objectReference: {fileID: 0}
     - target: {fileID: 114958415113853462, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
       propertyPath: m_Color.b
@@ -7372,6 +7401,7 @@ GameObject:
   - component: {fileID: 1755670276}
   - component: {fileID: 1755670278}
   - component: {fileID: 1755670282}
+  - component: {fileID: 1755670283}
   m_Layer: 5
   m_Name: 'AgilityButton '
   m_TagString: Untagged
@@ -7423,13 +7453,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1755670283}
+        m_TargetAssemblyTypeName: TrainButtonHandler, Assembly-CSharp
+        m_MethodName: OnClickTrain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7517,7 +7547,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473dca5d85a1b0a46b68f8dae0df9928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outline: {fileID: 0}
+--- !u!114 &1755670283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755670275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdfdf1a4e853bf74e92d97dfaa87eee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statType: 3
 --- !u!1 &1800586884
 GameObject:
   m_ObjectHideFlags: 0
@@ -7708,6 +7750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1813198740}
   - component: {fileID: 1813198741}
+  - component: {fileID: 1813198742}
   m_Layer: 5
   m_Name: FlightSpeed
   m_TagString: Untagged
@@ -7746,6 +7789,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813198739}
   m_CullTransparentMesh: 1
+--- !u!114 &1813198742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813198739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3331f95c5760112499dc39c1c8165d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChoesnCheck: {fileID: 1321915450}
+  FailChance: {fileID: 774879019}
+  statName: FlilghtSpeed
+  mainText: {fileID: 1597233993}
+  subText1: {fileID: 540332465}
+  subText2: {fileID: 853641028}
 --- !u!1 &1862278621
 GameObject:
   m_ObjectHideFlags: 0
@@ -8033,7 +8094,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000051645835, y: 71.29831}
+  m_AnchoredPosition: {x: 0.000051645835, y: 71.29832}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1891568112
@@ -8113,6 +8174,7 @@ GameObject:
   - component: {fileID: 1897873622}
   - component: {fileID: 1897873621}
   - component: {fileID: 1897873620}
+  - component: {fileID: 1897873623}
   m_Layer: 5
   m_Name: RestButton
   m_TagString: Untagged
@@ -8222,6 +8284,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897873618}
   m_CullTransparentMesh: 1
+--- !u!114 &1897873623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897873618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dfb3f8ac54f3b8478d54717dd277490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoveryAmount: 30
 --- !u!1 &1955814791
 GameObject:
   m_ObjectHideFlags: 0
