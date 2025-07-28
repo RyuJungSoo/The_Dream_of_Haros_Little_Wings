@@ -21,8 +21,8 @@ public class StaminaSlider : MonoBehaviour
 
     public void Start()
     {
-        // fullStamina = data.GetStaminaMax();
-        fullStamina = 200;
+        fullStamina = data.GetStaminaMax();
+        // fullStamina = 200;
         stamina = fullStamina;
     }
 
@@ -46,8 +46,8 @@ public class StaminaSlider : MonoBehaviour
         else if (stamina > 0 && !gameover.gameover)
         {
             slider.value = stamina / fullStamina;
-            // stamina -= data.GetStaminaDrainSpeed() * Time.deltaTime / 10f;
-            stamina -= 5 * Time.deltaTime;
+            stamina -= data.GetStaminaDrainSpeed() * Time.deltaTime / 20f;
+            // stamina -= 5 * Time.deltaTime;
         }
     }
 }
