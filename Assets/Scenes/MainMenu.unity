@@ -838,7 +838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     name: Prologue
-    line: {x: 1, y: 5}
+    line: {x: 1, y: 6}
     dialogues: []
 --- !u!222 &208066415
 CanvasRenderer:
@@ -2272,7 +2272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6ee7c0bd0712498f37bf7d9f11175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CSV: {fileID: 4900000, guid: 5ebe17f50792fc34da8a4663f5f5c187, type: 3}
+  CSV: {fileID: 4900000, guid: fb36c3419d5594049a3571a039343b3a, type: 3}
 --- !u!114 &813833109
 MonoBehaviour:
   m_ObjectHideFlags: 0
