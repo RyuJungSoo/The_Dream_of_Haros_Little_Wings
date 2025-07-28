@@ -33,7 +33,7 @@ public class PlayerJump : MonoBehaviour
 
     public void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpPower / 5);
+        rb.velocity = new Vector2(rb.velocity.x, jumpPower / 3);
         // rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Force);
     }
 }

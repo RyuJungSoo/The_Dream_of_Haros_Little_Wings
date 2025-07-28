@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
     public bool onCollide = false;
     public bool isInvincible = false;
 
+
+    private string currentTrigger = "";
+
     public void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,32 +26,31 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
-        if(rb.velocity.y>=1)
+        FlyAnimation();
+    }
+    public void FlyAnimation()
+    {
+        float vy = rb.velocity.y;
+        string newTrigger = "";
+
+        if (vy >= 1f)
+            newTrigger = "UpUp";
+        else if (vy >= 0.5f)
+            newTrigger = "Up";
+        else if (vy < -8f)
+            newTrigger = "DownDown";
+        else if (vy < -2f)
+            newTrigger = "Down";
+        else if (vy >= -2f && vy <= -0.5f)
+            newTrigger = "Fly";
+
+        if (!string.IsNullOrEmpty(newTrigger) && currentTrigger != newTrigger)
         {
-            Debug.Log("업업 실행");
-            anim.SetTrigger(name="UpUp");
+            anim.ResetTrigger(currentTrigger);
+            anim.SetTrigger(newTrigger);
+            currentTrigger = newTrigger;
         }
-        else if (rb.velocity.y < 1 && rb.velocity.y > 1/2)
-        {
-            Debug.Log("업 실행");
-            anim.SetTrigger(name = "Up");
-        }
-        else if (rb.velocity.y >= -8 && rb.velocity.y < -2)
-        {
-            Debug.Log("다운 실행");
-            anim.SetTrigger(name = "Down");
-        }
-        else if (rb.velocity.y < -8)
-        {
-            Debug.Log("다운다운 실행");
-            anim.SetTrigger(name = "DownDown");
-        }
-        else if(rb.velocity.y >= -2 && rb.velocity.y <= -1/2)
-        {
-            Debug.Log("비행 실행");
-            anim.SetTrigger(name = "Fly");
-        }
-}
+    }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -60,11 +62,11 @@ public class Player : MonoBehaviour
                 Debug.Log($"플레이어가 {obstacle.obstacleData.name} 와(과) 트리거 접촉했습니다.");
                 StartCoroutine(HitInvincible(damage));
             }
-            if(other.CompareTag("Obstacle") && isInvincible)
+        }
+        else if(other.CompareTag("Obstacle") && isInvincible)
             {
                 StartCoroutine(HitDuringInvincible());
             }
-        }
     }
 
     public IEnumerator HitInvincible(int damage)

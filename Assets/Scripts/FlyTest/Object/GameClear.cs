@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GameOver : MonoBehaviour
+public class GameClear : MonoBehaviour
 {
     [SerializeField]
     TextMeshProUGUI txt;
@@ -11,20 +11,14 @@ public class GameOver : MonoBehaviour
     [SerializeField]
     Player player;
 
-    [SerializeField]
-    public bool gameover = false;
-
-    // Start is called before the first frame update
     void Start()
     {
         txt.enabled = false;
     }
 
-    public void Gameover()
+    public void Gameclear()
     {
         txt.enabled = true;
         player.rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        player.anim.enabled = false;
-        gameover = true;
     }
 }
