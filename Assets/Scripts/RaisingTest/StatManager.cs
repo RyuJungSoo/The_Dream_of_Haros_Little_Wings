@@ -36,6 +36,19 @@ public class StatManager : MonoBehaviour
    [Header("주/보조 스탯 저장 변수")]
     private int expectedMainValue;
     private int expectedSubValue;
+    private void Start()
+    {
+        // statData가 null이 아닌 경우에만 초기화 진행
+        if (statData != null)
+        {
+            maxStamina = GetStaminaMax();
+            currentStamina = maxStamina;
+        }
+        else
+        {
+            Debug.LogError("[StatManager] statData가 할당되지 않았습니다!");
+        }
+    }
 
 
     private void Awake()
