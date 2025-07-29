@@ -391,6 +391,8 @@ MonoBehaviour:
   chosenCheckAgility: {fileID: 1583774448}
   turnText: {fileID: 993137010}
   staminaBarFiller: {fileID: 1869990991}
+  dialogueText: {fileID: 1257861637}
+  staminaBarController: {fileID: 1474798187}
 --- !u!114 &51299216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,7 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1e653f631c784aa5876ea3b4ee7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statData: {fileID: 0}
+  statData: {fileID: 11400000, guid: e6c6ae8cfa8a3e84e8086b957919728f, type: 2}
   Stamina_Stat: 0
   Flightpower_Stat: 0
   Balance_Stat: 0
@@ -582,8 +584,6 @@ GameObject:
   - component: {fileID: 109047400}
   - component: {fileID: 109047399}
   - component: {fileID: 109047401}
-  - component: {fileID: 109047398}
-  - component: {fileID: 109047403}
   - component: {fileID: 109047404}
   m_Layer: 5
   m_Name: 'BalanceButton '
@@ -612,18 +612,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1.5999985}
   m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &109047398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109047396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190ee894564d19f42b071dd1ceff60f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &109047399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,18 +706,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &109047403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109047396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 473dca5d85a1b0a46b68f8dae0df9928, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &109047404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1856,7 +1832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224218353647955934, guid: ad84c37a896f54e1180d600bd7746b95, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224374824136518608, guid: ad84c37a896f54e1180d600bd7746b95, type: 3}
       propertyPath: m_Pivot.x
@@ -5240,6 +5216,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1225805987}
   m_CullTransparentMesh: 1
+--- !u!1 &1227223550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1445722651565236, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
+  m_PrefabInstance: {fileID: 1594900050}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1244719580
 GameObject:
   m_ObjectHideFlags: 0
@@ -6152,6 +6133,19 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224420688952146012, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
   m_PrefabInstance: {fileID: 1594900050}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1474798187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227223550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3cb9ab956d3c224a95c1eb5062d94e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barFiller: {fileID: 1869990991}
 --- !u!1 &1487446323
 GameObject:
   m_ObjectHideFlags: 0
@@ -6891,7 +6885,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1445722651565236, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1474798187}
   m_SourcePrefab: {fileID: 100100000, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
 --- !u!1 &1597233990
 GameObject:
@@ -7399,8 +7396,6 @@ GameObject:
   - component: {fileID: 1755670279}
   - component: {fileID: 1755670277}
   - component: {fileID: 1755670276}
-  - component: {fileID: 1755670278}
-  - component: {fileID: 1755670282}
   - component: {fileID: 1755670283}
   m_Layer: 5
   m_Name: 'AgilityButton '
@@ -7495,18 +7490,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1755670278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755670275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190ee894564d19f42b071dd1ceff60f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &1755670279
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7535,18 +7518,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000030517578, y: 1.5999985}
   m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1755670282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755670275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 473dca5d85a1b0a46b68f8dae0df9928, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1755670283
 MonoBehaviour:
   m_ObjectHideFlags: 0
