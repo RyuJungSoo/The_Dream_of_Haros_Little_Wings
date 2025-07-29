@@ -1,6 +1,4 @@
-// ============================
-// UIManager.cs
-// ============================
+
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -27,16 +25,22 @@ public class UIManager : MonoBehaviour
     public GameObject chosenCheckBalance;
     public GameObject chosenCheckAgility;
 
-    [Header("턴 및 체력")]
+    [Header("턴")]
     public TextMeshProUGUI turnText;
+    [Header("하로 체력")]
     public Image staminaBarFiller;
 
+    [Header("하로 대사")]
+    public TextMeshProUGUI dialogueText; // 하로 대사 출력용 텍스트 
+
+    
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
+    
     public void UpdateStatUI()
     {
         staminaValueText.text = $"{StatManager.Instance.Stamina_Stat} / 180";
@@ -44,14 +48,18 @@ public class UIManager : MonoBehaviour
         balanceValueText.text = $"{StatManager.Instance.Balance_Stat} / 180";
         agilityValueText.text = $"{StatManager.Instance.Agility_Stat} / 180";
 
-        staminaGradeText.text = $"스태미나 : {StatManager.Instance.GetStaminaGrade()}";
-        flightpowerGradeText.text = $"비상력 : {StatManager.Instance.GetFlightpowerGrade()}";
-        balanceGradeText.text = $"균형감 : {StatManager.Instance.GetBalanceGrade()}";
-        agilityGradeText.text = $"민첩성 : {StatManager.Instance.GetAgilityGrade()}";
+        staminaGradeText.text = StatManager.Instance.GetStaminaGrade();
+        flightpowerGradeText.text = StatManager.Instance.GetFlightpowerGrade();
+        balanceGradeText.text = StatManager.Instance.GetBalanceGrade();
+        agilityGradeText.text = StatManager.Instance.GetAgilityGrade();
 
-        UpdateTurnText(GameManager.Instance.GetCurrentTurn());
-        UpdateStaminaBar();
+        UpdateStaminaBar(); // 체력 게이지 바 업데이트
+
+        // ✅ 여기서 캐릭터 대사도 같이 갱신
+        string message = StatManager.Instance.GetStaminaStatusMessage();
+        dialogueText.text = message;
     }
+
 
     public void UpdateTurnText(int turn)
     {
@@ -74,19 +82,12 @@ public class UIManager : MonoBehaviour
         chosenCheckAgility.SetActive(false);
     }
 
-  
-        public void UpdateStaminaBar()
+  //체력바가 시각적으로 너무 닳아서 따로 조정 -> StaminaBarController.cs
+    public StaminaBarController staminaBarController;
+
+    public void UpdateStaminaBar()
     {
-        if (staminaBarFiller != null)
-        {
-            float fillAmount = StatManager.Instance.currentStamina / StatManager.Instance.maxStamina;
-
-            // 🔽 시각적으로만 덜 줄어들게 보이도록 조절 (예: 실제의 0.5배)
-            float visualScale = 0.5f; // 0.5로 하면 체력 50이 25처럼 보임 (느리게 닳는 느낌)
-            fillAmount *= visualScale;
-
-            staminaBarFiller.fillAmount = Mathf.Clamp01(fillAmount);
-        }
+        staminaBarController.UpdateBar(StatManager.Instance.currentStamina, StatManager.Instance.maxStamina);
     }
 
 }
