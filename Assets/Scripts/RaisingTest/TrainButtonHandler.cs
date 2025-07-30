@@ -3,34 +3,26 @@ using UnityEngine;
 public class TrainButtonHandler : MonoBehaviour
 {
     public StatType statType;
+    public TrainingLoader loader; // Inspector에서 연결할 것
 
-    public void OnClickTrain() // <- 반드시 public
+    public void OnClickTrain()
     {
-        if (!GameManager.Instance.IsTurnAvailable()) return;
+        Debug.Log("[TrainButtonHandler] OnClickTrain 호출됨");
+
+        if (!GameManager.Instance.IsTurnAvailable())
+        {
+            Debug.LogWarning("턴이 부족해서 훈련 불가");
+            return;
+        }
 
         StatManager.Instance.GenerateExpectedStatIncreases();
 
-        float cost = StatManager.Instance.GetStaminaCost(statType);
-        StatManager.Instance.DecreaseStamina(cost);
-
-        // 체력 기반 실패율 계산
-        float currentStamina = StatManager.Instance.currentStamina;
-        float maxStamina = StatManager.Instance.maxStamina;
-        float failureRate = 1f - (currentStamina / maxStamina); // 체력이 높을수록 실패율 낮음 (0~1)
-
-        float chance = Random.value; // 0.0f ~ 1.0f
-
-        if (chance < failureRate)
+        if (loader == null)
         {
-            Debug.Log($"{statType} 훈련 실패 (실패율 {failureRate * 100f:F1}%)");
-        }
-        else
-        {
-            Debug.Log($"{statType} 훈련 성공");
-            StatManager.Instance.IncreaseStat(statType);
+            Debug.LogError("[TrainButtonHandler] Loader가 연결되어 있지 않습니다!");
+            return;
         }
 
-        GameManager.Instance.UseTurn();
-        UIManager.Instance.UpdateStatUI();
+        loader.StartTraining(statType); // ✅ 싱글턴이 아니므로 Instance 사용 ❌
     }
 }

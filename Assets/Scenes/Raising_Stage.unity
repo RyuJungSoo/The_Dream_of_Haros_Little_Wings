@@ -343,6 +343,7 @@ GameObject:
   - component: {fileID: 51299215}
   - component: {fileID: 51299216}
   - component: {fileID: 51299217}
+  - component: {fileID: 51299218}
   m_Layer: 0
   m_Name: StatManager
   m_TagString: Untagged
@@ -392,6 +393,7 @@ MonoBehaviour:
   turnText: {fileID: 993137010}
   staminaBarFiller: {fileID: 1869990991}
   dialogueText: {fileID: 1257861637}
+  loader: {fileID: 1539416252}
   staminaBarController: {fileID: 1474798187}
 --- !u!114 &51299216
 MonoBehaviour:
@@ -425,6 +427,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxTurn: 12
+--- !u!114 &51299218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51299212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdfdf1a4e853bf74e92d97dfaa87eee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statType: 0
+  loader: {fileID: 1539416252}
+--- !u!114 &98888430 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114361196886809056, guid: ad84c37a896f54e1180d600bd7746b95, type: 3}
+  m_PrefabInstance: {fileID: 455045513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &107628262
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,7 +464,7 @@ GameObject:
   - component: {fileID: 107628266}
   - component: {fileID: 107628265}
   - component: {fileID: 107628267}
-  - component: {fileID: 107628270}
+  - component: {fileID: 107628268}
   m_Layer: 5
   m_Name: 'FlightSpeedButton '
   m_TagString: Untagged
@@ -547,7 +574,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 107628270}
+      - m_Target: {fileID: 107628268}
         m_TargetAssemblyTypeName: TrainButtonHandler, Assembly-CSharp
         m_MethodName: OnClickTrain
         m_Mode: 1
@@ -559,7 +586,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &107628270
+--- !u!114 &107628268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -571,7 +598,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfdf1a4e853bf74e92d97dfaa87eee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statType: 1
+  statType: 0
+  loader: {fileID: 1539416252}
 --- !u!1 &109047396
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +612,7 @@ GameObject:
   - component: {fileID: 109047400}
   - component: {fileID: 109047399}
   - component: {fileID: 109047401}
-  - component: {fileID: 109047404}
+  - component: {fileID: 109047402}
   m_Layer: 5
   m_Name: 'BalanceButton '
   m_TagString: Untagged
@@ -694,7 +722,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 109047404}
+      - m_Target: {fileID: 109047402}
         m_TargetAssemblyTypeName: TrainButtonHandler, Assembly-CSharp
         m_MethodName: OnClickTrain
         m_Mode: 1
@@ -706,7 +734,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &109047404
+--- !u!114 &109047402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -718,7 +746,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfdf1a4e853bf74e92d97dfaa87eee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statType: 2
+  statType: 0
+  loader: {fileID: 1539416252}
 --- !u!1 &137974207
 GameObject:
   m_ObjectHideFlags: 0
@@ -2373,7 +2402,7 @@ GameObject:
   - component: {fileID: 616858326}
   - component: {fileID: 616858325}
   - component: {fileID: 616858324}
-  - component: {fileID: 616858329}
+  - component: {fileID: 616858327}
   m_Layer: 5
   m_Name: StaminaButton
   m_TagString: Untagged
@@ -2445,7 +2474,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 616858329}
+      - m_Target: {fileID: 616858327}
         m_TargetAssemblyTypeName: TrainButtonHandler, Assembly-CSharp
         m_MethodName: OnClickTrain
         m_Mode: 1
@@ -2495,7 +2524,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616858322}
   m_CullTransparentMesh: 1
---- !u!114 &616858329
+--- !u!114 &616858327
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2508,6 +2537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statType: 0
+  loader: {fileID: 1539416252}
 --- !u!1 &643832640
 GameObject:
   m_ObjectHideFlags: 0
@@ -6308,6 +6338,7 @@ GameObject:
   - component: {fileID: 1539416249}
   - component: {fileID: 1539416251}
   - component: {fileID: 1539416250}
+  - component: {fileID: 1539416252}
   m_Layer: 5
   m_Name: Training_Loading_UI
   m_TagString: Untagged
@@ -6377,6 +6408,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539416248}
   m_CullTransparentMesh: 1
+--- !u!114 &1539416252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539416248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42dfa77d688e1740a0f80eaee58bf47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingPanel: {fileID: 1539416248}
+  progressBarFiller: {fileID: 98888430}
+  loadingTime: 4
+  loadingText: {fileID: 1270429969}
+  successText: {fileID: 1800586884}
+  failText: {fileID: 1614160025}
 --- !u!1 &1541443003
 GameObject:
   m_ObjectHideFlags: 0
@@ -7396,7 +7445,7 @@ GameObject:
   - component: {fileID: 1755670279}
   - component: {fileID: 1755670277}
   - component: {fileID: 1755670276}
-  - component: {fileID: 1755670283}
+  - component: {fileID: 1755670281}
   m_Layer: 5
   m_Name: 'AgilityButton '
   m_TagString: Untagged
@@ -7448,7 +7497,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1755670283}
+      - m_Target: {fileID: 1755670281}
         m_TargetAssemblyTypeName: TrainButtonHandler, Assembly-CSharp
         m_MethodName: OnClickTrain
         m_Mode: 1
@@ -7518,7 +7567,7 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000030517578, y: 1.5999985}
   m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1755670283
+--- !u!114 &1755670281
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7530,7 +7579,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfdf1a4e853bf74e92d97dfaa87eee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statType: 3
+  statType: 0
+  loader: {fileID: 1539416252}
 --- !u!1 &1800586884
 GameObject:
   m_ObjectHideFlags: 0

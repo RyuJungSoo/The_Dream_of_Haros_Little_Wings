@@ -33,14 +33,17 @@ public class UIManager : MonoBehaviour
     [Header("하로 대사")]
     public TextMeshProUGUI dialogueText; // 하로 대사 출력용 텍스트 
 
-    
+    [Header("훈련중 로딩 바")]
+    public TrainingLoader loader; // Inspector에 연결
+
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
-    
+
     public void UpdateStatUI()
     {
         staminaValueText.text = $"{StatManager.Instance.Stamina_Stat} / 180";
@@ -48,10 +51,11 @@ public class UIManager : MonoBehaviour
         balanceValueText.text = $"{StatManager.Instance.Balance_Stat} / 180";
         agilityValueText.text = $"{StatManager.Instance.Agility_Stat} / 180";
 
-        staminaGradeText.text = StatManager.Instance.GetStaminaGrade();
-        flightpowerGradeText.text = StatManager.Instance.GetFlightpowerGrade();
-        balanceGradeText.text = StatManager.Instance.GetBalanceGrade();
-        agilityGradeText.text = StatManager.Instance.GetAgilityGrade();
+        staminaGradeText.text = $"스태미나: {StatManager.Instance.GetStaminaGrade()}";
+        flightpowerGradeText.text = $"비행력: {StatManager.Instance.GetFlightpowerGrade()}";
+        balanceGradeText.text = $"균형감: {StatManager.Instance.GetBalanceGrade()}";
+        agilityGradeText.text = $"민첩성: {StatManager.Instance.GetAgilityGrade()}";
+
 
         UpdateStaminaBar(); // 체력 게이지 바 업데이트
 
@@ -82,12 +86,37 @@ public class UIManager : MonoBehaviour
         chosenCheckAgility.SetActive(false);
     }
 
-  //체력바가 시각적으로 너무 닳아서 따로 조정 -> StaminaBarController.cs
+    //체력바가 시각적으로 너무 닳아서 따로 조정 -> StaminaBarController.cs
     public StaminaBarController staminaBarController;
 
     public void UpdateStaminaBar()
     {
         staminaBarController.UpdateBar(StatManager.Instance.currentStamina, StatManager.Instance.maxStamina);
     }
+
+
+
+
+    public void OnClickTrainStamina()
+    {
+        loader.StartTraining(StatType.Stamina_Stat);
+    }
+
+    public void OnClickTrainFlightPower()
+    {
+        loader.StartTraining(StatType.Flightpower_Stat);
+    }
+
+    public void OnClickTrainBalance()
+    {
+        loader.StartTraining(StatType.Flightpower_Stat);
+    }
+    
+      public void OnClickTrainAgility()
+    {
+        loader.StartTraining(StatType.Flightpower_Stat);
+    }
+
+
 
 }
