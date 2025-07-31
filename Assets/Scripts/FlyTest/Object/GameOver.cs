@@ -14,6 +14,9 @@ public class GameOver : MonoBehaviour
     [SerializeField]
     public bool gameover = false;
 
+    [SerializeField]
+    StaminaSlider slider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,7 @@ public class GameOver : MonoBehaviour
         txt.enabled = true;
         player.rb.constraints = RigidbodyConstraints2D.FreezeAll;
         player.anim.enabled = false;
+        slider.stopStaminaBar = true;
         gameover = true;
     }
 }

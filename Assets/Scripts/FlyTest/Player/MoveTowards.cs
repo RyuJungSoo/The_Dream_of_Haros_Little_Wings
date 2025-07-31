@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveTowards : MonoBehaviour
 {
     [Header("이동 속도")]
-    public float moveSpeed = 3f;
+    public float moveSpeed = 5f;
 
     [SerializeField]
     GameOver gameover;

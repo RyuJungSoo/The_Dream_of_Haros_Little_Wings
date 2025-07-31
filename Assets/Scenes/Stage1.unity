@@ -923,7 +923,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 223329874}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &223329874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1289,6 +1301,7 @@ MonoBehaviour:
   slider: {fileID: 348692073}
   stamina: 0
   fullStamina: 0
+  stopStaminaBar: 0
   data: {fileID: 1045451285}
   gameover: {fileID: 2033001503}
   item: {fileID: 832958745}
@@ -1328,6 +1341,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &451263997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 451263999}
+  - component: {fileID: 451263998}
+  m_Layer: 0
+  m_Name: FlyUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &451263998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451263997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b52eaae360c5844cb6d556eb5ed8232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1810877717}
+  slider: {fileID: 348692074}
+  pauseScreen: {fileID: 950542700}
+--- !u!4 &451263999
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451263997}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1828.8075, y: 994.43414, z: -0.03735626}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &457541404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1340,7 +1400,7 @@ GameObject:
   - component: {fileID: 457541407}
   - component: {fileID: 457541406}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: SFXSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1823,7 +1883,7 @@ GameObject:
   - component: {fileID: 593457028}
   - component: {fileID: 593457027}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: BGMSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2392,6 +2452,7 @@ GameObject:
   - component: {fileID: 653977312}
   - component: {fileID: 653977314}
   - component: {fileID: 653977313}
+  - component: {fileID: 653977315}
   m_Layer: 5
   m_Name: Pause_Button
   m_TagString: Untagged
@@ -2456,6 +2517,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653977311}
   m_CullTransparentMesh: 1
+--- !u!114 &653977315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653977311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 653977313}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 451263998}
+        m_TargetAssemblyTypeName: FlyUIManager, Assembly-CSharp
+        m_MethodName: PauseButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &665679485
 GameObject:
   m_ObjectHideFlags: 0
@@ -4734,7 +4851,7 @@ GameObject:
   - component: {fileID: 1243718439}
   - component: {fileID: 1243718440}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: MasterSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5141,8 +5258,8 @@ Transform:
   m_GameObject: {fileID: 1314344844}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 65.7264, y: -2.3, z: 0}
-  m_LocalScale: {x: 0.69819754, y: 34.183437, z: 1}
+  m_LocalPosition: {x: 64.8244, y: -2.3, z: 0}
+  m_LocalScale: {x: -1.1069691, y: 34.183437, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -6571,7 +6688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db34903dad88b8047afe9c950f4c375f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 5
   gameover: {fileID: 2033001503}
   rb: {fileID: 1810877714}
 --- !u!114 &1810877717
@@ -6970,7 +7087,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1954800338}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 451263998}
+        m_TargetAssemblyTypeName: FlyUIManager, Assembly-CSharp
+        m_MethodName: TitlePortalClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1954800338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7262,7 +7391,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2027176754}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 451263998}
+        m_TargetAssemblyTypeName: FlyUIManager, Assembly-CSharp
+        m_MethodName: TitlePortalClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2027176754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7451,6 +7592,7 @@ MonoBehaviour:
   txt: {fileID: 2033001501}
   player: {fileID: 1810877717}
   gameover: 0
+  slider: {fileID: 348692074}
 --- !u!1 &2036775996
 GameObject:
   m_ObjectHideFlags: 0
@@ -7546,7 +7688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectData: {fileID: 11400000, guid: 0053238d394bd074cb1fc123f8cebe6b, type: 2}
   canSpawn: 0
-  spawnDelay: 3
+  spawnDelay: 0
 --- !u!50 &2039675976
 Rigidbody2D:
   serializedVersion: 4
@@ -8228,8 +8370,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0297efbbe25b087458266df0d462228d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txt: {fileID: 2132596840}
   player: {fileID: 1810877717}
+  clear: {fileID: 1827423479}
+  slider: {fileID: 348692074}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -8248,3 +8391,4 @@ SceneRoots:
   - {fileID: 832958744}
   - {fileID: 623612413}
   - {fileID: 1045451286}
+  - {fileID: 451263999}

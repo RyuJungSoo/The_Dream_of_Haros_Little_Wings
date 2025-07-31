@@ -6,19 +6,19 @@ using UnityEngine;
 public class GameClear : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI txt;
-
-    [SerializeField]
     Player player;
 
-    void Start()
-    {
-        txt.enabled = false;
-    }
+    [SerializeField]
+    public GameObject clear;
+
+    [SerializeField]
+    StaminaSlider slider;
 
     public void Gameclear()
-    {
-        txt.enabled = true;
+        {
+            clear.SetActive(true);
         player.rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        player.anim.enabled = false;
+        slider.stopStaminaBar = true;
     }
 }
