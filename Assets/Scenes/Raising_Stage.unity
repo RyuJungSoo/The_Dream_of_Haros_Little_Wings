@@ -862,7 +862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfdf1a4e853bf74e92d97dfaa87eee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statType: 0
+  statType: 1
   loader: {fileID: 1539416252}
 --- !u!1 &109047396
 GameObject:
@@ -1010,7 +1010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfdf1a4e853bf74e92d97dfaa87eee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statType: 0
+  statType: 2
   loader: {fileID: 1539416252}
 --- !u!1 &137974207
 GameObject:
@@ -8704,6 +8704,12 @@ MonoBehaviour:
   loadingText: {fileID: 1270429969}
   successText: {fileID: 1800586884}
   failText: {fileID: 1614160025}
+  dialogueText: {fileID: 1257861637}
+  loadingSpriteImage: {fileID: 272523196}
+  staminaSprite: {fileID: 21300000, guid: d6496b75d5ee3d94ea1668843a5e7ddf, type: 3}
+  flightpowerSprite: {fileID: 21300000, guid: 56a4f988366ce034bac92c74410a3060, type: 3}
+  balanceSprite: {fileID: 21300000, guid: c5cd8bf208101f64cac8e7dc6a74f269, type: 3}
+  agilitySprite: {fileID: 21300000, guid: ff91496a6b592f043b81585e4d054cdd, type: 3}
 --- !u!1 &1541443003
 GameObject:
   m_ObjectHideFlags: 0
@@ -10157,7 +10163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfdf1a4e853bf74e92d97dfaa87eee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statType: 0
+  statType: 3
   loader: {fileID: 1539416252}
 --- !u!1 &1800586884
 GameObject:

@@ -18,15 +18,29 @@ public class StatHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
         var (main, sub) = StatManager.Instance.GetMainAndSubStatText(statName);
         mainText.text = $"<color=#FF0000>{main}</color>";
-        subText1.text = $"<color=#FFBA00>{sub}</color>";
         mainText.gameObject.SetActive(true);
-        subText1.gameObject.SetActive(true);
 
-        if (subText2 != null)
+        // 숫자만 추출 후 비교
+        string subOnlyNumber = System.Text.RegularExpressions.Regex.Replace(sub, @"\D", "");
+
+        if (subOnlyNumber != "0")
         {
-            subText2.text = $"<color=#FFBA00>{sub}</color>";
-            subText2.gameObject.SetActive(true);
+            subText1.text = $"<color=#FFBA00>{sub}</color>";
+            subText1.gameObject.SetActive(true);
+
+            if (subText2 != null)
+            {
+                subText2.text = $"<color=#FFBA00>{sub}</color>";
+                subText2.gameObject.SetActive(true);
+            }
         }
+        else
+        {
+            subText1.gameObject.SetActive(false);
+            if (subText2 != null)
+                subText2.gameObject.SetActive(false);
+        }
+
 
         // 실패율 UI 갱신
         var failUI = FailChance?.GetComponent<Fail_Chance_UI>();
@@ -36,6 +50,7 @@ public class StatHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
             failUI.UIUpdate(failureRate);
         }
     }
+
 
     public void OnPointerExit(PointerEventData eventData)
     {
