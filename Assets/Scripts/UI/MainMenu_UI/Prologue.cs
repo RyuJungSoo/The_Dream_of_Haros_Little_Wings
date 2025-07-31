@@ -12,6 +12,8 @@ public class Prologue : MonoBehaviour
     [SerializeField]
     private GameObject Text_Object;
     [SerializeField]
+    private GameObject SkipButton_Object;
+    [SerializeField]
     private Button StartButton_Object;
     [SerializeField]
     private Button QuitButton_Object;
@@ -61,5 +63,6 @@ public class Prologue : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         
         GetComponent<Dialogue_Setting>().DialogueSetting();
+        SkipButton_Object.SetActive(true);
     }
 }

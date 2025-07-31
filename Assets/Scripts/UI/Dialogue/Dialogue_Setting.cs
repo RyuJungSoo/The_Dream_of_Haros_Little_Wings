@@ -28,9 +28,9 @@ public class Dialogue_Setting : MonoBehaviour
     bool isFinish = true;*/
 
 
-    public void ShowDialogue(Dialogue[] p_dialogues) // dialogue 데이터 가져오기
+    public void ShowDialogue()//Dialogue[] p_dialogues // dialogue 데이터 가져오기
     {
-        dialogues = p_dialogues;
+        dialogues = GetComponent<InteractionEvent>().GetDialogues();
         SpriteFolder_Name = GetComponent<InteractionEvent>().GetName();
         //SpriteFolder_Name = GetComponent<InteractionEvent>().name;
     }
@@ -38,7 +38,7 @@ public class Dialogue_Setting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ShowDialogue(GetComponent<InteractionEvent>().GetDialogues());
+        ShowDialogue();
         //isTextTypeOver = false;
         //DialogueSetting();
         //GetUISprite("Scene_1_1");
@@ -95,9 +95,11 @@ public class Dialogue_Setting : MonoBehaviour
         // 모든 Dialogue를 출력한 후
         if (Dialogue_idx >= dialogues.Length)
         {
-            string sceneName = SceneManager.GetActiveScene().name;
+            string sceneName = SceneSettingManager.Instance.CurrentSceneName;
             if (sceneName == "MainMenu")
-                //SceneManager.LoadScene("Raising_Stage");
+                SceneSettingManager.Instance.ChangeScene("DialogueScene");
+            else if(sceneName == "DialogueScene")
+                SceneSettingManager.Instance.ChangeScene("Raising_Stage");
             return;
         }
 

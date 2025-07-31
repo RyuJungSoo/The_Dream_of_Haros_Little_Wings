@@ -6,11 +6,11 @@ public class DatabaseManager : MonoBehaviour
 {
     public static DatabaseManager instance;
     [SerializeField]
-    private TextAsset CSV;
+    private TextAsset[] CSV;
 
     //[SerializeField] string csv_FileName;
 
-    Dictionary<int, Dialogue> dialogueDic = new Dictionary<int, Dialogue>();
+    Dictionary<int, Dialogue> dialogueDic;
     public static bool isFinish = false;
 
     private void Awake()
@@ -18,16 +18,32 @@ public class DatabaseManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DialogueParser theParser = GetComponent<DialogueParser>();
-            Dialogue[] dialogues = theParser.Parse(CSV);
+            /*DialogueParser theParser = GetComponent<DialogueParser>();
+            Dialogue[] dialogues = theParser.Parse(CSV[0]);
 
             // 대사 첫번째를 인덱스 0부터 시작되게 만들면 직관적이지 않으므로
             for (int i = 0; i < dialogues.Length; i++)
             {
                 dialogueDic.Add(i + 1, dialogues[i]);
             }
-            isFinish = true;
+            isFinish = true;*/
+            SetDialogues(0);
         }
+    }
+
+    public void SetDialogues(int CSV_index)
+    {
+        dialogueDic = new Dictionary<int, Dialogue>();
+
+        DialogueParser theParser = GetComponent<DialogueParser>();
+        Dialogue[] dialogues = theParser.Parse(CSV[CSV_index]);
+
+        // 대사 첫번째를 인덱스 0부터 시작되게 만들면 직관적이지 않으므로
+        for (int i = 0; i < dialogues.Length; i++)
+        {
+            dialogueDic.Add(i + 1, dialogues[i]);
+        }
+        isFinish = true;
     }
 
     public Dialogue[] GetDialogues(int _StartNum, int _EndNum)
