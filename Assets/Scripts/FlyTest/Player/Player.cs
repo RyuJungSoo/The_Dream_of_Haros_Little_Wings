@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField]
+    QTEManager qteManager;
+    [SerializeField]
+    GameObject qteScreen;
+
     public Collider2D Obstacle;
     public Rigidbody2D rb;
     public Animator anim;
@@ -19,7 +24,7 @@ public class Player : MonoBehaviour
     private string currentTrigger = "";
 
     public void Awake()
-    {
+    {   
         DontDestroyOnLoad(this);
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -60,7 +65,6 @@ public class Player : MonoBehaviour
             if (other.TryGetComponent<CollideObstacle>(out var obstacle))
             {
                 int damage = obstacle.obstacleData.damage;
-                Debug.Log($"플레이어가 {obstacle.obstacleData.name} 와(과) 트리거 접촉했습니다.");
                 StartCoroutine(HitInvincible(damage));
             }
         }
@@ -72,9 +76,16 @@ public class Player : MonoBehaviour
 
     public IEnumerator HitInvincible(int damage)
     {
-        Hit(damage);
+        StartCoroutine(qteManager.StartQTETime());
+
+        yield return new WaitForSecondsRealtime(5f);
+
+            if (!qteManager.clearQTE)
+            {
+                Hit(damage);
+            }
         isInvincible = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         isInvincible = false;
         onCollide = false;
     }
