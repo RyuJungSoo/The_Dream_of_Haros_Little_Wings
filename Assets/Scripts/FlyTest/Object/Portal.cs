@@ -20,14 +20,7 @@ public class Portal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(NextScene());
-        }
-    }
-
-    private IEnumerator NextScene()
-    {
             gameclear.Gameclear();
-            yield return new WaitForSeconds(3f);
-            SceneManager.LoadScene("Raising_Stage");
+        }
     }
 }

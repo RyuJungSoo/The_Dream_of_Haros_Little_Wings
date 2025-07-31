@@ -11,6 +11,9 @@ public class StaminaSlider : MonoBehaviour
 
     public float stamina;
     public float fullStamina;
+    private float curStamina;
+
+    public bool stopStaminaBar = false;
 
     public StatManager data;
 
@@ -32,18 +35,18 @@ public class StaminaSlider : MonoBehaviour
         {
             stamina = fullStamina;
         }
+
         if (stamina <= 0)
         {
             slider.value = 0;
             gameover.Gameover();
         }
 
-
         if(item.onWind && !gameover.gameover)
         {
             slider.value = stamina / fullStamina;
         }
-        else if (stamina > 0 && !gameover.gameover)
+        else if (stamina > 0 && !stopStaminaBar)
         {
             slider.value = stamina / fullStamina;
             stamina -= data.GetStaminaDrainSpeed() * Time.deltaTime / 20f;
