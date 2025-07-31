@@ -27,12 +27,6 @@ public class HpLogManager : MonoBehaviour
         CSV = Resources.Load<TextAsset>("Dialogue/Haro_Hp_Log");
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
-            GetSingletLog();
-    }
-
     public void GetLogs(int HpStatusLevel)
     {
         // HpStatusLevel에 체력 레벨이 전달되면 해당 레벨에 해당하는 대사들을 CSV 파일에서 Logs 리스트로 불러옴
@@ -55,7 +49,7 @@ public class HpLogManager : MonoBehaviour
         }
     }
 
-    public string GetSingletLog()
+    public string GetSingleLog()
     {
         // Logs 리스트에 저장된 대사를 랜덤으로 가져와서 return
         int NewIndex = Random.Range(0, Logs.Count);
