@@ -1408,7 +1408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c59df13a12d494faa07aac1071618e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStageClear: 0
 --- !u!4 &462185237
 Transform:
   m_ObjectHideFlags: 0
@@ -2321,6 +2320,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CSV:
   - {fileID: 4900000, guid: fb36c3419d5594049a3571a039343b3a, type: 3}
+  Lines:
+  - {x: 1, y: 6}
 --- !u!114 &813833109
 MonoBehaviour:
   m_ObjectHideFlags: 0
