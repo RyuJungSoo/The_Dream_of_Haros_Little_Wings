@@ -8,7 +8,7 @@ public class TrainButtonHandler : MonoBehaviour
     public void OnClickTrain()
     {
         Debug.Log("[TrainButtonHandler] OnClickTrain 호출됨");
-
+        
         if (!GameManager.Instance.IsTurnAvailable())
         {
             Debug.LogWarning("턴이 부족해서 훈련 불가");

@@ -59,9 +59,7 @@ public class UIManager : MonoBehaviour
 
         UpdateStaminaBar(); // 체력 게이지 바 업데이트
 
-        // ✅ 여기서 캐릭터 대사도 같이 갱신
-        string message = StatManager.Instance.GetStaminaStatusMessage();
-        dialogueText.text = message;
+
     }
 
 

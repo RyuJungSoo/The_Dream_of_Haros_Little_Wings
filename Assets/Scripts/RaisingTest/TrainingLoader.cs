@@ -5,21 +5,33 @@ using System.Collections;
 
 public class TrainingLoader : MonoBehaviour
 {
+    [Header("·Îµù ÆĞ³Î ¹× ÁøÇà ¹Ù")]
     public GameObject loadingPanel;
     public Image progressBarFiller;
     public float loadingTime = 3f;
 
+    [Header("ÈÆ·Ã È­¸é ÅØ½ºÆ®")]
     public GameObject loadingText;
     public GameObject successText;
     public GameObject failText;
+
+    [Header("ÇÏ·Î ´ë»ç Ãâ·Â¿ë TMP")]
+    public TextMeshProUGUI dialogueText;
+
+    [Header("·Îµù Áß ½ºÇÁ¶óÀÌÆ® ÀÌ¹ÌÁö")]
+    public Image loadingSpriteImage;
+    public Sprite staminaSprite;
+    public Sprite flightpowerSprite;
+    public Sprite balanceSprite;
+    public Sprite agilitySprite;
 
     private float timer = 0f;
     private bool isLoading = false;
 
     private StatType currentStat;
 
-    float baseSpeed = 1f;       // ê¸°ë³¸ ì†ë„ ë°°ìœ¨
-    float boostSpeed = 3f;      // í´ë¦­ ì‹œ ì†ë„ ë°°ìœ¨
+    float baseSpeed = 1f;
+    float boostSpeed = 3f;
 
     public void StartTraining(StatType statType)
     {
@@ -27,7 +39,8 @@ public class TrainingLoader : MonoBehaviour
 
         currentStat = statType;
 
-        // ì´ˆê¸°í™”
+        UpdateLoadingSprite(statType); // ÀÌ¹ÌÁö °»½Å ÇÔ¼ö È£Ãâ
+
         loadingPanel.SetActive(true);
         progressBarFiller.fillAmount = 0f;
         loadingText.SetActive(true);
@@ -38,16 +51,41 @@ public class TrainingLoader : MonoBehaviour
         isLoading = true;
     }
 
+    void UpdateLoadingSprite(StatType statType)
+    {
+        if (loadingSpriteImage == null)
+        {
+            Debug.LogError("[TrainingLoader] loadingSpriteImage°¡ ¿¬°áµÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù!");
+            return;
+        }
+
+        switch (statType)
+        {
+            case StatType.Stamina_Stat:
+                loadingSpriteImage.sprite = staminaSprite;
+                break;
+            case StatType.Flightpower_Stat:
+                loadingSpriteImage.sprite = flightpowerSprite;
+                break;
+            case StatType.Balance_Stat:
+                loadingSpriteImage.sprite = balanceSprite;
+                break;
+            case StatType.Agility_Stat:
+                loadingSpriteImage.sprite = agilitySprite;
+                break;
+            default:
+                Debug.LogWarning("[TrainingLoader] ¾Ë ¼ö ¾ø´Â StatType: " + statType);
+                break;
+        }
+
+        Debug.Log("[TrainingLoader] ·Îµù ÀÌ¹ÌÁö º¯°æµÊ: " + loadingSpriteImage.sprite?.name);
+    }
+
     void Update()
     {
         if (!isLoading) return;
 
-        float speedMultiplier = baseSpeed;
-
-        if (Input.GetMouseButton(0))
-        {
-            speedMultiplier = boostSpeed;
-        }
+        float speedMultiplier = Input.GetMouseButton(0) ? boostSpeed : baseSpeed;
 
         timer += Time.deltaTime * speedMultiplier;
         progressBarFiller.fillAmount = timer / loadingTime;
@@ -61,7 +99,7 @@ public class TrainingLoader : MonoBehaviour
     void CompleteTraining()
     {
         isLoading = false;
-        StartCoroutine(ShowResult()); // ì½”ë£¨í‹´ ì‹¤í–‰
+        StartCoroutine(ShowResult());
     }
 
     IEnumerator ShowResult()
@@ -73,10 +111,16 @@ public class TrainingLoader : MonoBehaviour
         float failureRate = 1f - (currentStamina / maxStamina);
         float rand = Random.value;
 
-        Debug.Log($"[Training] ì‹¤íŒ¨ìœ¨: {failureRate:P1}, ëœë¤ê°’: {rand:F2}");
+        Debug.Log($"[Training] ½ÇÆĞÀ²: {failureRate:P1}, ·£´ı°ª: {rand:F2}");
+
+        float ratio = currentStamina / maxStamina;
+        int staminaLevel = GetStaminaLevel(ratio);
+
+        HpLogManager.instance.GetLogs(staminaLevel);
+        string haroDialogue = HpLogManager.instance.GetSingleLog();
+        dialogueText.text = haroDialogue;
 
         bool isSuccess = rand >= failureRate;
-
         if (isSuccess)
         {
             successText.SetActive(true);
@@ -92,5 +136,14 @@ public class TrainingLoader : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
         loadingPanel.SetActive(false);
+    }
+
+    int GetStaminaLevel(float ratio)
+    {
+        if (ratio >= 0.8f) return 1;
+        else if (ratio >= 0.6f) return 2;
+        else if (ratio >= 0.4f) return 3;
+        else if (ratio >= 0.2f) return 4;
+        else return 5;
     }
 }

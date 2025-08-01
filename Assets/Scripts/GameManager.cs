@@ -4,6 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+
     [Header("턴 설정")]
     public int maxTurn = 12;
     private int currentTurn;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     {
         currentTurn = maxTurn;
         Debug.Log($"[GameManager] InitGame 실행됨 - 현재 턴: {currentTurn}");
+        Debug.Log($"[TrainButtonHandler] 현재 턴 수: {GameManager.Instance.currentTurn}");
 
         StatManager.Instance.GenerateExpectedStatIncreases();  // ① 게임 시작 시 첫 예측 스탯 생성
         UIManager.Instance.UpdateTurnText(currentTurn);
@@ -67,5 +69,6 @@ public class GameManager : MonoBehaviour
     {
         return currentTurn > 0;
     }
-    
+        
+
 }

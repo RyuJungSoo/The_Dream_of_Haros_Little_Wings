@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 public enum StatType
 {
-    Stamina_Stat,         // 체력
-    Flightpower_Stat,     // 비행력
-    Balance_Stat,         // 균형감
-    Agility_Stat          // 민첩성
+    Stamina_Stat,
+    Flightpower_Stat,
+    Balance_Stat,
+    Agility_Stat
 }
 
 public class StatManager : MonoBehaviour
@@ -60,7 +60,7 @@ public class StatManager : MonoBehaviour
     public void GenerateExpectedStatIncreases()
     {
         expectedMainValue = Random.Range(3, 6);
-        int candidate = Random.Range(1, 4);
+        int candidate = Random.Range(0, 4);
         bool hasZero = Stamina_Stat == 0 || Flightpower_Stat == 0 || Balance_Stat == 0 || Agility_Stat == 0;
 
         if (hasZero && candidate <= 0)
@@ -79,11 +79,10 @@ public class StatManager : MonoBehaviour
         return roll >= failChance;
     }
 
-    // ✅ 새로 수정된 실패율 계산 (체력 비율 기반 연속 함수)
     public int GetFailureRateByStamina()
     {
         float rate = currentStamina / maxStamina;
-        float failRate = Mathf.Lerp(80f, 0f, rate);  // 체력 낮을수록 최대 80% 실패율
+        float failRate = Mathf.Lerp(80f, 0f, rate);
         return Mathf.RoundToInt(failRate);
     }
 
@@ -125,20 +124,22 @@ public class StatManager : MonoBehaviour
             {
                 case StatType.Stamina_Stat:
                     Stamina_Stat += main;
-                    Flightpower_Stat = Mathf.Max(0, Flightpower_Stat + sub);
+                    if (sub > 0) Flightpower_Stat = Mathf.Max(0, Flightpower_Stat + sub);
                     break;
                 case StatType.Flightpower_Stat:
                     Flightpower_Stat += main;
-                    Stamina_Stat = Mathf.Max(0, Stamina_Stat + sub);
-                    Agility_Stat = Mathf.Max(0, Agility_Stat + sub);
+                    if (sub > 0) {
+                        Stamina_Stat = Mathf.Max(0, Stamina_Stat + sub);
+                        Agility_Stat = Mathf.Max(0, Agility_Stat + sub);
+                    }
                     break;
                 case StatType.Balance_Stat:
                     Balance_Stat += main;
-                    Flightpower_Stat = Mathf.Max(0, Flightpower_Stat + sub);
+                    if (sub > 0) Flightpower_Stat = Mathf.Max(0, Flightpower_Stat + sub);
                     break;
                 case StatType.Agility_Stat:
                     Agility_Stat += main;
-                    Balance_Stat = Mathf.Max(0, Balance_Stat + sub);
+                    if (sub > 0) Balance_Stat = Mathf.Max(0, Balance_Stat + sub);
                     break;
             }
         }
@@ -203,32 +204,4 @@ public class StatManager : MonoBehaviour
     {
         return ($"+{GetExpectedMainIncrease(statName)}", $"+{GetExpectedSubIncrease(statName)}");
     }
-
-    //하로 대사 관련
-    public string GetStaminaStatusMessage()
-    {
-        float rate = currentStamina / maxStamina * 100f;
-
-        if (rate >= 80f)
-        {
-            return "…응, 지금은 꽤 괜찮아. 뭐든 할 수 있을 것 같아… 아마도.";
-        }
-        else if (rate >= 60f)
-        {
-            return "…조금 피곤하지만, 아직은 버틸 수 있어.";
-        }
-        else if (rate >= 40f)
-        {
-            return "…계속해도 괜찮을까… 실수하지 않으려면 조심해야 해…";
-        }
-        else if (rate >= 20f)
-        {
-            return "…힘이 안 들어… 실수할지도 몰라… 쉬는 게 낫지 않을까…?";
-        }
-        else
-        {
-            return "…미안해… 더는… 안 될 것 같아… 나… 쓰러질지도…";
-        }
-    }
-
 }
