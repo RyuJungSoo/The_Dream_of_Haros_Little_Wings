@@ -40,7 +40,7 @@ public class StatManager : MonoBehaviour
     {
         if (statData != null)
         {
-            maxStamina = Mathf.Max(100f, GetStaminaMax());  // 최소값 보장
+            maxStamina = Mathf.Max(100f, GetStaminaMax());
             currentStamina = maxStamina;
         }
         else
@@ -128,7 +128,8 @@ public class StatManager : MonoBehaviour
                     break;
                 case StatType.Flightpower_Stat:
                     Flightpower_Stat += main;
-                    if (sub > 0) {
+                    if (sub > 0)
+                    {
                         Stamina_Stat = Mathf.Max(0, Stamina_Stat + sub);
                         Agility_Stat = Mathf.Max(0, Agility_Stat + sub);
                     }
@@ -157,23 +158,29 @@ public class StatManager : MonoBehaviour
         if (currentStamina < 0) currentStamina = 0;
     }
 
+    // 스태미나 최대값 공식 적용: 20 + (20 + 스탯 * 0.8) × 계수
     public float GetStaminaMax()
     {
-        float baseValue = statData.GetBasicStamina() + (20 + Stamina_Stat * 0.7f);
-        return baseValue * statData.staminaMultiplier;
+        return (statData.GetBasicStamina() + (20f + Stamina_Stat * 0.8f)) * statData.staminaMultiplier;
     }
 
+    // 비행 속도 공식 적용: 10 + 비상력 * 0.2 × 계수
     public float GetFlightSpeed()
     {
-        float speed = statData.GetBasicFlightSpeed() + Flightpower_Stat * 0.15f;
-        return speed * statData.flightSpeedMultiplier;
+        return (statData.GetBasicFlightSpeed() + Flightpower_Stat * 0.2f) * statData.flightSpeedMultiplier;
     }
 
+    // 스태미나 감소 공식 적용: (5 + 10) * (0.2 + 0.5 * (1 - 균형감 / 180)) × 계수
     public float GetStaminaDrainSpeed()
     {
-        float baseDrain = (statData.GetBasicStaminaDecreaseSpeed() + statData.GetBasicFlightStaminaDecreaseSpeed()) *
-                          (0.3f + (1 - 0.3f) * (1 - Balance_Stat / 180f));
-        return baseDrain * statData.staminaDrainMultiplier;
+        float factor = 0.2f + 0.5f * (1f - Balance_Stat / 180f);
+        return (statData.GetBasicStaminaDecreaseSpeed() + statData.GetBasicFlightStaminaDecreaseSpeed()) * factor * statData.staminaDrainMultiplier;
+    }
+
+    // 민첩성 통과 확률: (5 + 민첩성 * 0.5 * 낙하물 계수) × 스테이지 계수
+    public float GetAgilityPassRate(float dropFactor, float stageFactor)
+    {
+        return (5f + Agility_Stat * 0.5f * dropFactor) * stageFactor;
     }
 
     public string GetGrade(int stat)
@@ -203,5 +210,16 @@ public class StatManager : MonoBehaviour
     public (string main, string sub) GetMainAndSubStatText(string statName)
     {
         return ($"+{GetExpectedMainIncrease(statName)}", $"+{GetExpectedSubIncrease(statName)}");
+    }
+
+    public bool ShouldTriggerQTE(float dropFactor, float stageFactor)
+    {
+        float baseProbability = GetAgilityPassRate(dropFactor, stageFactor);
+        float adjustedProbability = baseProbability * StatManager.Instance.statData.GetQTETriggerFactor() / 100f;
+
+        int roll = Random.Range(0, 100);
+        Debug.Log($"[민첩성 판정] 계산된 확률: {adjustedProbability:F1}%, 롤값: {roll}");
+
+        return roll < adjustedProbability;
     }
 }
