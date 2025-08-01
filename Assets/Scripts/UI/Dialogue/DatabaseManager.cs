@@ -7,11 +7,14 @@ public class DatabaseManager : MonoBehaviour
     public static DatabaseManager instance;
     [SerializeField]
     private TextAsset[] CSV;
+    [SerializeField]
+    private Vector2[] Lines;
 
     //[SerializeField] string csv_FileName;
 
     Dictionary<int, Dialogue> dialogueDic;
-    public static bool isFinish = false;
+    private InteractionEvent interactionEvent;
+    //public static bool isFinish = false;
 
     private void Awake()
     {
@@ -27,6 +30,7 @@ public class DatabaseManager : MonoBehaviour
                 dialogueDic.Add(i + 1, dialogues[i]);
             }
             isFinish = true;*/
+            interactionEvent = FindAnyObjectByType<InteractionEvent>();
             SetDialogues(0);
         }
     }
@@ -34,6 +38,7 @@ public class DatabaseManager : MonoBehaviour
     public void SetDialogues(int CSV_index)
     {
         dialogueDic = new Dictionary<int, Dialogue>();
+        interactionEvent.SetDialogueLine(Lines[CSV_index].x, Lines[CSV_index].y);
 
         DialogueParser theParser = GetComponent<DialogueParser>();
         Dialogue[] dialogues = theParser.Parse(CSV[CSV_index]);
@@ -43,7 +48,7 @@ public class DatabaseManager : MonoBehaviour
         {
             dialogueDic.Add(i + 1, dialogues[i]);
         }
-        isFinish = true;
+        //isFinish = true;
     }
 
     public Dialogue[] GetDialogues(int _StartNum, int _EndNum)

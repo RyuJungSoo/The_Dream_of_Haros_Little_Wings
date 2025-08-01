@@ -16,4 +16,10 @@ public class InteractionEvent : MonoBehaviour
         dialogue.dialogues = DatabaseManager.instance.GetDialogues((int)dialogue.line.x, (int)dialogue.line.y);
         return dialogue.dialogues;
     }
+
+    public void SetDialogueLine(float _StartNum, float _EndNum)
+    {
+        dialogue.line.x = _StartNum;
+        dialogue.line.y = _EndNum;
+    }
 }

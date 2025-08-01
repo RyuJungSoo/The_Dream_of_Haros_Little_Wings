@@ -13,6 +13,7 @@ public class Dialogue_Setting : MonoBehaviour
     private int Context_idx = 0;
     private string SpriteFolder_Name;
     public bool isTextTypeOver = true;
+    private bool isBackgroundCoroutineStart = false;
 
     [SerializeField]
     private TextMeshProUGUI Name_UI;
@@ -20,6 +21,8 @@ public class Dialogue_Setting : MonoBehaviour
     private TextMeshProUGUI Context_UI;
     [SerializeField]
     private Image Sprite_UI;
+    [SerializeField]
+    private GameObject LoadingBackground;
 
     /*int name_index = 0;
     int contexts_index = 0;
@@ -74,15 +77,15 @@ public class Dialogue_Setting : MonoBehaviour
         }
         if (Context_UI)
         {
-            
+
             StartCoroutine(TypeText(dialogues[Dialogue_idx].contexts[Context_idx]));
         }
-            //Context_UI.text = dialogues[Dialogue_idx].contexts[Context_idx];
-        
+        //Context_UI.text = dialogues[Dialogue_idx].contexts[Context_idx];
+
         if (Sprite_UI)
         {
             // 엔터 키 값이면 값이 없기 때문에 리턴
-            if (dialogues[Dialogue_idx].Sprite_ID[Context_idx] == "\r")
+            if (dialogues[Dialogue_idx].Sprite_ID[Context_idx] == "\r" || dialogues[Dialogue_idx].Sprite_ID[Context_idx] == "")
                 return;
 
             string SpriteCode = dialogues[Dialogue_idx].name + "_" + dialogues[Dialogue_idx].Sprite_ID[Context_idx];
@@ -95,11 +98,11 @@ public class Dialogue_Setting : MonoBehaviour
         // 모든 Dialogue를 출력한 후
         if (Dialogue_idx >= dialogues.Length)
         {
-            string sceneName = SceneSettingManager.Instance.CurrentSceneName;
-            if (sceneName == "MainMenu")
-                SceneSettingManager.Instance.ChangeScene("DialogueScene");
-            else if(sceneName == "DialogueScene")
-                SceneSettingManager.Instance.ChangeScene("Raising_Stage");
+            if (!isBackgroundCoroutineStart)
+            {
+                isBackgroundCoroutineStart = true;
+                StartCoroutine(SetBackground());
+            }
             return;
         }
 
@@ -138,4 +141,35 @@ public class Dialogue_Setting : MonoBehaviour
             Context_idx = 0;
         }
     }
+    IEnumerator SetBackground()
+    {
+        float timer = 0f;
+        float duration = 1f;
+
+        if (LoadingBackground != null)
+        {
+            Color color = LoadingBackground.GetComponent<Image>().color;
+
+            while (timer < duration)
+            {
+                timer += Time.deltaTime;
+                color.a = Mathf.Clamp01(timer / duration);
+                LoadingBackground.GetComponent<Image>().color = color;
+                yield return null;
+            }
+        }
+
+        string sceneName = SceneSettingManager.Instance.CurrentSceneName;
+
+        if (sceneName == "MainMenu") // 현재 메인 메뉴이면 
+            SceneSettingManager.Instance.ChangeScene("DialogueScene"); // 대화 씬으로 전환
+        else if (sceneName == "DialogueScene" && !(SceneSettingManager.Instance.isStageAllClear())) // 현재 대화 씬이고 모든 스테이지가 클리어되지 않았을 때
+            SceneSettingManager.Instance.ChangeScene("Raising_Stage"); // 육성 스테이지로 전환
+        else if (sceneName == "DialogueScene" && SceneSettingManager.Instance.isStageAllClear()) // 현재 대화 씬이고 모든 스테이지를 클리어했을 때
+        {
+            // 현재 모든 스테이지를 클리어했을 때 게임 클리어 UI 켜는 기능이 들어가야 함.
+        }
+    }
+
+
 }
