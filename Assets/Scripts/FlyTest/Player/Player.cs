@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 
     public StaminaSlider slider;
     public ObstacleSO obstacleData;
+    public WallData wallData;
     public CollideItem item;
 
     public bool onCollide = false;
@@ -62,7 +63,16 @@ public class Player : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Obstacle") && !isInvincible)
+        if (other.CompareTag("Wall") && !isInvincible)
+        {
+            if (other.TryGetComponent<CollideWall>(out var wall))
+            {
+                int damage = wall.wallData.damage;
+                string name = wall.wallData.wallName;
+                StartCoroutine((HitWall(damage, name)));
+            }
+        }
+        else if (other.CompareTag("Obstacle") && !isInvincible)
         {
             if (other.TryGetComponent<CollideObstacle>(out var obstacle))
             {
@@ -71,7 +81,7 @@ public class Player : MonoBehaviour
                 StartCoroutine(HitInvincible(damage, coefficient));
             }
         }
-        else if(other.CompareTag("Obstacle") && isInvincible)
+        else if((other.CompareTag("Obstacle") || other.CompareTag("Wall")) && isInvincible)
             {
                 StartCoroutine(HitDuringInvincible());
             }
@@ -92,9 +102,10 @@ public class Player : MonoBehaviour
         isInvincible = false;
         onCollide = false;
     }
-    public IEnumerator HitWall(int damage)
+    public IEnumerator HitWall(int damage, string name)
     {
         Hit(damage);
+        Debug.Log($"{name}에 충돌하여 {damage}의 피해를 입었다.");
         isInvincible = true;
         yield return new WaitForSecondsRealtime(1f);
         isInvincible = false;

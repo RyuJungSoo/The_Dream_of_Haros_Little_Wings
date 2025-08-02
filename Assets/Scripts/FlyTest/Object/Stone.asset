@@ -17,5 +17,5 @@ MonoBehaviour:
   obstacle_name: stone
   tag: Obj - 04
   Factor: 0.5
-  damage: 15
+  damage: 10
   moveType: 3

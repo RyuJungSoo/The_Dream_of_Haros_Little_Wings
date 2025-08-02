@@ -17,5 +17,5 @@ MonoBehaviour:
   obstacle_name: bird
   tag: Obj - 06
   Factor: 0.4
-  damage: 20
+  damage: 15
   moveType: 1

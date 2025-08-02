@@ -17,5 +17,5 @@ MonoBehaviour:
   obstacle_name: stick
   tag: Obj - 01
   Factor: 1
-  damage: 5
+  damage: 3
   moveType: 2

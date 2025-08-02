@@ -17,5 +17,5 @@ MonoBehaviour:
   obstacle_name: apple
   tag: Obj - 02
   Factor: 0.9
-  damage: 6
+  damage: 5
   moveType: 2
