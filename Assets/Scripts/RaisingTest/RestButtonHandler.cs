@@ -7,6 +7,7 @@ public class RestButtonHandler : MonoBehaviour
     public float recoveryAmount = 30f;  // 회복할 체력 양
 
     private Button button;
+    public RestLoader restLoader; 
 
     private void Awake()
     {
@@ -28,10 +29,15 @@ public class RestButtonHandler : MonoBehaviour
             if (StatManager.Instance.currentStamina > StatManager.Instance.maxStamina)
                 StatManager.Instance.currentStamina = StatManager.Instance.maxStamina;
 
+            //로딩 실행
+            if (restLoader != null)
+                restLoader.StartRest();
+
             // 턴 소모 및 UI 갱신 요청
             GameManager.Instance.UseTurn();
             UIManager.Instance.UpdateStatUI();
             UIManager.Instance.HideAllChosenChecks();
         }
     }
+
 }

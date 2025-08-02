@@ -24,6 +24,7 @@ public class TrainingLoader : MonoBehaviour
     public Sprite flightpowerSprite;
     public Sprite balanceSprite;
     public Sprite agilitySprite;
+    public Sprite Rest;
 
     private float timer = 0f;
     private bool isLoading = false;
