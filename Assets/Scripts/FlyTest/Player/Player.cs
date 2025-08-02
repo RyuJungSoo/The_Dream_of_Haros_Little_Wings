@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     public bool onCollide = false;
     public bool isInvincible = false;
 
+    public float stageFactor = 5f;
+
 
     private string currentTrigger = "";
 
@@ -64,8 +66,9 @@ public class Player : MonoBehaviour
         {
             if (other.TryGetComponent<CollideObstacle>(out var obstacle))
             {
+                float coefficient = obstacle.obstacleData.Factor;
                 int damage = obstacle.obstacleData.damage;
-                StartCoroutine(HitInvincible(damage));
+                StartCoroutine(HitInvincible(damage, coefficient));
             }
         }
         else if(other.CompareTag("Obstacle") && isInvincible)
@@ -74,9 +77,9 @@ public class Player : MonoBehaviour
             }
     }
 
-    public IEnumerator HitInvincible(int damage)
+    public IEnumerator HitInvincible(int damage, float coefficient)
     {
-        StartCoroutine(qteManager.StartQTETime());
+        StartCoroutine(qteManager.StartQTETime(coefficient, damage));
 
         yield return new WaitForSecondsRealtime(5f);
 
@@ -84,6 +87,14 @@ public class Player : MonoBehaviour
             {
                 Hit(damage);
             }
+        isInvincible = true;
+        yield return new WaitForSecondsRealtime(1f);
+        isInvincible = false;
+        onCollide = false;
+    }
+    public IEnumerator HitWall(int damage)
+    {
+        Hit(damage);
         isInvincible = true;
         yield return new WaitForSecondsRealtime(1f);
         isInvincible = false;

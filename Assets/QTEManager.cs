@@ -1,10 +1,12 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class QTEManager : MonoBehaviour
 {
     [SerializeField] Player player;
+    [SerializeField] StatManager statManager;
 
     [SerializeField] Image First;
     [SerializeField] Image Second;
@@ -51,53 +53,78 @@ public class QTEManager : MonoBehaviour
         }
     }
 
-    public IEnumerator StartQTETime()
+    public IEnumerator StartQTETime(float coefficient, int damage)
     {
-        isQTE = true;
-        clearQTE = false;
-
-        Time.timeScale = 0f; // 게임 시간 정지
-
-        // 각 버튼에 랜덤 키와 화살표 스프라이트 할당
-        for (int i = 0; i < 4; i++)
+        if (statManager.ShouldTriggerQTE(coefficient, player.stageFactor))
         {
-            assignedKeys[i] = availableKeys[Random.Range(0, availableKeys.Length)];
-            arrowImages[i].sprite = GetSpriteForKey(assignedKeys[i]);
-            Debug.Log($"[{i + 1}]을 입력해주세요: {assignedKeys[i]}");
-            arrowImages[i].enabled = true;
+            player.Hit(damage);
+            clearQTE = true;
+            EndQTE();
+            yield break;
         }
-
-        // 입력 대기 루프
-        for (int i = 0; i < 4; i++)
+        else
         {
-            float timer = 0f;
-            float maxTime = 5f;
-            bool success = false;
 
-            while (timer < maxTime)
+            isQTE = true;
+            clearQTE = false;
+            Time.timeScale = 0f; // 게임 시간 정지
+
+            for (int i = 0; i < 4; i++)
             {
-                if (Input.GetKeyDown(assignedKeys[i]))
+                assignedKeys[i] = availableKeys[Random.Range(0, availableKeys.Length)];
+                arrowImages[i].sprite = GetSpriteForKey(assignedKeys[i]);
+                Debug.Log($"[{i + 1}]을 입력해주세요: {assignedKeys[i]}");
+                arrowImages[i].enabled = true;
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                float timer = 0f;
+                float maxTime = 4.5f;
+                bool success = false;
+
+                while (timer < maxTime)
                 {
-                    success = true;
-                    Debug.Log($"[{i + 1}] 입력 성공: {assignedKeys[i]}");
-                    break;
+                    foreach (var key in availableKeys)
+                    {
+                        if (Input.GetKeyDown(key))
+                        {
+                            if (key == assignedKeys[i])
+                            {
+                                success = true;
+                                Debug.Log($"[{i + 1}] 입력 성공: {key}");
+                                yield return new WaitForSecondsRealtime(0.05f);
+                                break;
+                            }
+                            else
+                            {
+                                Debug.Log($"[{i + 1}] 틀린 키 입력");
+                                clearQTE = true;
+                                player.Hit(damage);
+                                EndQTE();
+                                yield break;
+                            }
+                        }
+                    }
+
+                    if (success)
+                        break;
+                    timer += Time.unscaledDeltaTime;
+                    yield return null;
                 }
 
-                timer += Time.unscaledDeltaTime;
-                yield return null;
+                if (!success)
+                {
+                    Debug.Log("QTE 실패!");
+                    EndQTE();
+                    yield break;
+                }
             }
 
-            if (!success)
-            {
-                Debug.Log("QTE 실패!");
-                EndQTE();
-                yield break;
-            }
+            clearQTE = true;
+            Debug.Log("QTE 성공!");
+            EndQTE();
         }
-
-        clearQTE = true;
-        Debug.Log("QTE 성공!");
-        EndQTE();
     }
 
     private void EndQTE()

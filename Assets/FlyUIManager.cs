@@ -26,8 +26,12 @@ public class FlyUIManager : MonoBehaviour
         pauseScreen.SetActive(false);
         Time.timeScale = 1.0f;
     }
-    public void TitlePortalClick()
+    public void TitlePortalButtonClick()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+    public void RetryStageButtonClick()
+    {
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -924,13 +924,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 451263998}
+        m_TargetAssemblyTypeName: FlyUIManager, Assembly-CSharp
+        m_MethodName: ReturnButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1395,6 +1395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1810877717}
+  statManager: {fileID: 1045451285}
   First: {fileID: 571077891}
   Second: {fileID: 1810490076}
   Third: {fileID: 1632875464}
@@ -2931,7 +2932,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 665679488}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 451263998}
+        m_TargetAssemblyTypeName: FlyUIManager, Assembly-CSharp
+        m_MethodName: RetryStageButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &665679488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4295,7 +4308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab1e653f631c784aa5876ea3b4ee7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statData: {fileID: 11400000, guid: 11ee405f5d4efad40810b0a024e85a87, type: 2}
+  statData: {fileID: 11400000, guid: e6c6ae8cfa8a3e84e8086b957919728f, type: 2}
   Stamina_Stat: 0
   Flightpower_Stat: 0
   Balance_Stat: 0
@@ -7139,6 +7152,7 @@ MonoBehaviour:
   item: {fileID: 832958745}
   onCollide: 0
   isInvincible: 0
+  stageFactor: 5
 --- !u!95 &1810877718
 Animator:
   serializedVersion: 5
