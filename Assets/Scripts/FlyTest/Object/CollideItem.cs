@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,14 +13,12 @@ public enum Name
 
 public class CollideItem : MonoBehaviour
 {
-    [SerializeField]
-    Collider2D Player;
+    [SerializeField] Collider2D Player;
+    [SerializeField] PlayerJump playerjump;
+    [SerializeField] SpriteRenderer sr;
 
     public StaminaSlider slider;
     public Player player;
-
-    public bool onShield = false;
-    public bool onWind = false;
 
     public Name state;
 
@@ -31,24 +30,25 @@ public class CollideItem : MonoBehaviour
 
             if (state == Name.acorn)
             {
-                if(slider.stamina >= slider.fullStamina * 0.85)
+                if(slider.stamina >= slider.fullStamina * 0.75)
                 {
                     slider.stamina = slider.fullStamina;
                 }
                 else
                 {
-                    slider.stamina += slider.fullStamina * 15/100;
+                    slider.stamina += slider.fullStamina * 25/100;
                 }
                 gameObject.SetActive(false);
             }
             if (state == Name.Bell)
             {
-                onShield = true;
+                player.onShield = true;
                 player.isInvincible = true;
                 gameObject.SetActive(false);
             }
             if (state==Name.Wind)
             {
+                sr.enabled = false;
                 StartCoroutine(Wind());
             }
         }
@@ -56,9 +56,10 @@ public class CollideItem : MonoBehaviour
 
     private IEnumerator Wind()
     {
-        onWind = true;
+        Debug.Log("윈드 코루틴 실행");
+        playerjump.onWind = true;
         yield return new WaitForSeconds(1f);
-        onWind = false;
+        playerjump.onWind = false;
         gameObject.SetActive(false);
     }
 

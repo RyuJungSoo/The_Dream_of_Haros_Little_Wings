@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     public bool onCollide = false;
     public bool isInvincible = false;
+    public bool onShield = false;
 
     public float stageFactor = 5f;
 
@@ -31,6 +32,17 @@ public class Player : MonoBehaviour
         DontDestroyOnLoad(this);
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+    }
+
+    public void Start()
+    {
+        StartCoroutine(StartTime());
+    }
+    private IEnumerator StartTime()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(3f);
+        Time.timeScale = 1f;
     }
 
     public void Update()
@@ -120,7 +132,7 @@ public class Player : MonoBehaviour
 
     public void Hit(int damage)
     {
-        item.onShield = false;
+        onShield = false;
         slider.stamina -= damage;
         Debug.Log($"플레이어가 {damage} 만큼의 대미지를 입었습니다.");
     }
