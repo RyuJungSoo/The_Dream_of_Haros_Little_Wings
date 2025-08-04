@@ -7,6 +7,8 @@ public class PlayerJump : MonoBehaviour
     public GameOver gameover;
     public CollideItem item;
 
+    public bool onWind = false;
+
     [SerializeField]
     Rigidbody2D rb;
 
@@ -21,13 +23,14 @@ public class PlayerJump : MonoBehaviour
     }
     public void Update()
     {
-        if (!gameover.gameover && Input.GetKey(KeyCode.Space))
+        if (!gameover.gameover && !onWind && Input.GetKey(KeyCode.Space))
         {
             Jump();
         }
-        else if(!gameover.gameover && item.onWind)
+        else if(!gameover.gameover && onWind)
         {
-            Jump();
+            Debug.Log("윈드 실행");
+            rb.velocity = new Vector2(rb.velocity.x, jumpPower * 2);
         }
     }
 

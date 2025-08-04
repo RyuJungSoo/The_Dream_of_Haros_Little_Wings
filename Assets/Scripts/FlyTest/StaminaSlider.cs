@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class StaminaSlider : MonoBehaviour
 {
     public Slider slider;
+    [SerializeField] PlayerJump playerjump;
 
     public float stamina;
     public float fullStamina;
@@ -42,7 +43,7 @@ public class StaminaSlider : MonoBehaviour
             gameover.Gameover();
         }
 
-        if(item.onWind && !gameover.gameover)
+        if(playerjump.onWind && !gameover.gameover)
         {
             slider.value = stamina / fullStamina;
         }

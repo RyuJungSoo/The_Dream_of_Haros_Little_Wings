@@ -55,7 +55,7 @@ public class QTEManager : MonoBehaviour
 
     public IEnumerator StartQTETime(float coefficient, int damage)
     {
-        if (statManager.ShouldTriggerQTE(coefficient, player.stageFactor))
+        if (!statManager.ShouldTriggerQTE(coefficient, player.stageFactor))
         {
             player.Hit(damage);
             clearQTE = true;
@@ -64,7 +64,6 @@ public class QTEManager : MonoBehaviour
         }
         else
         {
-
             isQTE = true;
             clearQTE = false;
             Time.timeScale = 0f; // 게임 시간 정지

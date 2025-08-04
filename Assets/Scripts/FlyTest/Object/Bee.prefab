@@ -158,4 +158,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleData: {fileID: 11400000, guid: 5f6268e2706e35049b28a7eeb05b1543, type: 2}
-  moveSpeed: 3
+  moveSpeed: 20
