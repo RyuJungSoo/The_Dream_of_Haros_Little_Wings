@@ -10,8 +10,16 @@ public class RestLoader : MonoBehaviour
     public Image progressBarFiller;
     public float loadingTime = 3f;
 
-    [Header("로딩 화면 텍스트")]
-    public GameObject loadingText;
+    [Header("로딩 중 텍스트 (훈련 + 휴식 포함)")]
+    public GameObject Rest_loadingText;
+    public GameObject Stamina_loadingText;
+    public GameObject FlightPower_loadingText;
+    public GameObject Balance_loadingText;
+    public GameObject Agility_loadingText;
+
+    [Header("결과 텍스트")]
+    public GameObject successText;
+    public GameObject failText;
 
     [Header("하로 대사 출력용 TMP")]
     public TextMeshProUGUI dialogueText;
@@ -20,25 +28,30 @@ public class RestLoader : MonoBehaviour
     public Image loadingSpriteImage;
     public Sprite restSprite;
 
-    [Header("남은 훈련 텍스트 잔상 제거용")]
-    public GameObject successText;
-    public GameObject failText;
     private float timer = 0f;
     private bool isLoading = false;
 
     float baseSpeed = 1f;
     float boostSpeed = 3f;
 
+    private void Awake()
+    {
+        // 시작 시 모든 텍스트 끄기
+        HideAllTexts();
+        loadingPanel.SetActive(false);
+    }
+
+    /// <summary>
+    /// 휴식 시작
+    /// </summary>
     public void StartRest()
     {
         Debug.Log("[RestLoader] StartRest 호출됨");
 
-        // 이전 훈련의 성공/실패 텍스트 잔상 제거용
-        if (successText != null) successText.SetActive(false);
-        if (failText != null) failText.SetActive(false);
+        HideAllTexts();  //모든 텍스트 비활성
 
+        Rest_loadingText?.SetActive(true); //휴식중 텍스트만 활성
         loadingPanel.SetActive(true);
-        loadingText.SetActive(true);
         progressBarFiller.fillAmount = 0f;
         loadingSpriteImage.sprite = restSprite;
 
@@ -46,17 +59,18 @@ public class RestLoader : MonoBehaviour
         isLoading = true;
     }
 
-
-    void UpdateLoadingSprite()
+    /// <summary>
+    /// 모든 훈련/휴식 텍스트 + 결과 텍스트 끄기
+    /// </summary>
+    private void HideAllTexts()
     {
-        if (loadingSpriteImage == null)
-        {
-            Debug.LogError("[RestLoader] loadingSpriteImage 연결 안됨!");
-            return;
-        }
-
-        loadingSpriteImage.sprite = restSprite;
-        Debug.Log("[RestLoader] 로딩 이미지 설정됨: " + loadingSpriteImage.sprite?.name);
+        Stamina_loadingText?.SetActive(false);
+        FlightPower_loadingText?.SetActive(false);
+        Balance_loadingText?.SetActive(false);
+        Agility_loadingText?.SetActive(false);
+        Rest_loadingText?.SetActive(false);
+        successText?.SetActive(false);
+        failText?.SetActive(false);
     }
 
     void Update()
@@ -82,7 +96,7 @@ public class RestLoader : MonoBehaviour
 
     IEnumerator ShowRestLog()
     {
-        loadingText.SetActive(false);
+        HideAllTexts(); //로딩 텍스트 끄기
 
         float currentStamina = StatManager.Instance.currentStamina;
         float maxStamina = StatManager.Instance.maxStamina;

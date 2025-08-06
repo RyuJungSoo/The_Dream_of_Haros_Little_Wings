@@ -11,7 +11,11 @@ public class TrainingLoader : MonoBehaviour
     public float loadingTime = 3f;
 
     [Header("훈련 화면 텍스트")]
-    public GameObject loadingText;
+    public GameObject Stamina_loadingText;
+    public GameObject FlightPower_loadingText;
+    public GameObject Balance_loadingText;
+    public GameObject Agility_loadingText;
+
     public GameObject successText;
     public GameObject failText;
 
@@ -24,11 +28,9 @@ public class TrainingLoader : MonoBehaviour
     public Sprite flightpowerSprite;
     public Sprite balanceSprite;
     public Sprite agilitySprite;
-    public Sprite Rest;
 
     private float timer = 0f;
     private bool isLoading = false;
-
     private StatType currentStat;
 
     float baseSpeed = 1f;
@@ -39,12 +41,34 @@ public class TrainingLoader : MonoBehaviour
         Debug.Log($"[TrainingLoader] StartTraining: {statType}");
 
         currentStat = statType;
-
-        UpdateLoadingSprite(statType); // 이미지 갱신 함수 호출
+        UpdateLoadingSprite(statType);
 
         loadingPanel.SetActive(true);
         progressBarFiller.fillAmount = 0f;
-        loadingText.SetActive(true);
+
+        // 모든 텍스트 끄기
+        Stamina_loadingText.SetActive(false);
+        FlightPower_loadingText.SetActive(false);
+        Balance_loadingText.SetActive(false);
+        Agility_loadingText.SetActive(false);
+
+        // 선택한 스탯만 켜기
+        switch (statType)
+        {
+            case StatType.Stamina_Stat:
+                Stamina_loadingText.SetActive(true);
+                break;
+            case StatType.Flightpower_Stat:
+                FlightPower_loadingText.SetActive(true);
+                break;
+            case StatType.Balance_Stat:
+                Balance_loadingText.SetActive(true);
+                break;
+            case StatType.Agility_Stat:
+                Agility_loadingText.SetActive(true);
+                break;
+        }
+
         successText.SetActive(false);
         failText.SetActive(false);
 
@@ -105,7 +129,11 @@ public class TrainingLoader : MonoBehaviour
 
     IEnumerator ShowResult()
     {
-        loadingText.SetActive(false);
+        // 텍스트 끄기
+        Stamina_loadingText.SetActive(false);
+        FlightPower_loadingText.SetActive(false);
+        Balance_loadingText.SetActive(false);
+        Agility_loadingText.SetActive(false);
 
         float currentStamina = StatManager.Instance.currentStamina;
         float maxStamina = StatManager.Instance.maxStamina;
