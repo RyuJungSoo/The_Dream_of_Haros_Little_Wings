@@ -9,8 +9,8 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance;
     [SerializeField] private AudioMixer audioMixer;
 
-    private bool[] isMute = new bool[3]; // À½¼Ò°Å ¿©ºÎ
-    private float[] audioVolumes = new float[3]; // º¼·ý 
+    private bool[] isMute = new bool[3]; // ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private float[] audioVolumes = new float[3]; // ï¿½ï¿½ï¿½ï¿½ 
 
     [SerializeField]
     private AudioSource BGM; // BGM
@@ -36,29 +36,29 @@ public class SoundManager : MonoBehaviour
         SFX = transform.GetChild(1).GetComponent<AudioSource>();
     }
 
-    public void SetAudioVolume(EAudioMixerType audioMixerType, float volume) // º¼·ý °ª Set
+    public void SetAudioVolume(EAudioMixerType audioMixerType, float volume) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Set
     {
         
-        // ¿Àµð¿À ¹Í¼­ÀÇ °ªÀº -80 ~ 0 ±îÁöÀÌ±â ¶§¹®¿¡ 0.0001 ~ 1ÀÇ Log10 * 20À» ÇÑ´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -80 ~ 0 ï¿½ï¿½ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.0001 ~ 1ï¿½ï¿½ Log10 * 20ï¿½ï¿½ ï¿½Ñ´ï¿½.
         audioMixer.SetFloat(audioMixerType.ToString(), Mathf.Log10(volume) * 20);
     }
 
-    public float GetAudioVolume(EAudioMixerType audioMixerType) // º¼·ý °ª Get
+    public float GetAudioVolume(EAudioMixerType audioMixerType) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Get
     {
         audioMixer.GetFloat(audioMixerType.ToString(), out float curVolume);
         return Mathf.Pow(10, curVolume / 20);
     }
 
-    public void SetAudioMute(EAudioMixerType audioMixerType) // À½¼Ò°Å Åä±Û
+    public void SetAudioMute(EAudioMixerType audioMixerType) // ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½
     {
-        int type = (int)audioMixerType; // ÀÎµ¦½º °¡Á®¿À±â
+        int type = (int)audioMixerType; // ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        // À½¼Ò°Å
+        // ï¿½ï¿½ï¿½Ò°ï¿½
         if (!isMute[type])
         {
             isMute[type] = true;
             audioMixer.GetFloat(audioMixerType.ToString(), out float curVolume);
-            audioVolumes[type] = curVolume; // ÇöÀç º¼·ý°ª ÀÓ½Ã ÀúÀå
+            audioVolumes[type] = curVolume; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½
             SetAudioVolume(audioMixerType, 0.0001f);
         }
         else
@@ -68,7 +68,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlayBGM(int index, bool isStage) // BGM Àç»ý
+    public void PlayBGM(int index, bool isStage) // BGM ï¿½ï¿½ï¿½
     {
         AudioClip Clip;
         if (!isStage)
@@ -80,7 +80,7 @@ public class SoundManager : MonoBehaviour
         BGM.Play();
     }
 
-    public void PlaySFX(int index, float delay) // SFX Àç»ý
+    public void PlaySFX(int index, float delay) // SFX ï¿½ï¿½ï¿½
     {
         
         StartCoroutine(PlaySFXWithDelay(index, delay));
