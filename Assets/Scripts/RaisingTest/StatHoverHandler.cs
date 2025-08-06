@@ -5,6 +5,27 @@ using TMPro;
 public class StatHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("선택 UI 관련")]
+    public GameObject ChoesnCheck;
+    public GameObject FailChance;
+
+    [Header("예상 수치 출력용")]
+    public string statName;
+    public TextMeshProUGUI mainText;
+    public TextMeshProUGUI subText1;
+    public TextMeshProUGUI subText2;
+
+    [Header("하로 대사 출력용")]
+    public TextMeshProUGUI dialogueText;
+
+    [Header("말풍선 오브젝트")]
+    public GameObject speechBubbleObject; // 말풍선 전체 오브젝트
+    public TextMeshProUGUI speechBubbleText; // 말풍선 텍스트
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (SoundManager.instance != null)
+            SoundManager.instance.PlaySFX(6, 0f);
+
     public GameObject ChoesnCheck;      // 테두리 오브젝트 (켜고 끌 대상)
     public GameObject FailChance;       // 실패율 오브젝트 (켜고 끌 대상)
 
@@ -29,12 +50,10 @@ public class StatHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
         mainText.gameObject.SetActive(true);
 
         string subOnlyNumber = System.Text.RegularExpressions.Regex.Replace(sub, @"\D", "");
-
         if (subOnlyNumber != "0")
         {
             subText1.text = $"<color=#FFBA00>{sub}</color>";
             subText1.gameObject.SetActive(true);
-
             if (subText2 != null)
             {
                 subText2.text = $"<color=#FFBA00>{sub}</color>";
@@ -44,8 +63,7 @@ public class StatHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
         else
         {
             subText1.gameObject.SetActive(false);
-            if (subText2 != null)
-                subText2.gameObject.SetActive(false);
+            subText2?.gameObject.SetActive(false);
         }
 
         // 실패율 UI 갱신
@@ -61,6 +79,13 @@ public class StatHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
         HpLogManager.instance.GetLogs(staminaLevel);
         string haroDialogue = HpLogManager.instance.GetSingleLog();
         dialogueText.text = haroDialogue;
+
+        // ✅ 말풍선도 함께 표시
+        if (speechBubbleObject != null && speechBubbleText != null)
+        {
+            speechBubbleText.text = haroDialogue;
+            speechBubbleObject.SetActive(true);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -68,9 +93,17 @@ public class StatHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
         // UI 요소 숨기기
         ChoesnCheck?.SetActive(false);
         FailChance?.SetActive(false);
-
         mainText.gameObject.SetActive(false);
         subText1.gameObject.SetActive(false);
+        subText2?.gameObject.SetActive(false);
+
+        dialogueText.text = "";
+
+        // ✅ 말풍선 끄기
+        if (speechBubbleObject != null)
+            speechBubbleObject.SetActive(false);
+    }
+
 
         if (subText2 != null)
             subText2.gameObject.SetActive(false);
