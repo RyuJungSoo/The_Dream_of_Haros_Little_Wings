@@ -1,7 +1,7 @@
+
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,33 +27,22 @@ public class UIManager : MonoBehaviour
 
     [Header("턴")]
     public TextMeshProUGUI turnText;
-
     [Header("하로 체력")]
     public Image staminaBarFiller;
 
     [Header("하로 대사")]
-    public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI dialogueText; // 하로 대사 출력용 텍스트 
 
     [Header("훈련중 로딩 바")]
-    public TrainingLoader loader;
+    public TrainingLoader loader; // Inspector에 연결
 
-    [Header("체력바 컨트롤러")]
-    public StaminaBarController staminaBarController;
-
-    [Header("말풍선 오브젝트")]
-    public GameObject speechBubbleObject;
-    public TextMeshProUGUI speechBubbleText;
-
-    private Coroutine speechCoroutine;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
-
-        if (speechBubbleObject != null)
-            speechBubbleObject.SetActive(false);
     }
+
 
     public void UpdateStatUI()
     {
@@ -67,13 +56,19 @@ public class UIManager : MonoBehaviour
         balanceGradeText.text = $"균형감: {StatManager.Instance.GetBalanceGrade()}";
         agilityGradeText.text = $"민첩성: {StatManager.Instance.GetAgilityGrade()}";
 
-        UpdateStaminaBar();
+
+        UpdateStaminaBar(); // 체력 게이지 바 업데이트
+
+
     }
+
 
     public void UpdateTurnText(int turn)
     {
         turnText.text = $"{turn} 턴";
     }
+
+
 
     public void ShowChosenCheck(GameObject chosen)
     {
@@ -89,10 +84,16 @@ public class UIManager : MonoBehaviour
         chosenCheckAgility.SetActive(false);
     }
 
+    //체력바가 시각적으로 너무 닳아서 따로 조정 -> StaminaBarController.cs
+    public StaminaBarController staminaBarController;
+
     public void UpdateStaminaBar()
     {
         staminaBarController.UpdateBar(StatManager.Instance.currentStamina, StatManager.Instance.maxStamina);
     }
+
+
+
 
     public void OnClickTrainStamina()
     {
@@ -106,47 +107,14 @@ public class UIManager : MonoBehaviour
 
     public void OnClickTrainBalance()
     {
-        loader.StartTraining(StatType.Balance_Stat);
+        loader.StartTraining(StatType.Flightpower_Stat);
     }
-
-    public void OnClickTrainAgility()
+    
+      public void OnClickTrainAgility()
     {
-        loader.StartTraining(StatType.Agility_Stat);
+        loader.StartTraining(StatType.Flightpower_Stat);
     }
 
-    // ✅ 일정 시간 표시되는 말풍선 함수 추가
-    public void ShowSpeechBubble(string message, float duration)
-    {
-        if (speechCoroutine != null)
-        {
-            StopCoroutine(speechCoroutine);
-        }
-        speechCoroutine = StartCoroutine(SpeechBubbleRoutine(message, duration));
-    }
 
-    IEnumerator SpeechBubbleRoutine(string message, float duration)
-    {
-        if (speechBubbleObject != null && speechBubbleText != null)
-        {
-            speechBubbleText.text = message;
-            speechBubbleObject.SetActive(true);
-            yield return new WaitForSeconds(duration);
-            speechBubbleObject.SetActive(false);
-        }
-    }
 
-    // 말풍선 수동으로 끄기
-    public void HideSpeechBubble()
-    {
-        if (speechCoroutine != null)
-        {
-            StopCoroutine(speechCoroutine);
-            speechCoroutine = null;
-        }
-
-        if (speechBubbleObject != null)
-        {
-            speechBubbleObject.SetActive(false);
-        }
-    }
 }
