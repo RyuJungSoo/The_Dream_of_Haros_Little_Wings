@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         InitGame();
+        if (SoundManager.instance != null)
+        SoundManager.instance.PlayBGM(3, false); // 육성스테이지 / BGM 인덱스 3번 재생
     }
 
     // 게임 시작 시 턴 초기화
@@ -33,9 +35,9 @@ public class GameManager : MonoBehaviour
         Debug.Log($"[GameManager] InitGame 실행됨 - 현재 턴: {currentTurn}");
         Debug.Log($"[TrainButtonHandler] 현재 턴 수: {GameManager.Instance.currentTurn}");
 
-        StatManager.Instance.GenerateExpectedStatIncreases();  // ① 게임 시작 시 첫 예측 스탯 생성
+        StatManager.Instance.GenerateExpectedStatIncreases();  // 게임 시작 시 첫 예측 스탯 생성
         UIManager.Instance.UpdateTurnText(currentTurn);
-        UIManager.Instance.UpdateStatUI();                     // ② 예측값 UI에 반영
+        UIManager.Instance.UpdateStatUI();                     // 예측값 UI에 반영
     }
 
     public void UseTurn()
@@ -44,16 +46,16 @@ public class GameManager : MonoBehaviour
         {
             currentTurn--;
 
-            // 👉 다음 턴 주/보조 예상값 생성
+            // 다음 턴 주/보조 예상값 생성
             StatManager.Instance.GenerateExpectedStatIncreases();
 
-            // 👉 UI 갱신
+            // UI 갱신
             UIManager.Instance.UpdateTurnText(currentTurn);
             UIManager.Instance.UpdateStatUI();
         }
         else
         {
-            Debug.LogWarning("턴이 0입니다. 더 이상 행동할 수 없습니다.");
+            Debug.LogWarning("턴이 0임");
         }
     }
 
@@ -70,5 +72,4 @@ public class GameManager : MonoBehaviour
         return currentTurn > 0;
     }
         
-
 }
