@@ -23,6 +23,8 @@ public class Dialogue_Setting : MonoBehaviour
     private Image Sprite_UI;
     [SerializeField]
     private GameObject LoadingBackground;
+    [SerializeField]
+    private GameObject[] EndingUIObjects;
 
     /*int name_index = 0;
     int contexts_index = 0;
@@ -168,8 +170,39 @@ public class Dialogue_Setting : MonoBehaviour
         else if (sceneName == "DialogueScene" && SceneSettingManager.Instance.isStageAllClear()) // 현재 대화 씬이고 모든 스테이지를 클리어했을 때
         {
             // 현재 모든 스테이지를 클리어했을 때 게임 클리어 UI 켜는 기능이 들어가야 함.
+            StartCoroutine(SetEndingUIObjects());
         }
     }
 
+    IEnumerator SetEndingUIObjects()
+    {
+        float timer = 0f;
+        float duration = 1f;
 
+        foreach (GameObject gameObject in EndingUIObjects)
+        {
+            if (gameObject != null)
+            {
+                if (gameObject.GetComponent<TextMeshProUGUI>() == null && gameObject.GetComponent<Button>())
+                {
+                    gameObject.SetActive(true);
+                    yield break;
+                }
+
+                Color color = gameObject.GetComponent<TextMeshProUGUI>().color;
+
+                while (timer < duration)
+                {
+                    timer += Time.deltaTime;
+                    color.a = Mathf.Clamp01(timer / duration);
+                    gameObject.GetComponent<TextMeshProUGUI>().color = color;
+                    yield return null;
+                }
+
+                timer = 0f;
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
+    }
 }
