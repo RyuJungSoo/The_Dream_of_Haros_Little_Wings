@@ -41,9 +41,8 @@ public class RestLoader : MonoBehaviour
         loadingPanel.SetActive(false);
     }
 
-    /// <summary>
+
     /// 휴식 시작
-    /// </summary>
     public void StartRest()
     {
         Debug.Log("[RestLoader] StartRest 호출됨");
@@ -59,9 +58,7 @@ public class RestLoader : MonoBehaviour
         isLoading = true;
     }
 
-    /// <summary>
     /// 모든 훈련/휴식 텍스트 + 결과 텍스트 끄기
-    /// </summary>
     private void HideAllTexts()
     {
         Stamina_loadingText?.SetActive(false);

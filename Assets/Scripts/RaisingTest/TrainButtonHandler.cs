@@ -3,15 +3,18 @@ using UnityEngine;
 public class TrainButtonHandler : MonoBehaviour
 {
     public StatType statType;
-    public TrainingLoader loader; // Inspector에서 연결할 것
+    public TrainingLoader loader; 
 
-    public void OnClickTrain()
+       public void OnClickTrain()
     {
-        Debug.Log("[TrainButtonHandler] OnClickTrain 호출됨");
-        
+        Debug.Log($"[TrainButtonHandler] {statType} 버튼 클릭됨");
+
+        // SFX 7번 
+        SoundManager.instance.PlaySFX(7, 0f);
+
         if (!GameManager.Instance.IsTurnAvailable())
         {
-            Debug.LogWarning("턴이 부족해서 훈련 불가");
+            Debug.LogWarning("턴이 부족합니다.");
             return;
         }
 
@@ -19,10 +22,11 @@ public class TrainButtonHandler : MonoBehaviour
 
         if (loader == null)
         {
-            Debug.LogError("[TrainButtonHandler] Loader가 연결되어 있지 않습니다!");
+            Debug.LogError("TrainingLoader가 연결되어 있지 않음");
             return;
         }
 
-        loader.StartTraining(statType); // ✅ 싱글턴이 아니므로 Instance 사용 ❌
+        loader.StartTraining(statType);
     }
 }
+

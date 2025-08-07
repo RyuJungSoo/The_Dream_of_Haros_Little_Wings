@@ -80,7 +80,7 @@ public class TrainingLoader : MonoBehaviour
     {
         if (loadingSpriteImage == null)
         {
-            Debug.LogError("[TrainingLoader] loadingSpriteImage가 연결되어 있지 않습니다!");
+            Debug.LogError("[TrainingLoader] loadingSpriteImage가 연결안됨.");
             return;
         }
 
