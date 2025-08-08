@@ -2,60 +2,51 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-[DefaultExecutionOrder(-900)] 
+[DefaultExecutionOrder(-900)]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     [Header("턴 설정")]
     public int maxTurn = 12;
-    public int CurrentTurn { get; private set; } // 외부 읽기만
+    public int CurrentTurn { get; private set; }
 
-    private bool transitioned = false;   // 중복 전환 방지
-    //private bool initialized  = false;   // 첫 초기화 여부
-
+    private bool transitioned = false;
     private const string TURN_KEY = "gm_current_turn";
 
     private void Awake()
     {
-        if (Instance == null) { Instance = this; DontDestroyOnLoad(gameObject); }
-        else { Destroy(gameObject); return; }
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this) {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            Instance = null; // 도메인 리로드 옵션 꺼짐 대비
+        }
+    }
+
     private void Start()
     {
-        // 게임 전체에서 단 1회만 기본 초기화
-       /* if (!initialized)
-        {
-            InitGameFirstBoot();
-            initialized = true;
-        }
+        if (PlayerPrefs.HasKey(TURN_KEY))
+            CurrentTurn = Mathf.Clamp(PlayerPrefs.GetInt(TURN_KEY), 0, maxTurn);
         else
-        {
-            // 재진입 시 UI만 동기화
-            SyncUI();
-        }
-*/
-        // 게임 시작 시 스탯과 체력, 턴 초기화 --> 스탯저장 파일 있을시 제거 / 지금은 아직 구현 안해서 놨두기
-        if (StatManager.Instance != null)
-        {
-            StatManager.Instance.Stamina_Stat = 0;
-            StatManager.Instance.Flightpower_Stat = 0;
-            StatManager.Instance.Balance_Stat = 0;
-            StatManager.Instance.Agility_Stat = 0;
+            CurrentTurn = maxTurn;
 
-            StatManager.Instance.maxStamina = StatManager.Instance.GetStaminaMax();
-            StatManager.Instance.currentStamina = StatManager.Instance.maxStamina;
-            StatManager.Instance.currentStamina = StatManager.Instance.maxStamina;
-            StatManager.Instance.SaveStatsToJson();
-        }
-
-        CurrentTurn = maxTurn;
         SaveTurn();
         SyncUI();
-        //사운드 관련 
+
         if (SoundManager.instance != null)
             SoundManager.instance.PlayBGM(3, false);
     }
@@ -66,30 +57,19 @@ public class GameManager : MonoBehaviour
         {
             if (Time.timeScale == 0f) Time.timeScale = 1f;
 
-            // 스탯 로드 먼저
-           StatManager.Instance?.LoadStatsFromJson(true);
+            SaveManager.Instance?.LoadGame();
+            StatManager.Instance?.LoadStatsFromJson(false);
 
-            // 턴 리필 등 상태 변경
-            ResetTurnsToMax(syncUI: false);
             transitioned = false;
-
-            // UI는 한 프레임 뒤에
             StartCoroutine(DeferredSyncUI());
         }
-
     }
+
     private IEnumerator DeferredSyncUI()
     {
-        yield return null; // 1프레임 대기(StatManager Start/OnSceneLoaded 실행 보장)
-        SyncUI();          // 여기서 UpdateTurnText/UpdateStatUI
-    }
-    // 초기화 및 저장 
-    private void InitGameFirstBoot()
-    {
-        // 첫 게임 시작시 시엔 턴을 풀로 시작 
-        SaveTurn();
+        yield return null;
+        StatManager.Instance?.GenerateExpectedStatIncreases();
         SyncUI();
-        Debug.Log($"[GM] FirstBoot Init - Turns={CurrentTurn}");
     }
 
     private void SaveTurn()
@@ -100,12 +80,19 @@ public class GameManager : MonoBehaviour
 
     private void SyncUI()
     {
-        StatManager.Instance?.GenerateExpectedStatIncreases();
         UIManager.Instance?.UpdateTurnText(CurrentTurn);
         UIManager.Instance?.UpdateStatUI();
     }
 
-   
+    public int GetCurrentTurn() => CurrentTurn;
+
+    public void SetCurrentTurn(int value, bool syncUI = true)
+    {
+        CurrentTurn = Mathf.Clamp(value, 0, maxTurn);
+        SaveTurn();
+        if (syncUI) SyncUI();
+    }
+
     public bool IsTurnAvailable() => CurrentTurn > 0;
 
     public void UseTurn()
@@ -116,8 +103,7 @@ public class GameManager : MonoBehaviour
             SaveTurn();
 
             StatManager.Instance?.GenerateExpectedStatIncreases();
-            UIManager.Instance?.UpdateTurnText(CurrentTurn);
-            UIManager.Instance?.UpdateStatUI();
+            SyncUI();
 
             if (CurrentTurn == 0)
                 HandleTurnsDepleted();
@@ -129,7 +115,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // 턴 모두 소진 시
     private void HandleTurnsDepleted()
     {
         if (transitioned) return;
@@ -139,18 +124,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(WaitAndRouteNextStage());
     }
 
-    private void SaveCurrentStats()
-    {
-      /*  var abs = new AbsoluteStats
-        {
-            Stamina     = StatManager.Instance.Stamina_Stat,
-            FlightPower = StatManager.Instance.Flightpower_Stat,
-            Balance     = StatManager.Instance.Balance_Stat,
-            Agility     = StatManager.Instance.Agility_Stat
-        };
-        //StatsStore.Save(abs, "턴 0, 자동 저장");
-        Debug.Log("[GameManager] 스탯 저장 완료");*/
-    }
     private IEnumerator WaitAndRouteNextStage()
     {
         for (int i = 0; i < 10; i++)
@@ -159,7 +132,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        var ssm = SceneSettingManager.Instance ?? Object.FindObjectOfType<SceneSettingManager>();
+        var ssm = SceneSettingManager.Instance ?? FindObjectOfType<SceneSettingManager>();
         if (ssm == null)
         {
             Debug.LogWarning("[GameManager] SSM 없음 → Stage1 폴백");
@@ -167,17 +140,24 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
-        if (!ssm.isStage1_Clear)        ssm.ChangeScene("Stage1");
-        else if (!ssm.isStage2_Clear)    ssm.ChangeScene("Stage2");
-        else                             Debug.Log("[GameManager] 모든 스테이지 클리어 상태");
+        if (!ssm.isStage1_Clear)       ssm.ChangeScene("Stage1");
+        else if (!ssm.isStage2_Clear)  ssm.ChangeScene("Stage2");
+        else                            Debug.Log("[GameManager] 모든 스테이지 클리어 상태");
     }
 
-    // 턴을 max로 리필 (저장/선택적 UI 동기화)
     public void ResetTurnsToMax(bool syncUI = true)
     {
-        CurrentTurn = maxTurn;
-        SaveTurn();
-        if (syncUI) SyncUI();
+        SetCurrentTurn(maxTurn, syncUI);
         Debug.Log($"[GM] Turns refilled to {CurrentTurn}");
+    }
+
+    private void SaveCurrentStats()
+    {
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.SaveGame("턴 소진 자동 저장");
+            return;
+        }
+        StatManager.Instance?.SaveStatsToJson();
     }
 }

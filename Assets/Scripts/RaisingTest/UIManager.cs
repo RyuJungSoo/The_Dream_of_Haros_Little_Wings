@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -27,25 +26,33 @@ public class UIManager : MonoBehaviour
 
     [Header("턴")]
     public TextMeshProUGUI turnText;
+
     [Header("하로 체력")]
     public Image staminaBarFiller;
 
     [Header("하로 대사")]
-    public TextMeshProUGUI dialogueText; // 하로 대사 출력용 텍스트 
+    public TextMeshProUGUI dialogueText;
 
     [Header("훈련중 로딩 바")]
     public TrainingLoader loader; // Inspector에 연결
 
+    [Header("예상 증가량 UI")]
+    public TextMeshProUGUI mainIncreaseText; // "+3" 이런거
+    public TextMeshProUGUI subIncreaseText;  // "+1" 이런거
+
+    // 체력바 컨트롤러
+    public StaminaBarController staminaBarController;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        else { Destroy(gameObject); return; }
     }
-
 
     public void UpdateStatUI()
     {
+        if (StatManager.Instance == null) return;
+
         staminaValueText.text = $"{StatManager.Instance.Stamina_Stat} / 180";
         flightpowerValueText.text = $"{StatManager.Instance.Flightpower_Stat} / 180";
         balanceValueText.text = $"{StatManager.Instance.Balance_Stat} / 180";
@@ -56,19 +63,13 @@ public class UIManager : MonoBehaviour
         balanceGradeText.text = $"균형감: {StatManager.Instance.GetBalanceGrade()}";
         agilityGradeText.text = $"민첩성: {StatManager.Instance.GetAgilityGrade()}";
 
-
-        UpdateStaminaBar(); // 체력 게이지 바 업데이트
-
-
+        UpdateStaminaBar(); // 체력 게이지
     }
-
 
     public void UpdateTurnText(int turn)
     {
-        turnText.text = $"{turn} 턴";
+        if (turnText != null) turnText.text = $"{turn} 턴";
     }
-
-
 
     public void ShowChosenCheck(GameObject chosen)
     {
@@ -78,43 +79,68 @@ public class UIManager : MonoBehaviour
 
     public void HideAllChosenChecks()
     {
-        chosenCheckStamina.SetActive(false);
-        chosenCheckFlight.SetActive(false);
-        chosenCheckBalance.SetActive(false);
-        chosenCheckAgility.SetActive(false);
+        if (chosenCheckStamina) chosenCheckStamina.SetActive(false);
+        if (chosenCheckFlight) chosenCheckFlight.SetActive(false);
+        if (chosenCheckBalance) chosenCheckBalance.SetActive(false);
+        if (chosenCheckAgility) chosenCheckAgility.SetActive(false);
     }
-
-    //체력바가 시각적으로 너무 닳아서 따로 조정 -> StaminaBarController.cs
-    public StaminaBarController staminaBarController;
 
     public void UpdateStaminaBar()
     {
-        staminaBarController.UpdateBar(StatManager.Instance.currentStamina, StatManager.Instance.maxStamina);
+        if (staminaBarController != null && StatManager.Instance != null)
+            staminaBarController.UpdateBar(StatManager.Instance.currentStamina, StatManager.Instance.maxStamina);
     }
 
+    // ========= 클릭 =========
+    public void OnClickTrainStamina() { loader.StartTraining(StatType.Stamina_Stat); }
+    public void OnClickTrainFlightPower() { loader.StartTraining(StatType.Flightpower_Stat); }
+    public void OnClickTrainBalance() { loader.StartTraining(StatType.Balance_Stat); }
+    public void OnClickTrainAgility() { loader.StartTraining(StatType.Agility_Stat); }
 
-
-
-    public void OnClickTrainStamina()
+    // ========= 마우스 오버(예상값 표시) =========
+    public void OnHoverStamina()
     {
-        loader.StartTraining(StatType.Stamina_Stat);
+        ShowChosenCheck(chosenCheckStamina);
+        ShowExpected(StatType.Stamina_Stat);
     }
 
-    public void OnClickTrainFlightPower()
+    public void OnHoverFlightpower()
     {
-        loader.StartTraining(StatType.Flightpower_Stat);
+        ShowChosenCheck(chosenCheckFlight);
+        ShowExpected(StatType.Flightpower_Stat);
     }
 
-    public void OnClickTrainBalance()
+    public void OnHoverBalance()
     {
-        loader.StartTraining(StatType.Flightpower_Stat);
+        ShowChosenCheck(chosenCheckBalance);
+        ShowExpected(StatType.Balance_Stat);
+    }
+
+    public void OnHoverAgility()
+    {
+        ShowChosenCheck(chosenCheckAgility);
+        ShowExpected(StatType.Agility_Stat);
+    }
+
+    public void OnHoverExit()
+    {
+        HideAllChosenChecks();
+        if (mainIncreaseText) mainIncreaseText.text = "";
+        if (subIncreaseText) subIncreaseText.text = "";
+    }
+
+    // 예상값 표시 공통 처리
+    private void ShowExpected(StatType type)
+    {
+        var sm = StatManager.Instance;
+        if (sm == null) return;
+
+        // 여기서 절대 랜덤을 굴리지 않음. StatManager의 고정값만 조회.
+        sm.PeekExpectedIncrease(type, out int main, out int sub);
+
+        if (mainIncreaseText) mainIncreaseText.text = $"+{main}";
+        if (subIncreaseText) subIncreaseText.text = $"+{sub}";
     }
     
-      public void OnClickTrainAgility()
-    {
-        loader.StartTraining(StatType.Flightpower_Stat);
-    }
-
-
-
+    
 }
