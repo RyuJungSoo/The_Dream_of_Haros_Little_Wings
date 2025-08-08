@@ -22,22 +22,40 @@ public class RestButtonHandler : MonoBehaviour
 
     private void OnRestClick()
     {
-        if (GameManager.Instance != null && GameManager.Instance.IsTurnAvailable())
+        // 가드: 매니저/턴 체크
+        if (GameManager.Instance == null || !GameManager.Instance.IsTurnAvailable())
+            return;
+        if (StatManager.Instance == null)
         {
-            // 체력 회복 처리
-            StatManager.Instance.currentStamina += recoveryAmount;
-            if (StatManager.Instance.currentStamina > StatManager.Instance.maxStamina)
-                StatManager.Instance.currentStamina = StatManager.Instance.maxStamina;
-
-            //로딩 실행
-            if (restLoader != null)
-                restLoader.StartRest();
-
-            // 턴 소모 및 UI 갱신 요청
-            GameManager.Instance.UseTurn();
-            UIManager.Instance.UpdateStatUI();
-            UIManager.Instance.HideAllChosenChecks();
+            Debug.LogError("StatManager.Instance가 null입니다.");
+            return;
         }
+        if (restLoader == null)
+        {
+            Debug.LogError("RestLoader 미연결");
+            return;
+        }
+
+        // 체력 회복 
+        StatManager.Instance.currentStamina = Mathf.Min(
+            StatManager.Instance.currentStamina + recoveryAmount,
+            StatManager.Instance.maxStamina
+        );
+
+        // 로더 활성 보장: 비활성 GO/컴포넌트면 Update가 안 돌므로 먼저 켜기
+        if (!restLoader.gameObject.activeInHierarchy)
+            restLoader.gameObject.SetActive(true);
+        if (!restLoader.enabled)
+            restLoader.enabled = true;
+
+        // 로딩/휴식 시작 (같은 클릭에서 바로 실행)
+        restLoader.StartRest();
+
+        // 턴 소모 및 UI 갱신
+        GameManager.Instance.UseTurn();
+        UIManager.Instance.UpdateStatUI();
+        UIManager.Instance.HideAllChosenChecks();
     }
+
 
 }

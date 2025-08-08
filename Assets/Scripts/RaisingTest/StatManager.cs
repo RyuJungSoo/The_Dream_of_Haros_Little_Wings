@@ -1,5 +1,8 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.IO;
+using System;
 
 public enum StatType
 {
@@ -9,6 +12,17 @@ public enum StatType
     Agility_Stat
 }
 
+[System.Serializable]
+public class StatPersistData
+{
+    public int Stamina_Stat;
+    public int Flightpower_Stat;
+    public int Balance_Stat;
+    public int Agility_Stat;
+    public float currentStamina;
+}
+
+[DefaultExecutionOrder(-1000)]
 public class StatManager : MonoBehaviour
 {
     public static StatManager Instance;
@@ -29,25 +43,123 @@ public class StatManager : MonoBehaviour
     [Header("주/보조 스탯 저장 변수")]
     private int expectedMainValue;
     private int expectedSubValue;
+    private bool hasPendingExpected; // 이번 시도/턴의 예상값이 고정되어 있는지
+
+    // 저장 경로 + UI 갱신 이벤트(선택)
+    private string statSavePath;
+    public event Action OnStatsChanged;
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        // 싱글톤 고정 + 씬 유지
+        if (Instance == null) { Instance = this; DontDestroyOnLoad(gameObject); }
+        else { Destroy(gameObject); return; }
+
+        statSavePath = Path.Combine(Application.persistentDataPath, "stat_data.json");
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
     {
-        if (statData != null)
-        {
-            maxStamina = Mathf.Max(100f, GetStaminaMax());
-            currentStamina = maxStamina;
-        }
-        else
+        if (statData == null)
         {
             Debug.LogError("[StatManager] statData가 할당되지 않았습니다!");
+            LoadStatsFromJson(invokeEvent: true);
+            return;
+        }
+
+        // 시작 시 1회 로드 -> 없으면 기본값으로 파일 생성
+        LoadStatsFromJson(invokeEvent: false);
+
+        // 파생값 보정
+        maxStamina = Mathf.Max(100f, GetStaminaMax());
+        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+
+        OnStatsChanged?.Invoke();
+
+        RefillStamina(save: true, invokeEvent: false);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 육성 씬으로 돌아오면 다시 로드해서 UI 싱크
+        if (scene.name == "Raising_Stage") // ← 프로젝트 씬 이름에 맞게 수정
+        {
+            LoadStatsFromJson(invokeEvent: true);
+            // 씬 들어올 때 이전 턴의 예상값이 남아있지 않도록 정리
+            ClearExpected();
         }
     }
+
+    // ===== JSON 저장/로드 =====
+    public void SaveStatsToJson()
+    {
+        try
+        {
+            var data = new StatPersistData
+            {
+                Stamina_Stat = Stamina_Stat,
+                Flightpower_Stat = Flightpower_Stat,
+                Balance_Stat = Balance_Stat,
+                Agility_Stat = Agility_Stat,
+                currentStamina = currentStamina
+            };
+
+            string json = JsonUtility.ToJson(data, true);
+            File.WriteAllText(statSavePath, json);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[StatManager] 저장 실패: {e.Message}");
+        }
+    }
+
+    public void LoadStatsFromJson(bool invokeEvent = true)
+    {
+        try
+        {
+            Debug.Log($"[StatManager] 로드 시도: {statSavePath}, Exists={File.Exists(statSavePath)}");
+
+            if (!File.Exists(statSavePath))
+            {
+                // 기본값으로 초기화만 하고 저장은 하지 않음 (덮어쓰기 방지)
+                Debug.LogWarning("[StatManager] 저장 파일 없음. 메모리값 유지(기본값)로 진행");
+                // 여기서 SaveStatsToJson() 호출하지 않음
+            }
+            else
+            {
+                string json = File.ReadAllText(statSavePath);
+                var data = JsonUtility.FromJson<StatPersistData>(json);
+
+                Stamina_Stat = data.Stamina_Stat;
+                Flightpower_Stat = data.Flightpower_Stat;
+                Balance_Stat = data.Balance_Stat;
+                Agility_Stat = data.Agility_Stat;
+                currentStamina = data.currentStamina;
+            }
+
+            maxStamina = Mathf.Max(100f, GetStaminaMax());
+            currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+
+            if (invokeEvent) OnStatsChanged?.Invoke();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[StatManager] 로드 실패: {e.Message}");
+        }
+    }
+
+    public void RefillStamina(bool save = true, bool invokeEvent = true)
+    {
+        // statData가 null일 수도 있으니 보정
+        float calcMax = (statData != null) ? GetStaminaMax() : 100f;
+        maxStamina = Mathf.Max(100f, calcMax);
+        currentStamina = maxStamina;
+
+        if (save) SaveStatsToJson();
+        if (invokeEvent) OnStatsChanged?.Invoke();
+    }
+
 
     public void ResetStats()
     {
@@ -55,25 +167,47 @@ public class StatManager : MonoBehaviour
         Flightpower_Stat = 0;
         Balance_Stat = 0;
         Agility_Stat = 0;
+
+        maxStamina = Mathf.Max(100f, GetStaminaMax());
+        currentStamina = maxStamina;
+
+        SaveStatsToJson();
+        OnStatsChanged?.Invoke();
     }
 
+    // 예상값 재굴림 금지: 없을 때만 생성해서 고정
     public void GenerateExpectedStatIncreases()
     {
-        expectedMainValue = Random.Range(3, 6);
-        int candidate = Random.Range(0, 4);
-        bool hasZero = Stamina_Stat == 0 || Flightpower_Stat == 0 || Balance_Stat == 0 || Agility_Stat == 0;
+        EnsureExpectedReady(StatType.Stamina_Stat);
+    }
 
-        if (hasZero && candidate <= 0)
-            candidate = Random.Range(1, 4);
+    // 이번 시도에서 사용할 예상값을 1회만 생성
+    public void EnsureExpectedReady(StatType type)
+    {
+        if (hasPendingExpected) return;
+
+        expectedMainValue = UnityEngine.Random.Range(3, 6);  // [3,5]
+        int candidate = UnityEngine.Random.Range(0, 4);
+        bool hasZero = Stamina_Stat == 0 || Flightpower_Stat == 0 || Balance_Stat == 0 || Agility_Stat == 0;
+        if (hasZero && candidate <= 0) candidate = UnityEngine.Random.Range(1, 4); // 1~3 보장
 
         expectedSubValue = candidate;
+        hasPendingExpected = true;
+    }
+
+    // 이번 시도 종료 후 예상값 폐기
+    public void ClearExpected()
+    {
+        expectedMainValue = 0;
+        expectedSubValue = 0;
+        hasPendingExpected = false;
     }
 
     private bool IsTrainingSuccessful()
     {
         float rate = currentStamina / maxStamina;
         float failChance = Mathf.Lerp(0f, 30f, 1f - rate);
-        int roll = Random.Range(0, 100);
+        int roll = UnityEngine.Random.Range(0, 100);
 
         Debug.Log($"[훈련 판정] 체력비율: {rate:F2}, 실패율: {failChance:F1}%, 랜덤: {roll}");
         return roll >= failChance;
@@ -89,7 +223,7 @@ public class StatManager : MonoBehaviour
     public bool TryTrainingDeterministic(out bool isSuccess)
     {
         int failRate = GetFailureRateByStamina();
-        int roll = Random.Range(0, 100);
+        int roll = UnityEngine.Random.Range(0, 100);
         isSuccess = roll >= failRate;
 
         Debug.Log($"[훈련 판정] 체력: {currentStamina}, 실패율: {failRate}%, 랜덤값: {roll}, 결과: {(isSuccess ? "성공" : "실패")}");
@@ -110,6 +244,9 @@ public class StatManager : MonoBehaviour
 
     public void IncreaseStat(StatType type)
     {
+        // 이번 시도에서 사용할 예상값을 고정(이미 있으면 그대로 사용)
+        EnsureExpectedReady(type);
+
         float staminaCost = GetStaminaCost(type);
         bool isSuccess = IsTrainingSuccessful();
 
@@ -126,6 +263,7 @@ public class StatManager : MonoBehaviour
                     Stamina_Stat += main;
                     if (sub > 0) Flightpower_Stat = Mathf.Max(0, Flightpower_Stat + sub);
                     break;
+
                 case StatType.Flightpower_Stat:
                     Flightpower_Stat += main;
                     if (sub > 0)
@@ -134,28 +272,44 @@ public class StatManager : MonoBehaviour
                         Agility_Stat = Mathf.Max(0, Agility_Stat + sub);
                     }
                     break;
+
                 case StatType.Balance_Stat:
                     Balance_Stat += main;
                     if (sub > 0) Flightpower_Stat = Mathf.Max(0, Flightpower_Stat + sub);
                     break;
+
                 case StatType.Agility_Stat:
                     Agility_Stat += main;
                     if (sub > 0) Balance_Stat = Mathf.Max(0, Balance_Stat + sub);
                     break;
             }
+
+            // 성공 시 파생값 갱신
+            maxStamina = Mathf.Max(100f, GetStaminaMax());
         }
         else
         {
             Debug.LogWarning("[StatManager] 훈련 실패로 스탯 증가 없음!");
         }
 
+        // 체력 소모는 성공/실패 공통
         DecreaseStamina(staminaCost);
+
+        // 다음 시도를 위해 예상값 폐기
+        ClearExpected();
+
+        // 저장 + UI 갱신
+        SaveStatsToJson();
+        OnStatsChanged?.Invoke();
     }
 
     public void DecreaseStamina(float amount)
     {
         currentStamina -= amount;
         if (currentStamina < 0) currentStamina = 0;
+
+        SaveStatsToJson();
+        OnStatsChanged?.Invoke();
     }
 
     // 스태미나 최대값 공식 적용: 20 + (20 + 스탯 * 0.8) × 계수
@@ -209,7 +363,8 @@ public class StatManager : MonoBehaviour
 
     public (string main, string sub) GetMainAndSubStatText(string statName)
     {
-        return ($"+{GetExpectedMainIncrease(statName)}", $"+{GetExpectedSubIncrease(statName)}");
+        // 필요 시 외부에서 EnsureExpectedReady를 먼저 호출하고 이 값을 UI에 바인드
+        return ($"+{expectedMainValue}", $"+{expectedSubValue}");
     }
 
     public bool ShouldTriggerQTE(float dropFactor, float stageFactor)
@@ -217,9 +372,34 @@ public class StatManager : MonoBehaviour
         float baseProbability = GetAgilityPassRate(dropFactor, stageFactor);
         float adjustedProbability = baseProbability * StatManager.Instance.statData.GetQTETriggerFactor() / 100f;
 
-        int roll = Random.Range(0, 100);
+        int roll = UnityEngine.Random.Range(0, 100);
         Debug.Log($"[민첩성 판정] 계산된 확률: {adjustedProbability:F1}%, 롤값: {roll}");
 
         return roll < adjustedProbability;
     }
+    
+        public void ResetStatsAndSaveFullStamina()
+    {
+        // 스탯 초기화
+        Stamina_Stat = 0;
+        Flightpower_Stat = 0;
+        Balance_Stat = 0;
+        Agility_Stat = 0;
+
+        // 최대체력 재계산(최소 100 보정 + statData null 대비)
+        float calcMax = (statData != null) ? GetStaminaMax() : 100f;
+        maxStamina = Mathf.Max(100f, calcMax);
+
+        // 체력 풀로 채움
+        currentStamina = maxStamina;
+
+        // JSON에 기록
+        SaveStatsToJson();
+
+        // UI 갱신 이벤트
+        OnStatsChanged?.Invoke();
+
+        Debug.Log("[StatManager] Reset+FullStamina 저장 완료");
+    }
+
 }

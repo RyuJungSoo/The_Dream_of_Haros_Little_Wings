@@ -21,6 +21,9 @@ public class RestLoader : MonoBehaviour
     public GameObject successText;
     public GameObject failText;
 
+    [Header("로딩 중 결과 텍스트")]
+    public GameObject RestEndText;
+
     [Header("하로 대사 출력용 TMP")]
     public TextMeshProUGUI dialogueText;
 
@@ -45,18 +48,32 @@ public class RestLoader : MonoBehaviour
     /// 휴식 시작
     public void StartRest()
     {
+        // 이 스크립트가 비활성이면 바로 활성화
+        if (!isActiveAndEnabled)
+        {
+            gameObject.SetActive(true);
+            enabled = true;
+            // 활성화된 같은 프레임 내에서도 계속 진행
+        }
+
         Debug.Log("[RestLoader] StartRest 호출됨");
 
-        HideAllTexts();  //모든 텍스트 비활성
+        // 로딩 이미지가 클릭을 가로채지 않도록 차단
+        if (loadingSpriteImage) loadingSpriteImage.raycastTarget = false;
 
-        Rest_loadingText?.SetActive(true); //휴식중 텍스트만 활성
-        loadingPanel.SetActive(true);
+        // 패널이랑 UI 세팅 중간에 리턴 하면 안됨
+        HideAllTexts();                 // 모든 텍스트 비활성
+        Rest_loadingText?.SetActive(true); // 휴식중 텍스트만 활성
+
+        if (!loadingPanel.activeSelf) loadingPanel.SetActive(true);
         progressBarFiller.fillAmount = 0f;
         loadingSpriteImage.sprite = restSprite;
 
+        // 같은 클릭에서 바로 진행되도록 플래그 세팅
         timer = 0f;
         isLoading = true;
     }
+
 
     /// 모든 훈련/휴식 텍스트 + 결과 텍스트 끄기
     private void HideAllTexts()
@@ -68,6 +85,7 @@ public class RestLoader : MonoBehaviour
         Rest_loadingText?.SetActive(false);
         successText?.SetActive(false);
         failText?.SetActive(false);
+        RestEndText?.SetActive(false);
     }
 
     void Update()
@@ -93,7 +111,7 @@ public class RestLoader : MonoBehaviour
 
     IEnumerator ShowRestLog()
     {
-        HideAllTexts(); //로딩 텍스트 끄기
+        HideAllTexts(); // 로딩 텍스트 끄기
 
         float currentStamina = StatManager.Instance.currentStamina;
         float maxStamina = StatManager.Instance.maxStamina;
@@ -104,9 +122,16 @@ public class RestLoader : MonoBehaviour
         string haroDialogue = HpLogManager.instance.GetSingleLog();
         dialogueText.text = haroDialogue;
 
+        // 휴식 완료 텍스트 표시
+        if (RestEndText != null)
+            RestEndText.SetActive(true);
+
         yield return new WaitForSeconds(1.5f);
+
+        // 완료 후 패널 끄기
         loadingPanel.SetActive(false);
     }
+
 
     int GetStaminaLevel(float ratio)
     {
