@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class GameClear : MonoBehaviour
 {
-    [SerializeField]
-    Player player;
+    public Player player;
 
-    [SerializeField]
     public GameObject clear;
 
     [SerializeField]
