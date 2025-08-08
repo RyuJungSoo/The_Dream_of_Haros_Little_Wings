@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SettingUIManager : MonoBehaviour
 {
@@ -7,7 +8,9 @@ public class SettingUIManager : MonoBehaviour
 
     private void Start()
     {
-        // 게임 시작 시 설정창 비활성화
+
+
+     // 게임 시작 시 설정창 비활성화
         if (settingUI != null)
             settingUI.SetActive(false);
     }
@@ -29,17 +32,17 @@ public class SettingUIManager : MonoBehaviour
             settingUI.SetActive(false);
     }
 
-    /// 게임 종료 버튼 기능 (Quit 버튼에 연결)
-    public void QuitGame()
+    // 저장 후 타이틀로 이동하는 버튼
+    public void SaveAndGoToTitle()
     {
-        Debug.Log("게임 종료");
+        // 스탯 저장
+        if (StatManager.Instance != null)
+        {
+            StatManager.Instance.SaveStatsToJson();
+            Debug.Log("[SettingUIManager] 스탯 저장 완료");
+        }
 
-#if UNITY_EDITOR
-        // 에디터 모드에서는 플레이 종료
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        // 빌드 후 실행 시 게임 종료
-        Application.Quit();
-#endif
+        // 씬 이동
+        SceneManager.LoadScene("MainMenu");
     }
 }
