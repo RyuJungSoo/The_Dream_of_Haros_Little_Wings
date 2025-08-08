@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bee
   m_EditorClassIdentifier: 
   prefab: {fileID: 63399239303517523, guid: cd22ba58555fa804bbf58b5dd4433ef7, type: 3}
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 56abfc44110332c499fd795daa142e7c, type: 3}
   obstacle_name: bee
   tag: Obj - 05
   Factor: 0.7

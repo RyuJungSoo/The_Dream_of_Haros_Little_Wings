@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chestnut
   m_EditorClassIdentifier: 
   prefab: {fileID: 63399239303517523, guid: eedf0330db9017c419fa4a8195e2290a, type: 3}
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: d6ca03a21aad5cc44984373f30e57796, type: 3}
   obstacle_name: chestnut
   tag: Obj - 03
   Factor: 0.8

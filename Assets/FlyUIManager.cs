@@ -34,4 +34,8 @@ public class FlyUIManager : MonoBehaviour
     {
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    public void NextStageButtonClick()
+    {
+        SceneSettingManager.Instance.ChangeScene("DialogueScene");
+    }
 }

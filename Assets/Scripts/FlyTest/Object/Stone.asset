@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: 
   prefab: {fileID: 63399239303517523, guid: 9e78cdccf7567c64d8442a11a2fd7661, type: 3}
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 485179fd0202e0641a17303f45c6bef6, type: 3}
   obstacle_name: stone
   tag: Obj - 04
   Factor: 0.5

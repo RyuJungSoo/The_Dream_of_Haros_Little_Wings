@@ -14,9 +14,18 @@ public class GameClear : MonoBehaviour
     [SerializeField]
     StaminaSlider slider;
 
-    public void Gameclear()
+    public void Stage1Clear()
         {
-            clear.SetActive(true);
+        clear.SetActive(true);
+        SceneSettingManager.Instance.SetisStageClear(1,true);
+        player.rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        player.anim.enabled = false;
+        slider.stopStaminaBar = true;
+        }
+    public void Stage2Clear()
+    {
+        clear.SetActive(true);
+        SceneSettingManager.Instance.SetisStageClear(2, true);
         player.rb.constraints = RigidbodyConstraints2D.FreezeAll;
         player.anim.enabled = false;
         slider.stopStaminaBar = true;
