@@ -18,18 +18,28 @@ public class Player : MonoBehaviour
     public WallData wallData;
     public CollideItem item;
 
+    public static Player Instance;
+
     public bool onCollide = false;
     public bool isInvincible = false;
     public bool onShield = false;
 
-    public float stageFactor = 5f;
+    public float stageFactor = 1f;
 
 
     private string currentTrigger = "";
 
     public void Awake()
-    {   
-        DontDestroyOnLoad(this);
+    {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
@@ -52,22 +62,24 @@ public class Player : MonoBehaviour
     public void FlyAnimation()
     {
         float vy = rb.velocity.y;
-        string newTrigger = "";
+        string newTrigger = null;
 
         if (vy >= 1f)
             newTrigger = "UpUp";
         else if (vy >= 0.5f)
             newTrigger = "Up";
-        else if (vy < -8f)
+        else if (vy <= -8f)
             newTrigger = "DownDown";
-        else if (vy < -2f)
+        else if (vy <= -2f)
             newTrigger = "Down";
         else if (vy >= -2f && vy <= -0.5f)
             newTrigger = "Fly";
 
-        if (!string.IsNullOrEmpty(newTrigger) && currentTrigger != newTrigger)
+        if (newTrigger != null && currentTrigger != newTrigger)
         {
-            anim.ResetTrigger(currentTrigger);
+            if (!string.IsNullOrEmpty(currentTrigger))
+                anim.ResetTrigger(currentTrigger);
+
             anim.SetTrigger(newTrigger);
             currentTrigger = newTrigger;
         }
@@ -132,6 +144,7 @@ public class Player : MonoBehaviour
 
     public void Hit(int damage)
     {
+        anim.SetTrigger("Hit");
         onShield = false;
         slider.stamina -= damage;
         Debug.Log($"플레이어가 {damage} 만큼의 대미지를 입었습니다.");

@@ -32,7 +32,7 @@ public class FlyUIManager : MonoBehaviour
     }
     public void RetryStageButtonClick()
     {
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void NextStageButtonClick()
     {
