@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+public enum PortalName
+{
+    Stage1Clear,
+    Stage2Clear
+}
 public class Portal : MonoBehaviour
 {
     [SerializeField]
     CapsuleCollider2D col;
 
     public GameClear gameclear;
+    public PortalName portalState;
 
     void Start()
     {
@@ -20,7 +26,14 @@ public class Portal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            gameclear.Gameclear();
+            if (portalState == PortalName.Stage1Clear)
+            {
+                gameclear.Stage1Clear(); 
+            }
+            else if (portalState == PortalName.Stage2Clear)
+            {
+                gameclear.Stage2Clear();
+            }
         }
     }
 }

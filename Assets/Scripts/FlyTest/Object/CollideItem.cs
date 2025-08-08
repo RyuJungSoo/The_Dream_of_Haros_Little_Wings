@@ -4,7 +4,7 @@ using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum Name
+public enum ItemName
     {
         Wind,
         Bell,
@@ -20,15 +20,15 @@ public class CollideItem : MonoBehaviour
     public StaminaSlider slider;
     public Player player;
 
-    public Name state;
+    public ItemName itemState;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log($"플레이어가 {state}을 획득했습니다.");
+            Debug.Log($"플레이어가 {itemState}을 획득했습니다.");
 
-            if (state == Name.acorn)
+            if (itemState == ItemName.acorn)
             {
                 if(slider.stamina >= slider.fullStamina * 0.75)
                 {
@@ -40,13 +40,13 @@ public class CollideItem : MonoBehaviour
                 }
                 gameObject.SetActive(false);
             }
-            if (state == Name.Bell)
+            if (itemState == ItemName.Bell)
             {
                 player.onShield = true;
                 player.isInvincible = true;
                 gameObject.SetActive(false);
             }
-            if (state==Name.Wind)
+            if (itemState == ItemName.Wind)
             {
                 sr.enabled = false;
                 StartCoroutine(Wind());

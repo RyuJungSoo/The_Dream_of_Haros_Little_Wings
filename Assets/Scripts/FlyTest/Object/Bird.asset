@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bird
   m_EditorClassIdentifier: 
   prefab: {fileID: 63399239303517523, guid: 7513bd784bef5584bb037ca6f2a81103, type: 3}
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 6590970f8dc76f94cb146694c1f7efc7, type: 3}
   obstacle_name: bird
   tag: Obj - 06
   Factor: 0.4

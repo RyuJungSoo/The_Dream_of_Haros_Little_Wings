@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   prefab: {fileID: 63399239303517523, guid: 78ecade3013b8d94d8f97ace2f8f5e06, type: 3}
-  image: {fileID: 21300000, guid: 146d2c13c16656340ba13cc18d851635, type: 3}
+  image: {fileID: 21300000, guid: 136bab984e1cfcb43b577661842641cd, type: 3}
   obstacle_name: apple
   tag: Obj - 02
   Factor: 0.9

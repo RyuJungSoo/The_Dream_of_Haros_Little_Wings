@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stick
   m_EditorClassIdentifier: 
   prefab: {fileID: 63399239303517523, guid: 36ac87580c1c4f74b9449aa61c60b457, type: 3}
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 8dcf9315b839015459c9805b78d84b35, type: 3}
   obstacle_name: stick
   tag: Obj - 01
   Factor: 1
