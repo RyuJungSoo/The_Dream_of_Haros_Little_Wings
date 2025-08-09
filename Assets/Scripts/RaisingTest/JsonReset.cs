@@ -3,6 +3,24 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
+public static class DevResetSceneData
+{
+    [MenuItem("Tools/Save/JSON Reset (SceneData)")]
+    private static void ResetAll()
+    {
+        var SceneDataPath = Path.Combine(Application.persistentDataPath, "SceneData.json");
+        if (File.Exists(SceneDataPath))
+        {
+            File.Delete(SceneDataPath);
+            Debug.Log($"[Reset] Deleted : {SceneDataPath}");
+        }
+        else
+        {
+            Debug.Log("[Reset] SceneData.json 없음");
+        }
+    }
+}
+
 public static class DevResetMenu
 {
     // 프로젝트 기본 턴수(게임 매니저 인스턴스 없을 때 폴백)
