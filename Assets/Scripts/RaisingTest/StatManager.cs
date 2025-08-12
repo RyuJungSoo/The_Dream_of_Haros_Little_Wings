@@ -339,9 +339,11 @@ public class StatManager : MonoBehaviour
 
     public float GetStaminaDrainSpeed()
     {
-        float factor = 0.2f + 0.5f * (1f - Balance_Stat / 180f);
-        return (statData.GetBasicStaminaDecreaseSpeed() + statData.GetBasicFlightStaminaDecreaseSpeed()) * factor * statData.staminaDrainMultiplier;
+        float baseDecrease = 10f; // 하로 기본 스태미나 감소 속도(고정)
+        float factor = 0.2f + (1f - Balance_Stat / 180f); // 균형감 반영
+        return baseDecrease * factor * statData.staminaDrainMultiplier; // 상승 시엔 호출부에서 ×2.5
     }
+
 
     public float GetAgilityPassRate(float dropFactor, float stageFactor)
     {
