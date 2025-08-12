@@ -8,9 +8,7 @@ public class SettingUIManager : MonoBehaviour
 
     private void Start()
     {
-
-
-     // 게임 시작 시 설정창 비활성화
+        // 게임 시작 시 설정창 비활성화
         if (settingUI != null)
             settingUI.SetActive(false);
     }
@@ -45,4 +43,5 @@ public class SettingUIManager : MonoBehaviour
         // 씬 이동
         SceneManager.LoadScene("MainMenu");
     }
+
 }

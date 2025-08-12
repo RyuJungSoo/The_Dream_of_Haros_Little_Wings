@@ -344,6 +344,7 @@ GameObject:
   - component: {fileID: 51299216}
   - component: {fileID: 51299217}
   - component: {fileID: 51299219}
+  - component: {fileID: 51299220}
   m_Layer: 0
   m_Name: StatManager
   m_TagString: Untagged
@@ -429,6 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxTurn: 12
+  stageChangeAlarm: {fileID: 0}
 --- !u!114 &51299219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,6 +444,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Logs: []
+--- !u!114 &51299220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51299212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ac97930c520f74caac9a0c1c354525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 516173743}
+  messageText: {fileID: 666384756}
+  nextButton: {fileID: 1304609302}
+  defaultMessage: "\uD134\uC774 0\uC785\uB2C8\uB2E4.\n\uBE44\uD589 \uC2A4\uD14C\uC774\uC9C0\uB85C
+    \uC774\uB3D9\uD560\uAE4C\uC694?"
 --- !u!1 &67227757
 GameObject:
   m_ObjectHideFlags: 0
@@ -10254,7 +10273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingPanel: {fileID: 1539416248}
   progressBarFiller: {fileID: 98888430}
-  loadingTime: 4
+  loadingTime: 1
   Stamina_loadingText: {fileID: 1270429969}
   FlightPower_loadingText: {fileID: 87412163}
   Balance_loadingText: {fileID: 388171363}
