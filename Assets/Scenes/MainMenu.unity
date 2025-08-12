@@ -4836,6 +4836,7 @@ GameObject:
   - component: {fileID: 1543631859}
   - component: {fileID: 1543631861}
   - component: {fileID: 1543631860}
+  - component: {fileID: 1543631862}
   m_Layer: 5
   m_Name: Reset_UI
   m_TagString: Untagged
@@ -4903,6 +4904,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1543631858}
   m_CullTransparentMesh: 1
+--- !u!114 &1543631862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543631858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71777d240eb20a4c9c68419b620ea3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelRoot: {fileID: 1543631858}
+  resetButton: {fileID: 1182407903}
+  rejectButton: {fileID: 906602027}
 --- !u!1 &1580951428
 GameObject:
   m_ObjectHideFlags: 0
