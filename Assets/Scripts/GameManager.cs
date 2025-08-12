@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     private bool transitioned = false;
     private const string TURN_KEY = "gm_current_turn";
 
+    [SerializeField] private StageChangeAlarm stageChangeAlarm;
+    private bool nextStagePromptShown = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -31,7 +34,8 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (Instance == this) {
+        if (Instance == this)
+        {
             SceneManager.sceneLoaded -= OnSceneLoaded;
             Instance = null; // 도메인 리로드 옵션 꺼짐 대비
         }
@@ -121,29 +125,12 @@ public class GameManager : MonoBehaviour
         transitioned = true;
 
         SaveCurrentStats();
-        StartCoroutine(WaitAndRouteNextStage());
+        // 팝업 띄우기 (Next 누르면 StageChangeAlarm에서 라우팅)
+        ShowNextStagePromptOnce();
+
     }
 
-    private IEnumerator WaitAndRouteNextStage()
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            if (SceneSettingManager.Instance != null) break;
-            yield return null;
-        }
 
-        var ssm = SceneSettingManager.Instance ?? FindObjectOfType<SceneSettingManager>();
-        if (ssm == null)
-        {
-            Debug.LogWarning("[GameManager] SSM 없음 → Stage1 폴백");
-            SceneManager.LoadScene("Stage1");
-            yield break;
-        }
-
-        if (!ssm.isStage1_Clear)       ssm.ChangeScene("Stage1");
-        else if (!ssm.isStage2_Clear)  ssm.ChangeScene("Stage2");
-        else                            Debug.Log("[GameManager] 모든 스테이지 클리어 상태");
-    }
 
     public void ResetTurnsToMax(bool syncUI = true)
     {
@@ -160,4 +147,27 @@ public class GameManager : MonoBehaviour
         }
         StatManager.Instance?.SaveStatsToJson();
     }
+    // 턴수 0일때 다음 스테이지로 넘어갈 팝업창 함수 
+        private void ShowNextStagePromptOnce()
+    {
+        if (nextStagePromptShown) return;
+        nextStagePromptShown = true;
+
+        // 싱글턴 우선
+        if (StageChangeAlarm.Instance != null)
+        {
+            StageChangeAlarm.Instance.PromptAndRoute();
+            return;
+        }
+
+        // 인스펙터 참조(없으면 에러 로그)
+        if (stageChangeAlarm != null)
+        {
+            stageChangeAlarm.PromptAndRoute();
+            return;
+        }
+
+        Debug.LogError("[GM] StageChangeAlarm 인스턴스를 찾지 못했습니다. 씬에 배치하고 panel/Text/Button을 연결하세요.");
+    }
+
 }
