@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class FlyUIManager : MonoBehaviour
 {
@@ -16,8 +17,21 @@ public class FlyUIManager : MonoBehaviour
     [SerializeField]
     GameObject pauseScreen;
 
+    private bool canPause = false;
+
+    void Start()
+    {
+        StartCoroutine(StartTime());
+    }
+    private IEnumerator StartTime()
+    {
+        canPause = false; // 일시정지 잠금
+        yield return new WaitForSecondsRealtime(3f);
+        canPause = true;  // 3초 뒤부터 가능
+    }
     public void PauseButtonClick()
     {
+        if (!canPause) return; // 3초 안 됐으면 무시
         pauseScreen.SetActive(true);
         Time.timeScale = 0f;
     }
@@ -28,7 +42,7 @@ public class FlyUIManager : MonoBehaviour
     }
     public void TitlePortalButtonClick()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneSettingManager.Instance.ChangeScene("MainMenu");
     }
     public void RetryStageButtonClick()
     {
@@ -37,5 +51,9 @@ public class FlyUIManager : MonoBehaviour
     public void NextStageButtonClick()
     {
         SceneSettingManager.Instance.ChangeScene("DialogueScene");
+    }
+    public void ReCultivateButtonClick()
+    {
+        SceneSettingManager.Instance.ChangeScene("Raising_Stage");
     }
 }

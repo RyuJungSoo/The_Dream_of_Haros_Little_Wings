@@ -18,6 +18,8 @@ public class QTEManager : MonoBehaviour
     [SerializeField] Sprite arrowLeft;
     [SerializeField] Sprite arrowRight;
 
+    [SerializeField] private Image[] qteImages; // 0~3 인덱스에 QTE 이미지 넣기
+
     private Image[] arrowImages;
 
     private KeyCode[] assignedKeys = new KeyCode[4];
@@ -92,6 +94,7 @@ public class QTEManager : MonoBehaviour
                             {
                                 success = true;
                                 Debug.Log($"[{i + 1}] 입력 성공: {key}");
+                                qteImages[i].enabled = false;
                                 yield return new WaitForSecondsRealtime(0.05f);
                                 break;
                             }

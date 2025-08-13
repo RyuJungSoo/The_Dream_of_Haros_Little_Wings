@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     public Animator anim;
 
+    [SerializeField] SpriteRenderer shieldSprite;
+    [SerializeField] SpriteRenderer windSprite;
+    [SerializeField] PlayerJump playerjump;
+
     public StaminaSlider slider;
     public ObstacleSO obstacleData;
     public WallData wallData;
@@ -31,15 +35,6 @@ public class Player : MonoBehaviour
 
     public void Awake()
     {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
@@ -58,7 +53,30 @@ public class Player : MonoBehaviour
     public void Update()
     {
         FlyAnimation();
+        ItemCheck();
     }
+
+    private void ItemCheck()
+    {
+        if (onShield)
+        {
+            shieldSprite.enabled = true;
+        }
+        else
+        {
+            shieldSprite.enabled = false;
+        }
+
+        if (playerjump.onWind)
+        {
+            windSprite.enabled = true;
+        }
+        else
+        {
+            windSprite.enabled = false;
+        }
+    }
+
     public void FlyAnimation()
     {
         float vy = rb.velocity.y;
@@ -139,6 +157,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         isInvincible = false;
+        onShield = false;
         onCollide = false;
     }
 

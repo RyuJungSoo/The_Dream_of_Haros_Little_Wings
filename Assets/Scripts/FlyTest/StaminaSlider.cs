@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,7 +46,7 @@ public class StaminaSlider : MonoBehaviour
         else if (stamina > 0 && !stopStaminaBar)
         {
             slider.value = stamina / fullStamina;
-            stamina -= data.GetStaminaDrainSpeed() * Time.deltaTime / 20f;
+            stamina -= data.GetStaminaDrainSpeed() * Time.deltaTime / 15f;
             // stamina -= 5 * Time.deltaTime;
         }
     }

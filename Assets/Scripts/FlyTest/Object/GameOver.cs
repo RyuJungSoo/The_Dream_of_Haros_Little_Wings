@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    [SerializeField]
-    TextMeshProUGUI txt;
+    [SerializeField] GameObject gameOverScreen;
 
     [SerializeField]
     Player player;
@@ -17,18 +16,11 @@ public class GameOver : MonoBehaviour
     [SerializeField]
     StaminaSlider slider;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        txt.enabled = false;
-    }
 
     public void Gameover()
     {
-        txt.enabled = true;
-        player.rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        player.anim.enabled = false;
-        slider.stopStaminaBar = true;
+        gameOverScreen.SetActive(true);
         gameover = true;
+        Time.timeScale = 0f;
     }
 }
