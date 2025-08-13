@@ -80,6 +80,11 @@ public class SoundManager : MonoBehaviour
         BGM.Play();
     }
 
+    public void StopBGM()
+    {
+        BGM.Stop();
+    }
+
     public void PlaySFX(int index, float delay) // SFX Àç»ý
     {
         

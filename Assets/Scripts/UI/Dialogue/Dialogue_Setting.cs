@@ -24,6 +24,8 @@ public class Dialogue_Setting : MonoBehaviour
     [SerializeField]
     private GameObject LoadingBackground;
     [SerializeField]
+    private GameObject SkipButton;
+    [SerializeField]
     private GameObject[] EndingUIObjects;
 
     /*int name_index = 0;
@@ -117,6 +119,11 @@ public class Dialogue_Setting : MonoBehaviour
         }
     }
 
+    public void SetEndingUIObjects_Function()
+    {
+        StartCoroutine(SetBackground());
+    }
+
     IEnumerator TypeText(string texttoType)
     {
         foreach (char letter in texttoType)
@@ -147,6 +154,9 @@ public class Dialogue_Setting : MonoBehaviour
     {
         float timer = 0f;
         float duration = 1f;
+
+        if (SkipButton != null)
+            SkipButton.SetActive(false);
 
         if (LoadingBackground != null)
         {
