@@ -54,14 +54,7 @@ public class StatManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) { 
-            Instance = this; 
-        
-        }
-        else { 
-            Destroy(gameObject); 
-            return; 
-        }
+        Instance = this;
 
         statSavePath = Path.Combine(Application.persistentDataPath, "stat_data.json");
 
