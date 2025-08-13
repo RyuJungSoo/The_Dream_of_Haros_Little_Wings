@@ -24,6 +24,8 @@ public class Prologue : MonoBehaviour
     {
         StartButton_Object.interactable = false;
         QuitButton_Object.interactable = false;
+        StartButton_Object.gameObject.SetActive(false);
+        QuitButton_Object.gameObject.SetActive(false);
         Background_Object.SetActive(true);
         Image_Object.SetActive(true);
 
