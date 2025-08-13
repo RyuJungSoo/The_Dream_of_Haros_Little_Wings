@@ -13,7 +13,8 @@ public class GameClear : MonoBehaviour
     StaminaSlider slider;
 
     public void Stage1Clear()
-        {
+    {
+        SoundManager.instance.PlaySFX(5, 0);
         clear.SetActive(true);
         SceneSettingManager.Instance.SetisStageClear(1,true);
         player.rb.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -22,6 +23,7 @@ public class GameClear : MonoBehaviour
         }
     public void Stage2Clear()
     {
+        SoundManager.instance.PlaySFX(5, 0);
         clear.SetActive(true);
         SceneSettingManager.Instance.SetisStageClear(2, true);
         player.rb.constraints = RigidbodyConstraints2D.FreezeAll;

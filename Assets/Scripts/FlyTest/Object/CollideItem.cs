@@ -29,6 +29,7 @@ public class CollideItem : MonoBehaviour
 
             if (itemState == ItemName.acorn)
             {
+                SoundManager.instance.PlaySFX(1, 0);
                 if(slider.stamina >= slider.fullStamina * 0.75)
                 {
                     slider.stamina = slider.fullStamina;
@@ -41,12 +42,14 @@ public class CollideItem : MonoBehaviour
             }
             if (itemState == ItemName.Bell)
             {
+                SoundManager.instance.PlaySFX(2, 0);
                 player.onShield = true;
                 player.isInvincible = true;
                 gameObject.SetActive(false);
             }
             if (itemState == ItemName.Wind)
             {
+                SoundManager.instance.PlaySFX(3, 0);
                 sr.enabled = false;
                 StartCoroutine(Wind());
             }

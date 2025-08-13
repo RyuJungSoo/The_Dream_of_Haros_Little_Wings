@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     public Animator anim;
 
+    private bool flyAnimation = true;
+
     [SerializeField] SpriteRenderer shieldSprite;
     [SerializeField] SpriteRenderer windSprite;
     [SerializeField] PlayerJump playerjump;
@@ -82,6 +84,8 @@ public class Player : MonoBehaviour
         float vy = rb.velocity.y;
         string newTrigger = null;
 
+        if (flyAnimation)
+        {
         if (vy >= 1f)
             newTrigger = "UpUp";
         else if (vy >= 0.5f)
@@ -93,13 +97,14 @@ public class Player : MonoBehaviour
         else if (vy >= -2f && vy <= -0.5f)
             newTrigger = "Fly";
 
-        if (newTrigger != null && currentTrigger != newTrigger)
-        {
-            if (!string.IsNullOrEmpty(currentTrigger))
-                anim.ResetTrigger(currentTrigger);
+            if (newTrigger != null && currentTrigger != newTrigger)
+            {
+                if (!string.IsNullOrEmpty(currentTrigger))
+                    anim.ResetTrigger(currentTrigger);
 
-            anim.SetTrigger(newTrigger);
-            currentTrigger = newTrigger;
+                anim.SetTrigger(newTrigger);
+                currentTrigger = newTrigger;
+            }
         }
     }
 
@@ -163,9 +168,18 @@ public class Player : MonoBehaviour
 
     public void Hit(int damage)
     {
-        anim.SetTrigger("Hit");
+        SoundManager.instance.PlaySFX(0, 0);
+        StartCoroutine(HitAnimation());
         onShield = false;
         slider.stamina -= damage;
         Debug.Log($"플레이어가 {damage} 만큼의 대미지를 입었습니다.");
+    }
+
+    private IEnumerator HitAnimation()
+    {
+        flyAnimation = false;
+        anim.SetTrigger("Hit");
+        yield return new WaitForSecondsRealtime(0.25f);
+        flyAnimation = true;
     }
 }
