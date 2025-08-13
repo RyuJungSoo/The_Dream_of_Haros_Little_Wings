@@ -19,6 +19,7 @@ public class GameOver : MonoBehaviour
 
     public void Gameover()
     {
+        SoundManager.instance.PlaySFX(4, 0);
         gameOverScreen.SetActive(true);
         gameover = true;
         Time.timeScale = 0f;
