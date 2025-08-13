@@ -21,7 +21,7 @@ public class StageChangeAlarm : MonoBehaviour
         // Singleton
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        
 
         // 비어있으면 이름으로 자동 할당 시도
         AutoAssignIfNull();

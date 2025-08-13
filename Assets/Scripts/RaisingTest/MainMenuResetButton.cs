@@ -10,6 +10,8 @@ public class MainMenuResetButton : MonoBehaviour
     [SerializeField] private Button resetButton;
     [SerializeField] private Button rejectButton;
 
+    private SceneSettingSaver sceneSettingSaver;
+
     private void Reset()
     {
         if (panelRoot == null) panelRoot = gameObject;
@@ -19,8 +21,14 @@ public class MainMenuResetButton : MonoBehaviour
 
     private void Awake()
     {
-        if (panelRoot == null) panelRoot = gameObject;
+        if (sceneSettingSaver == null)
+#if UNITY_2023_1_OR_NEWER
+            sceneSettingSaver = FindFirstObjectByType<SceneSettingSaver>(FindObjectsInactive.Include);
+#else
+            sceneSettingSaver = FindObjectOfType<SceneSettingSaver>(true);
+#endif
 
+        // (선택) 자동 연결
         if (resetButton != null)
         {
             resetButton.onClick.RemoveListener(OnClickReset);
@@ -36,14 +44,31 @@ public class MainMenuResetButton : MonoBehaviour
     public void Open()  => panelRoot.SetActive(true);
     public void Close() => panelRoot.SetActive(false);
 
-    private void OnClickReset()
+    // === 초기화/리셋 ===
+    public void OnClickReset()   // <- public, 매개변수 없음
     {
-        // JsonResetUtility에 있는 함수 호출
+        if (sceneSettingSaver != null)
+        {
+            try
+            {
+                sceneSettingSaver.ResetSave();
+                Debug.Log("[MainMenuResetButton] SceneSettingSaver.ResetSave 호출 완료");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[MainMenuResetButton] ResetSave 예외: {e.Message}");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[MainMenuResetButton] SceneSettingSaver를 찾지 못했습니다. (MainMenu 씬 배치/이름 확인)");
+        }
+
         JsonResetUtility.ResetSceneDataJson();
         Close();
     }
 
-    private void OnClickReject()
+    public void OnClickReject()   // <- public, 매개변수 없음
     {
         Close();
     }
