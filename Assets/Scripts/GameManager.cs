@@ -11,11 +11,10 @@ public class GameManager : MonoBehaviour
     public int maxTurn = 12;
     public int CurrentTurn { get; private set; }
 
-    private bool transitioned = false;
     private const string TURN_KEY = "gm_current_turn";
 
     [SerializeField] private StageChangeAlarm stageChangeAlarm;
-    private bool nextStagePromptShown = false;
+    public bool nextStagePromptShown = false;
 
     private void Awake()
     {
@@ -64,7 +63,7 @@ public class GameManager : MonoBehaviour
             SaveManager.Instance?.LoadGame();
             StatManager.Instance?.LoadStatsFromJson(false);
 
-            transitioned = false;
+        
             StartCoroutine(DeferredSyncUI());
         }
     }
@@ -121,13 +120,19 @@ public class GameManager : MonoBehaviour
 
     private void HandleTurnsDepleted()
     {
-        if (transitioned) return;
-        transitioned = true;
+        // 턴이 0 이하가 됐을 때
+        if (CurrentTurn <= 0)
+        {
+            Debug.Log("[GameManager] 턴 소진됨");
 
-        SaveCurrentStats();
-        // 팝업 띄우기 (Next 누르면 StageChangeAlarm에서 라우팅)
-        ShowNextStagePromptOnce();
+            // 기존 즉시 팝업 대신 딜레이 버전 호출
+            if (StageChangeAlarm.Instance != null)
+            {
+                StageChangeAlarm.Instance.PromptWhenTurnsDepleted(3f); // 3초 뒤 팝업
+            }
 
+            // 기존에 바로 팝업 띄우던 코드나 StageChangeAlarm.PromptAndRoute() 호출은 지워야 함
+        }
     }
 
 

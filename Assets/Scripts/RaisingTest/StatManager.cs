@@ -319,27 +319,27 @@ public class StatManager : MonoBehaviour
         NotifyStatsChanged();
     }
 
-    // 파생값 계산
+    // 파생값 계산 
+
     public float GetStaminaMax()
     {
-        // (기본스태미나 + (20 + 스태미나*0.8)) × StaminaMultiplier
-        return (statData.GetBasicStamina() + (20f + Stamina_Stat * 0.8f)) * statData.staminaMultiplier;
+        // (기본스태미나 + (20 + 스태미나*0.8))   ← 배율 제거
+        return statData.GetBasicStamina() + (20f + Stamina_Stat * 0.8f);
     }
 
     public float GetFlightSpeed()
     {
-        // (기본상승속도 + 비상력*0.2) × FlightSpeedMultiplier
-        return (statData.GetBasicFlightSpeed() + Flightpower_Stat * 0.2f) * statData.flightSpeedMultiplier;
+        // (기본상승속도 + 비상력*0.2)   ← 배율 제거
+        return statData.GetBasicFlightSpeed() + Flightpower_Stat * 0.2f;
     }
 
     // 하강 시 스태미나 감소 속도 계산
     public float GetStaminaDrainSpeed_Descend()
     {
-        
-        float baseDecrease = statData.GetBasicStaminaDecrease();   
-        float factor = 0.2f + (1f - Balance_Stat / 180f);          // 0.2 ~ 1.2 (하한 0.2)
-        float raw = baseDecrease * factor;                         // 규칙식
-        return raw * statData.staminaDrainMultiplier;              
+        float baseDecrease = statData.GetBasicStaminaDecrease(); // 기본감소속도(예: 10)
+        float factor = 0.2f + (1f - Balance_Stat / 180f);        // 0.2 ~ 1.2
+        // 기본감소속도 × 균형감 보정   ← 배율 제거
+        return baseDecrease * factor;
     }
 
     // 상승 시 스태미나 감소 속도 계산 (하강 × 2.5)
