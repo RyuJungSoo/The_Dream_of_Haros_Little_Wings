@@ -6,6 +6,7 @@ public class Stat_Data : ScriptableObject
     [Header("기본 수치")]
     [SerializeField] private float basicStamina = 20f; // 하로의 기본 스태미나
     [SerializeField] private float basicFlightSpeed = 10f; // 하로의 기본 상승 속도
+    [SerializeField] private float basicStaminaDecrease = 10f; // 하로 기본 감소 속도
     [SerializeField] private float basicStaminaDecreaseSpeed = 5f; // 지상에서의 스태미나 감소 속도
     [SerializeField] private float basicFlightStaminaDecreaseSpeed = 10f; // 비행 시 스태미나 증가 감소량
 
@@ -24,5 +25,6 @@ public class Stat_Data : ScriptableObject
     public float GetBasicStaminaDecreaseSpeed() => basicStaminaDecreaseSpeed;
     public float GetBasicFlightStaminaDecreaseSpeed() => basicFlightStaminaDecreaseSpeed;
     public float GetQTETriggerFactor() => qteTriggerFactor;
+    public float GetBasicStaminaDecrease() => basicStaminaDecrease;
 
 } 
