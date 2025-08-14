@@ -11644,7 +11644,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+  playerAnim: {fileID: 1810877718}
   gameover: {fileID: 2033001503}
+  player: {fileID: 1810877717}
 --- !u!50 &1671497154
 Rigidbody2D:
   serializedVersion: 4
@@ -12541,9 +12543,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   qteManager: {fileID: 439857789}
   qteScreen: {fileID: 439857787}
+  gameover: {fileID: 2033001503}
   Obstacle: {fileID: 979913170}
   rb: {fileID: 0}
   anim: {fileID: 1810877718}
+  flyAnimation: 1
   shieldSprite: {fileID: 989144147}
   windSprite: {fileID: 1014809810}
   playerjump: {fileID: 1810877715}

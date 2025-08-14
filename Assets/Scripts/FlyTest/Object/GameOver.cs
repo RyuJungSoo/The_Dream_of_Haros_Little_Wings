@@ -10,8 +10,8 @@ public class GameOver : MonoBehaviour
     [SerializeField]
     Player player;
 
-    [SerializeField]
     public bool gameover = false;
+    private bool gameoverSoundCheck = false;
 
     [SerializeField]
     StaminaSlider slider;
@@ -19,9 +19,16 @@ public class GameOver : MonoBehaviour
 
     public void Gameover()
     {
-        SoundManager.instance.PlaySFX(4, 0);
         gameOverScreen.SetActive(true);
         gameover = true;
+        gameoverSoundCheck = true;
+        if(gameoverSoundCheck)
+        {
+            SoundManager.instance.StopBGM();
+            SoundManager.instance.PlayBGM(4, false);
+            SoundManager.instance.PlaySFX(4, 0);
+            gameoverSoundCheck = false;
+        }
         Time.timeScale = 0f;
     }
 }

@@ -14,7 +14,7 @@ public class GameClear : MonoBehaviour
 
     public void Stage1Clear()
     {
-        SoundManager.instance.PlaySFX(5, 0);
+        ClearSound();
         clear.SetActive(true);
         SceneSettingManager.Instance.SetisStageClear(1,true);
         player.rb.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -23,11 +23,18 @@ public class GameClear : MonoBehaviour
         }
     public void Stage2Clear()
     {
-        SoundManager.instance.PlaySFX(5, 0);
+        ClearSound();
         clear.SetActive(true);
         SceneSettingManager.Instance.SetisStageClear(2, true);
         player.rb.constraints = RigidbodyConstraints2D.FreezeAll;
         player.anim.enabled = false;
         slider.stopStaminaBar = true;
+    }
+
+    private void ClearSound()
+    {
+        SoundManager.instance.StopBGM();
+        SoundManager.instance.PlaySFX(5, 0);
+        SoundManager.instance.PlayBGM(4, false);
     }
 }

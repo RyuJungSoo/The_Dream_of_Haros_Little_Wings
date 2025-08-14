@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    QTEManager qteManager;
-    [SerializeField]
-    GameObject qteScreen;
+    [SerializeField] QTEManager qteManager;
+    [SerializeField] GameObject qteScreen;
+    [SerializeField] GameOver gameover;
 
     public Collider2D Obstacle;
     public Rigidbody2D rb;
     public Animator anim;
 
-    private bool flyAnimation = true;
+    public bool flyAnimation = true;
 
     [SerializeField] SpriteRenderer shieldSprite;
     [SerializeField] SpriteRenderer windSprite;
@@ -110,28 +109,31 @@ public class Player : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Wall") && !isInvincible)
+        if (!gameover.gameover)
         {
-            if (other.TryGetComponent<CollideWall>(out var wall))
+            if (other.CompareTag("Wall") && !isInvincible)
             {
-                int damage = wall.wallData.damage;
-                string name = wall.wallData.wallName;
-                StartCoroutine((HitWall(damage, name)));
+                if (other.TryGetComponent<CollideWall>(out var wall))
+                {
+                    int damage = wall.wallData.damage;
+                    string name = wall.wallData.wallName;
+                    StartCoroutine((HitWall(damage, name)));
+                }
             }
-        }
-        else if (other.CompareTag("Obstacle") && !isInvincible)
-        {
-            if (other.TryGetComponent<CollideObstacle>(out var obstacle))
+            else if (other.CompareTag("Obstacle") && !isInvincible)
             {
-                float coefficient = obstacle.obstacleData.Factor;
-                int damage = obstacle.obstacleData.damage;
-                StartCoroutine(HitInvincible(damage, coefficient));
+                if (other.TryGetComponent<CollideObstacle>(out var obstacle))
+                {
+                    float coefficient = obstacle.obstacleData.Factor;
+                    int damage = obstacle.obstacleData.damage;
+                    StartCoroutine(HitInvincible(damage, coefficient));
+                }
             }
-        }
-        else if((other.CompareTag("Obstacle") || other.CompareTag("Wall")) && isInvincible)
+            else if ((other.CompareTag("Obstacle") || other.CompareTag("Wall")) && isInvincible)
             {
                 StartCoroutine(HitDuringInvincible());
             }
+        }
     }
 
     public IEnumerator HitInvincible(int damage, float coefficient)
