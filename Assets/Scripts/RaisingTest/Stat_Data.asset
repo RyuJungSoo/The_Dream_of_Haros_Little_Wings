@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Stat_Data
   m_EditorClassIdentifier: 
   basicStamina: 20
-  basicFlightSpeed: 5
-  basicStaminaDecreaseSpeed: 5
+  basicFlightSpeed: 10
+  basicStaminaDecreaseSpeed: 10
   basicFlightStaminaDecreaseSpeed: 6
   staminaMultiplier: 1
   flightSpeedMultiplier: 1
   staminaDrainMultiplier: 1
+  qteTriggerFactor: 20

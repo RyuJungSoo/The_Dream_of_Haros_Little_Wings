@@ -10360,7 +10360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingPanel: {fileID: 1539416248}
   progressBarFiller: {fileID: 98888430}
-  loadingTime: 1
+  loadingTime: 4
   Stamina_loadingText: {fileID: 1270429969}
   FlightPower_loadingText: {fileID: 87412163}
   Balance_loadingText: {fileID: 388171363}
@@ -14408,7 +14408,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneSettingSaver: {fileID: 0}
-  sceneDataAltPath: 
 --- !u!1 &2131573221
 GameObject:
   m_ObjectHideFlags: 0

@@ -80,7 +80,7 @@ public class StatManager : MonoBehaviour
 
         LoadStatsFromJson(invokeEvent: false);
 
-        maxStamina = Mathf.Max(100f, GetStaminaMax());
+        maxStamina = GetStaminaMax();
         currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
 
         // UI가 이미 있다면 즉시, 아니면 다음 프레임에
@@ -322,19 +322,30 @@ public class StatManager : MonoBehaviour
     // 파생값 계산
     public float GetStaminaMax()
     {
+        // (기본스태미나 + (20 + 스태미나*0.8)) × StaminaMultiplier
         return (statData.GetBasicStamina() + (20f + Stamina_Stat * 0.8f)) * statData.staminaMultiplier;
     }
 
     public float GetFlightSpeed()
     {
+        // (기본상승속도 + 비상력*0.2) × FlightSpeedMultiplier
         return (statData.GetBasicFlightSpeed() + Flightpower_Stat * 0.2f) * statData.flightSpeedMultiplier;
     }
 
-    public float GetStaminaDrainSpeed()
+    // 하강 시 스태미나 감소 속도 계산
+    public float GetStaminaDrainSpeed_Descend()
     {
-        float baseDecrease = 10f; // 하로 기본 스태미나 감소 속도(고정)
-        float factor = 0.2f + (1f - Balance_Stat / 180f); // 균형감 반영
-        return baseDecrease * factor * statData.staminaDrainMultiplier; // 상승 시엔 호출부에서 ×2.5
+        
+        float baseDecrease = statData.GetBasicStaminaDecrease();   
+        float factor = 0.2f + (1f - Balance_Stat / 180f);          // 0.2 ~ 1.2 (하한 0.2)
+        float raw = baseDecrease * factor;                         // 규칙식
+        return raw * statData.staminaDrainMultiplier;              
+    }
+
+    // 상승 시 스태미나 감소 속도 계산 (하강 × 2.5)
+    public float GetStaminaDrainSpeed_Ascend()
+    {
+        return GetStaminaDrainSpeed_Descend() * 2.5f;
     }
 
 
@@ -342,7 +353,6 @@ public class StatManager : MonoBehaviour
     {
         return (5f + Agility_Stat * 0.5f * dropFactor) * stageFactor;
     }
-
     public string GetGrade(int stat)
     {
         if (stat >= 160) return "S";
@@ -408,7 +418,7 @@ public class StatManager : MonoBehaviour
         sub = expectedSubValue;
     }
 
-    // (선택) UI에서 문자열로 바로 쓰고 싶으면 이 메서드도 Ensure 포함시키자
+
     public (string main, string sub) GetMainAndSubStatText(StatType type)
     {
         EnsureExpectedReady(type);
