@@ -36,17 +36,30 @@ public class StaminaSlider : MonoBehaviour
         if (stamina <= 0)
         {
             slider.value = 0;
-            gameover.Gameover();
+            if(!gameover.gameover)
+            {
+                gameover.Gameover();
+            }
         }
 
-        if(playerjump.onWind && !gameover.gameover)
+        if (playerjump.onWind && !gameover.gameover)
         {
             slider.value = stamina / fullStamina;
         }
         else if (stamina > 0 && !stopStaminaBar)
         {
             slider.value = stamina / fullStamina;
-            stamina -= data.GetStaminaDrainSpeed_Descend() * Time.deltaTime / 15f;
+
+            if (!playerjump.isJump)
+            {
+                stamina -= data.GetStaminaDrainSpeed_Descend() * Time.deltaTime / 15f;
+                Debug.Log($"하강 확인 {data.GetStaminaDrainSpeed_Descend()}");
+            }
+            else if (playerjump.isJump)
+            {
+                stamina -= data.GetStaminaDrainSpeed_Ascend() * Time.deltaTime / 15f;
+                Debug.Log($"상승 확인 {data.GetStaminaDrainSpeed_Ascend()}");
+            }
             // stamina -= 5 * Time.deltaTime;
         }
     }

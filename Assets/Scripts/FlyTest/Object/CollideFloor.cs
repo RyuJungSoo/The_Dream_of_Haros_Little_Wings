@@ -4,22 +4,10 @@ using UnityEngine;
 
 public class CollideFloor : MonoBehaviour
 {
-    [SerializeField]
-    Collider2D Player;
-
-    [SerializeField]
-    GameOver gameover;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    [SerializeField] Collider2D Player;
+    [SerializeField] Animator playerAnim;
+    [SerializeField] GameOver gameover;
+    [SerializeField] Player player;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -28,5 +16,4 @@ public class CollideFloor : MonoBehaviour
             gameover.Gameover();
         }
     }
-
 }
