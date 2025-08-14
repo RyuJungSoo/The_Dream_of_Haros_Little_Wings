@@ -16,14 +16,19 @@ public class StageChangeAlarm : MonoBehaviour
     [Header("Message")]
     [TextArea] public string defaultMessage = "턴이 0입니다.\n비행 스테이지로 이동할까요?";
 
+    // 턴수가 0일 때 딜레이 후 팝업
+    [Header("Turn 0 Prompt Delay")]
+    [SerializeField] private float depletedPromptDelay = 0.5f;   // 기본 3초
+    [Tooltip("이 오브젝트가 활성화돼 있는 동안은 알림을 보류합니다. (선택) 로딩 패널을 연결하세요")]
+    [SerializeField] private GameObject waitWhileActive;       // 선택: 로딩패널 등
+    private Coroutine delayedPromptCo;
+
     private void Awake()
     {
         // Singleton
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
-        
 
-        // 비어있으면 이름으로 자동 할당 시도
         AutoAssignIfNull();
 
         if (panel != null) panel.SetActive(false);
@@ -44,8 +49,6 @@ public class StageChangeAlarm : MonoBehaviour
     {
         if (panel == null)
         {
-            // 이 스크립트를 패널에 붙였으면 그냥 자기 자신
-            // 아니면 씬에서 이름으로 찾아보기
             var t = transform.Find("Flightstage Alarm_UI");
             if (t != null) panel = t.gameObject;
             else
@@ -70,7 +73,7 @@ public class StageChangeAlarm : MonoBehaviour
         }
     }
 
-    // 팝업 띄움
+    // 즉시 팝업
     public void PromptAndRoute(string customMessage = null)
     {
         if (panel == null)
@@ -83,13 +86,61 @@ public class StageChangeAlarm : MonoBehaviour
 
         panel.SetActive(true);
 
-        // 혹시 CanvasGroup으로 숨겨졌다면 보정
         var cg = panel.GetComponent<CanvasGroup>();
         if (cg != null)
         {
             cg.alpha = 1f;
             cg.interactable = true;
             cg.blocksRaycasts = true;
+        }
+    }
+
+    // 딜레이 버전 호출
+    public void PromptWhenTurnsDepleted()
+    {
+        PromptWhenTurnsDepleted(depletedPromptDelay);
+    }
+
+    public void PromptWhenTurnsDepleted(float delaySeconds)
+    {
+        if (delayedPromptCo != null) StopCoroutine(delayedPromptCo);
+        delayedPromptCo = StartCoroutine(CoPromptAfterDelay(delaySeconds));
+    }
+
+    private IEnumerator CoPromptAfterDelay(float delaySeconds)
+    {
+        // waitWhileActive가 켜져 있으면 꺼질 때까지 대기
+        if (waitWhileActive != null)
+        {
+            while (waitWhileActive.activeInHierarchy) yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(delaySeconds);
+
+        // 대기 중에 턴이 회복되었으면 취소
+        if (GameManager.Instance != null && GameManager.Instance.IsTurnAvailable())
+        {
+            delayedPromptCo = null;
+            yield break;
+        }
+
+        // 이미 창이 떠 있으면 취소
+        if (panel != null && panel.activeSelf)
+        {
+            delayedPromptCo = null;
+            yield break;
+        }
+
+        PromptAndRoute();
+        delayedPromptCo = null;
+    }
+
+    public void CancelPendingPrompt()
+    {
+        if (delayedPromptCo != null)
+        {
+            StopCoroutine(delayedPromptCo);
+            delayedPromptCo = null;
         }
     }
 

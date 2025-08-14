@@ -10,10 +10,6 @@ public class Stat_Data : ScriptableObject
     [SerializeField] private float basicStaminaDecreaseSpeed = 5f; // 지상에서의 스태미나 감소 속도
     [SerializeField] private float basicFlightStaminaDecreaseSpeed = 10f; // 비행 시 스태미나 증가 감소량
 
-    [Header("계산 배율 (Multiplier)")]
-    public float staminaMultiplier = 1.0f;
-    public float flightSpeedMultiplier = 1.0f;
-    public float staminaDrainMultiplier = 1.0f;
 
     [Header("QTE 발동 계수 (보정값)")]
     [Range(0f, 100f)]
