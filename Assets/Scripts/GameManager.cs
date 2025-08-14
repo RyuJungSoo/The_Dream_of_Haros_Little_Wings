@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
     {
         if (SaveManager.Instance != null)
         {
-            SaveManager.Instance.SaveGame("턴 소진 자동 저장");
+            SaveManager.Instance.SaveGame();
             return;
         }
         StatManager.Instance?.SaveStatsToJson();

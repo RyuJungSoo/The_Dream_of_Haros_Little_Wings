@@ -64,7 +64,7 @@ public class MainMenuResetButton : MonoBehaviour
             Debug.LogWarning("[MainMenuResetButton] SceneSettingSaver를 찾지 못했습니다. (MainMenu 씬 배치/이름 확인)");
         }
 
-        JsonResetUtility.ResetSceneDataJson();
+        JsonResetUtility.ResetStatsHpTurnsJsonAndState();
         Close();
     }
 
