@@ -46,7 +46,7 @@ public class StaminaSlider : MonoBehaviour
         else if (stamina > 0 && !stopStaminaBar)
         {
             slider.value = stamina / fullStamina;
-            stamina -= data.GetStaminaDrainSpeed() * Time.deltaTime / 15f;
+            stamina -= data.GetStaminaDrainSpeed_Descend() * Time.deltaTime / 15f;
             // stamina -= 5 * Time.deltaTime;
         }
     }
