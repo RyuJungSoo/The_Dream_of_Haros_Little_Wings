@@ -74,19 +74,26 @@ public class SceneSettingManager : MonoBehaviour
                 Debug.Log("OK");
                 DatabaseManager.instance.SetDialogues(1); // 스테이지 2 입장 전 대화 진행
             }
-            
+
             else if (isStage2_Clear && isStageAllClear()) // 이전 씬이 스테이지 2인 경우
             {
                 DatabaseManager.instance.SetDialogues(2); // 스테이지 3 입장 전 대화 진행
             }
-            else 
+            else
                 DatabaseManager.instance.SetDialogues(0); // 이외의 경우에는 스테이지 1 입장 전 대화 진행
             dialogue_Setting.ShowDialogue(); // 해당 대화 CSV 파일 세팅
             dialogue_Setting.DialogueSetting(); // 대화 시작
 
         }
         else if (CurrentSceneName == "Raising_Stage") // 육성 스테이지 씬 전환 시
+        {
             SoundManager.instance.PlayBGM(3, false);
+            SaveManager.Instance.LoadGame();
+            UIManager.Instance.UpdateTurnText(GameManager.Instance.CurrentTurn); 
+            UIManager.Instance.UpdateStaminaBar(); 
+            UIManager.Instance.UpdateStatUI();
+        }
+
 
         else if (CurrentSceneName == "Stage1") // 스테이지 1 씬 전환 시
             SoundManager.instance.PlayBGM(0, true);

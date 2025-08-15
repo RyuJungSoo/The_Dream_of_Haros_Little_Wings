@@ -3421,6 +3421,7 @@ GameObject:
   - component: {fileID: 551319465}
   - component: {fileID: 551319464}
   - component: {fileID: 551319467}
+  - component: {fileID: 551319468}
   m_Layer: 5
   m_Name: Retry_Button
   m_TagString: Untagged
@@ -3516,6 +3517,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 551319468}
+        m_TargetAssemblyTypeName: FlyStageGoToRaising, Assembly-CSharp
+        m_MethodName: OnClick_RetryRaising
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &551319465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3568,6 +3581,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Normal_UI: {fileID: 21300000, guid: 6977aa80b6a65c94e90029288a910e3d, type: 3}
   Highlight_UI: {fileID: 21300000, guid: 0e71ae694759bd44d8d8d9727081945f, type: 3}
+--- !u!114 &551319468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551319462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef14ba18b0a28b4ca2aebef744631ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raisingStageSceneName: Raising_Stage
 --- !u!1 &564451622
 GameObject:
   m_ObjectHideFlags: 0
@@ -12511,6 +12537,7 @@ MonoBehaviour:
   gameover: {fileID: 2033001503}
   item: {fileID: 832958745}
   onWind: 0
+  isJump: 0
   rb: {fileID: 1810877714}
   data: {fileID: 1045451285}
   jumpPower: 5

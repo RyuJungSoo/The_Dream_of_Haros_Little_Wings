@@ -5,6 +5,7 @@ using UnityEngine;
 [Serializable]
 public class SceneData
 {
+    // ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´ ì—¬ë¶€ í”Œë˜ê·¸
     public bool isStage1_Clear;
     public bool isStage2_Clear;
 }
@@ -12,10 +13,13 @@ public class SceneData
 public class SceneSettingSaver : MonoBehaviour
 {
     public static SceneSettingSaver Instance;
+
+    // ì €ì¥/ë¡œë“œí•  JSON íŒŒì¼ ê²½ë¡œ
     public string FilePath { get; private set; }
 
     private void Awake()
     {
+        // ì‹±ê¸€í„´ ì„¤ì • ë° íŒŒì¼ ê²½ë¡œ ì´ˆê¸°í™”
         if (Instance == null)
         {
             Instance = this;
@@ -25,9 +29,13 @@ public class SceneSettingSaver : MonoBehaviour
 
     private void Start()
     {
-        LoadSceneData(); // ÇöÀç ½ºÅ×ÀÌÁö Å¬¸®¾î ¿©ºÎ¸¦ ºÒ·¯¿À±â À§ÇØ °ÔÀÓ ½ÇÇà ½Ã ºÒ·¯¿À±â ½Ãµµ
+        // ê²Œì„ ì‹œì‘ ì‹œ ì €ì¥ëœ ì”¬ ë°ì´í„° ë¡œë“œ ì‹œë„
+        LoadSceneData();
     }
 
+    /// <summary>
+    /// í˜„ì¬ ì”¬ì˜ í´ë¦¬ì–´ ìƒíƒœë¥¼ JSONìœ¼ë¡œ ì €ì¥
+    /// </summary>
     public void SaveSceneData()
     {
         var data = new SceneData
@@ -42,19 +50,22 @@ public class SceneSettingSaver : MonoBehaviour
             var json = JsonUtility.ToJson(data, true);
             File.WriteAllText(FilePath, json);
 
-            Debug.Log($"ÀúÀå ¿Ï·á : {FilePath}\n{json}");
+            Debug.Log($"[SceneSettingSaver] ì €ì¥ ì™„ë£Œ : {FilePath}\n{json}");
         }
         catch (Exception e)
         {
-            Debug.LogError($"ÀúÀå ½ÇÆĞ : {e.Message}");
+            Debug.LogError($"[SceneSettingSaver] ì €ì¥ ì‹¤íŒ¨ : {e.Message}");
         }
     }
 
+    /// <summary>
+    /// ì €ì¥ëœ ì”¬ í´ë¦¬ì–´ ìƒíƒœë¥¼ ë¡œë“œí•˜ì—¬ ì ìš©
+    /// </summary>
     public bool LoadSceneData()
     {
         if (!File.Exists(FilePath))
         {
-            Debug.LogWarning("ÀúÀå ÆÄÀÏ ¾øÀ½");
+            Debug.LogWarning("[SceneSettingSaver] ì €ì¥ íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤.");
             return false;
         }
 
@@ -66,31 +77,38 @@ public class SceneSettingSaver : MonoBehaviour
             GetComponent<SceneSettingManager>().SetisStageClear(1, data.isStage1_Clear);
             GetComponent<SceneSettingManager>().SetisStageClear(2, data.isStage2_Clear);
 
-            Debug.Log($"·Îµå ¿Ï·á : {FilePath}\n{json}");
+            Debug.Log($"[SceneSettingSaver] ë¡œë“œ ì™„ë£Œ : {FilePath}\n{json}");
             return true;
         }
         catch (Exception e)
         {
-            Debug.LogError($"·Îµå ½ÇÆĞ : {e.Message}");
+            Debug.LogError($"[SceneSettingSaver] ë¡œë“œ ì‹¤íŒ¨ : {e.Message}");
             return false;
         }
-
     }
 
+    /// <summary>
+    /// í´ë¦¬ì–´ ìƒíƒœë¥¼ ì´ˆê¸°ê°’ìœ¼ë¡œ ì¬ì„¤ì •(íŒŒì¼ì„ ê¸°ë³¸ê°’ìœ¼ë¡œ ë®ì–´ì”€).
+    /// </summary>
     public void ResetSave()
     {
         try
         {
-            if (File.Exists(FilePath))
+            var data = new SceneData
             {
-                File.Delete(FilePath);
-                Debug.Log($"¼¼ÀÌºê »èÁ¦ : {FilePath}");
-            }
-        }
+                isStage1_Clear = false,
+                isStage2_Clear = false
+            };
 
+            Directory.CreateDirectory(Path.GetDirectoryName(FilePath) ?? Application.persistentDataPath);
+            var json = JsonUtility.ToJson(data, true);
+            File.WriteAllText(FilePath, json);
+
+            Debug.Log($"[SceneSettingSaver] ì´ˆê¸°í™” ì™„ë£Œ : {FilePath}");
+        }
         catch (Exception e)
         {
-            Debug.LogError($"¼¼ÀÌºê »èÁ¦ ½ÇÆĞ : {e.Message}");
+            Debug.LogError($"[SceneSettingSaver] ì´ˆê¸°í™” ì‹¤íŒ¨ : {e.Message}");
         }
     }
 }

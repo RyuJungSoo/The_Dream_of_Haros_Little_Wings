@@ -3,13 +3,6 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using System;
 using System.Collections; 
-public enum StatType
-{
-    Stamina_Stat,
-    Flightpower_Stat,
-    Balance_Stat,
-    Agility_Stat
-}
 
 [Serializable]
 public class StatPersistData
@@ -56,10 +49,9 @@ public class StatManager : MonoBehaviour
     {
         Instance = this;
 
-        statSavePath = Path.Combine(Application.persistentDataPath, "stat_data.json");
+        statSavePath = Path.Combine(Application.persistentDataPath, "haroSave.v1.json");
 
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        
     }
 
 
@@ -74,13 +66,13 @@ public class StatManager : MonoBehaviour
         if (statData == null)
         {
             Debug.LogError("[StatManager] statData가 할당되지 않았습니다!");
-            LoadStatsFromJson(invokeEvent: true);
+           // LoadStatsFromJson(invokeEvent: true);
             return;
         }
 
-        LoadStatsFromJson(invokeEvent: false);
+        //LoadStatsFromJson(invokeEvent: false);
 
-        maxStamina = GetStaminaMax();
+       // maxStamina = GetStaminaMax();
         currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
 
         // UI가 이미 있다면 즉시, 아니면 다음 프레임에
@@ -98,7 +90,7 @@ public class StatManager : MonoBehaviour
     {
         if (scene.name == "Raising_Stage")
         {
-            LoadStatsFromJson(invokeEvent: false);
+            //LoadStatsFromJson(invokeEvent: false);
             ClearExpected();
 
             // 씬 전환 직후, 다음 프레임에 UI 재바인딩 + 동기화
@@ -109,61 +101,7 @@ public class StatManager : MonoBehaviour
         }
     }
 
-    // ===== JSON 저장/로드 =====
-    public void SaveStatsToJson()
-    {
-        try
-        {
-            var data = new StatPersistData
-            {
-                Stamina_Stat = Stamina_Stat,
-                Flightpower_Stat = Flightpower_Stat,
-                Balance_Stat = Balance_Stat,
-                Agility_Stat = Agility_Stat,
-                currentStamina = currentStamina
-            };
 
-            string json = JsonUtility.ToJson(data, true);
-            File.WriteAllText(statSavePath, json);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"[StatManager] 저장 실패: {e.Message}");
-        }
-    }
-
-    public void LoadStatsFromJson(bool invokeEvent = true)
-    {
-        try
-        {
-            Debug.Log($"[StatManager] 로드 시도: {statSavePath}, Exists={File.Exists(statSavePath)}");
-
-            if (File.Exists(statSavePath))
-            {
-                string json = File.ReadAllText(statSavePath);
-                var data = JsonUtility.FromJson<StatPersistData>(json);
-
-                Stamina_Stat = data.Stamina_Stat;
-                Flightpower_Stat = data.Flightpower_Stat;
-                Balance_Stat = data.Balance_Stat;
-                Agility_Stat = data.Agility_Stat;
-                currentStamina = data.currentStamina;
-            }
-            else
-            {
-                Debug.LogWarning("[StatManager] 저장 파일 없음. 메모리 기본값 유지");
-            }
-
-            maxStamina = Mathf.Max(100f, GetStaminaMax());
-            currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
-
-            if (invokeEvent) NotifyStatsChanged();
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"[StatManager] 로드 실패: {e.Message}");
-        }
-    }
 
     public void RefillStamina(bool save = true, bool invokeEvent = true)
     {
@@ -171,7 +109,7 @@ public class StatManager : MonoBehaviour
         maxStamina = Mathf.Max(100f, calcMax);
         currentStamina = maxStamina;
 
-        if (save) SaveStatsToJson();
+        //if (save) SaveStatsToJson();
         if (invokeEvent) NotifyStatsChanged();
     }
 
@@ -185,7 +123,7 @@ public class StatManager : MonoBehaviour
         maxStamina = Mathf.Max(100f, GetStaminaMax());
         currentStamina = maxStamina;
 
-        SaveStatsToJson();
+        //SaveStatsToJson();
         NotifyStatsChanged();
     }
 
@@ -295,7 +233,7 @@ public class StatManager : MonoBehaviour
                     break;
             }
 
-            maxStamina = Mathf.Max(100f, GetStaminaMax());
+            //maxStamina = Mathf.Max(100f, GetStaminaMax());
         }
         else
         {
@@ -306,7 +244,7 @@ public class StatManager : MonoBehaviour
 
         ClearExpected();
 
-        SaveStatsToJson();
+       // SaveStatsToJson();
         NotifyStatsChanged();
     }
 
@@ -315,7 +253,7 @@ public class StatManager : MonoBehaviour
         currentStamina -= amount;
         if (currentStamina < 0) currentStamina = 0;
 
-        SaveStatsToJson();
+       // SaveStatsToJson();
         NotifyStatsChanged();
     }
 
@@ -402,7 +340,7 @@ public class StatManager : MonoBehaviour
         maxStamina = Mathf.Max(100f, calcMax);
         currentStamina = maxStamina;
 
-        SaveStatsToJson();
+       // SaveStatsToJson();
         NotifyStatsChanged();
 
         Debug.Log("[StatManager] Reset+FullStamina 저장 완료");

@@ -3569,6 +3569,7 @@ MonoBehaviour:
   gameover: {fileID: 1296550133}
   item: {fileID: 0}
   onWind: 0
+  isJump: 0
   rb: {fileID: 326195193}
   data: {fileID: 1250027915}
   jumpPower: 5
@@ -14042,6 +14043,7 @@ GameObject:
   - component: {fileID: 1285848694}
   - component: {fileID: 1285848693}
   - component: {fileID: 1285848696}
+  - component: {fileID: 1285848697}
   m_Layer: 5
   m_Name: Recultivate_Button
   m_TagString: Untagged
@@ -14137,6 +14139,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1285848697}
+        m_TargetAssemblyTypeName: FlyStageGoToRaising, Assembly-CSharp
+        m_MethodName: OnClick_RetryRaising
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1285848694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14189,6 +14203,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Normal_UI: {fileID: 21300000, guid: 2e1c702c2fe05bc468cd658da3b2ba39, type: 3}
   Highlight_UI: {fileID: 21300000, guid: f8f409d80908cc642a332306525f3ad1, type: 3}
+--- !u!114 &1285848697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285848691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef14ba18b0a28b4ca2aebef744631ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raisingStageSceneName: Raising_Stage
 --- !u!1 &1296550131
 GameObject:
   m_ObjectHideFlags: 0

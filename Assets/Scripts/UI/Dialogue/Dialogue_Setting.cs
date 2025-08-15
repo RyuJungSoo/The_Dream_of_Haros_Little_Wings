@@ -175,8 +175,11 @@ public class Dialogue_Setting : MonoBehaviour
 
         if (sceneName == "MainMenu") // 현재 메인 메뉴이면 
             SceneSettingManager.Instance.ChangeScene("DialogueScene"); // 대화 씬으로 전환
-        else if (sceneName == "DialogueScene" && !(SceneSettingManager.Instance.isStageAllClear())) // 현재 대화 씬이고 모든 스테이지가 클리어되지 않았을 때
+        else if (sceneName == "DialogueScene" && !(SceneSettingManager.Instance.isStageAllClear()))  // 현재 대화 씬이고 모든 스테이지가 클리어되지 않았을 때
+        {
+            //SaveManager2.Instance.LoadGame(); // 게임 로드 : 민서 
             SceneSettingManager.Instance.ChangeScene("Raising_Stage"); // 육성 스테이지로 전환
+        }
         else if (sceneName == "DialogueScene" && SceneSettingManager.Instance.isStageAllClear()) // 현재 대화 씬이고 모든 스테이지를 클리어했을 때
         {
             // 현재 모든 스테이지를 클리어했을 때 게임 클리어 UI 켜는 기능이 들어가야 함.

@@ -100,25 +100,25 @@ public class UIManager : MonoBehaviour
     public void OnHoverStamina()
     {
         ShowChosenCheck(chosenCheckStamina);
-        ShowExpected(StatType.Stamina_Stat);
+        
     }
 
     public void OnHoverFlightpower()
     {
         ShowChosenCheck(chosenCheckFlight);
-        ShowExpected(StatType.Flightpower_Stat);
+       
     }
 
     public void OnHoverBalance()
     {
         ShowChosenCheck(chosenCheckBalance);
-        ShowExpected(StatType.Balance_Stat);
+        
     }
 
     public void OnHoverAgility()
     {
         ShowChosenCheck(chosenCheckAgility);
-        ShowExpected(StatType.Agility_Stat);
+        
     }
 
     public void OnHoverExit()
@@ -128,18 +128,6 @@ public class UIManager : MonoBehaviour
         if (subIncreaseText) subIncreaseText.text = "";
     }
 
-    // 예상값 표시 공통 처리
-    private void ShowExpected(StatType type)
-    {
-        var sm = StatManager.Instance;
-        if (sm == null) return;
 
-        // 여기서 절대 랜덤을 굴리지 않음. StatManager의 고정값만 조회.
-        sm.PeekExpectedIncrease(type, out int main, out int sub);
-
-        if (mainIncreaseText) mainIncreaseText.text = $"+{main}";
-        if (subIncreaseText) subIncreaseText.text = $"+{sub}";
-    }
-    
     
 }
