@@ -21,6 +21,8 @@ public class SceneSettingManager : MonoBehaviour
             SceneManager.sceneLoaded += OnSceneLoaded; // sceneLoaded 이벤트 등록
             CurrentSceneName = SceneManager.GetActiveScene().name;
         }
+        else
+            Destroy(this.gameObject);
     }
 
     private void OnDisable()
