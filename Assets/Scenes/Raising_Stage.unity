@@ -420,6 +420,7 @@ GameObject:
   - component: {fileID: 51299217}
   - component: {fileID: 51299219}
   - component: {fileID: 51299220}
+  - component: {fileID: 51299221}
   m_Layer: 0
   m_Name: StatManager
   m_TagString: Untagged
@@ -505,7 +506,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxTurn: 12
-  stageChangeAlarm: {fileID: 0}
 --- !u!114 &51299219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,6 +536,20 @@ MonoBehaviour:
   nextButton: {fileID: 1304609302}
   defaultMessage: "\uD134\uC774 0\uC785\uB2C8\uB2E4.\n\uBE44\uD589 \uC2A4\uD14C\uC774\uC9C0\uB85C
     \uC774\uB3D9\uD560\uAE4C\uC694?"
+  depletedPromptDelay: 1.5
+  waitWhileActive: {fileID: 0}
+--- !u!114 &51299221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51299212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0283eacca551ed045a44a310d6e361cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &67227757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,7 +1701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChoesnCheck: {fileID: 1487446323}
   FailChance: {fileID: 1891568110}
-  statName: Stamina
+  type: 0
   mainText: {fileID: 540332465}
   subText1: {fileID: 1597233993}
   subText2: {fileID: 0}
@@ -4323,7 +4337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChoesnCheck: {fileID: 39607095}
   FailChance: {fileID: 1862278621}
-  statName: Balance
+  type: 2
   mainText: {fileID: 853641028}
   subText1: {fileID: 1597233993}
   subText2: {fileID: 0}
@@ -7129,7 +7143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChoesnCheck: {fileID: 1583774448}
   FailChance: {fileID: 1006438053}
-  statName: Agility
+  type: 3
   mainText: {fileID: 906455794}
   subText1: {fileID: 853641028}
   subText2: {fileID: 0}
@@ -9486,6 +9500,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barFiller: {fileID: 290155956}
+  slider: {fileID: 0}
+  firstDropMaxDelta: 0.02
+  firstDropScale: 0.03
 --- !u!1 &1394126804
 GameObject:
   m_ObjectHideFlags: 0
@@ -12798,7 +12815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChoesnCheck: {fileID: 1321915450}
   FailChance: {fileID: 774879019}
-  statName: FlilghtSpeed
+  type: 1
   mainText: {fileID: 1597233993}
   subText1: {fileID: 540332465}
   subText2: {fileID: 853641028}
@@ -14372,7 +14389,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2115951317}
-  - component: {fileID: 2115951318}
   m_Layer: 0
   m_Name: SaveController
   m_TagString: Untagged
@@ -14395,19 +14411,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2115951318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115951316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 355947901dbb3f34382597d24aa9fefc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneSettingSaver: {fileID: 0}
 --- !u!1 &2131573221
 GameObject:
   m_ObjectHideFlags: 0

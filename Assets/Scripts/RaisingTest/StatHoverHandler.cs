@@ -9,7 +9,7 @@ public class StatHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public GameObject FailChance;
 
     [Header("예상 수치 출력용")]
-    public string statName;
+    public  StatType type;
     public TextMeshProUGUI mainText;
     public TextMeshProUGUI subText1;
     public TextMeshProUGUI subText2;
@@ -29,7 +29,7 @@ public class StatHoverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
         ChoesnCheck?.SetActive(true);
         FailChance?.SetActive(true);
 
-        var (main, sub) = StatManager.Instance.GetMainAndSubStatText(statName);
+        var (main, sub) = StatManager.Instance.GetMainAndSubStatText(type);
         mainText.text = $"<color=#FF0000>{main}</color>";
         mainText.gameObject.SetActive(true);
 

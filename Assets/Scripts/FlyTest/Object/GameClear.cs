@@ -17,6 +17,8 @@ public class GameClear : MonoBehaviour
         ClearSound();
         clear.SetActive(true);
         SceneSettingManager.Instance.SetisStageClear(1,true);
+        SceneSettingSaver.Instance.SaveSceneData(); // 클리어 여부저장 추가 : 민서
+        SaveManager.Instance.ResetGameTurn();
         player.rb.constraints = RigidbodyConstraints2D.FreezeAll;
         player.anim.enabled = false;
         slider.stopStaminaBar = true;
@@ -26,6 +28,8 @@ public class GameClear : MonoBehaviour
         ClearSound();
         clear.SetActive(true);
         SceneSettingManager.Instance.SetisStageClear(2, true);
+        SceneSettingSaver.Instance.SaveSceneData(); // 클리어 여부저장 추가 : 민서
+        SaveManager.Instance.ResetGameTurn();
         player.rb.constraints = RigidbodyConstraints2D.FreezeAll;
         player.anim.enabled = false;
         slider.stopStaminaBar = true;

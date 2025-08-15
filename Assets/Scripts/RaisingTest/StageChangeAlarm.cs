@@ -18,7 +18,7 @@ public class StageChangeAlarm : MonoBehaviour
 
     // 턴수가 0일 때 딜레이 후 팝업
     [Header("Turn 0 Prompt Delay")]
-    [SerializeField] private float depletedPromptDelay = 0.5f;   // 기본 3초
+    [SerializeField] private float depletedPromptDelay = 1.5f;   // 00초 조절 
     [Tooltip("이 오브젝트가 활성화돼 있는 동안은 알림을 보류합니다. (선택) 로딩 패널을 연결하세요")]
     [SerializeField] private GameObject waitWhileActive;       // 선택: 로딩패널 등
     private Coroutine delayedPromptCo;
@@ -161,12 +161,21 @@ public class StageChangeAlarm : MonoBehaviour
         if (ssm == null)
         {
             Debug.LogWarning("[FlightstageAlarmRouter] SceneSettingManager 없음 → \"Stage1\" 폴백");
+            SaveManager.Instance.SaveGame(); // 저장 
             SceneManager.LoadScene("Stage1");
             yield break;
         }
 
-        if (!ssm.isStage1_Clear)       ssm.ChangeScene("Stage1");
-        else if (!ssm.isStage2_Clear)  ssm.ChangeScene("Stage2");
-        else                           Debug.Log("[FlightstageAlarmRouter] 모든 스테이지 클리어");
+        if (!ssm.isStage1_Clear)
+        {
+            SaveManager.Instance.SaveGame(); // 저장 
+            ssm.ChangeScene("Stage1");
+        }
+        else if (!ssm.isStage2_Clear)
+        {
+            SaveManager.Instance.SaveGame(); // 저장 
+            ssm.ChangeScene("Stage2");
+        }
+        else Debug.Log("[FlightstageAlarmRouter] 모든 스테이지 클리어");
     }
 }

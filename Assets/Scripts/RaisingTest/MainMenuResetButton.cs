@@ -11,6 +11,7 @@ public class MainMenuResetButton : MonoBehaviour
     [SerializeField] private Button rejectButton;
 
     private SceneSettingSaver sceneSettingSaver;
+    
 
     private void Reset()
     {
@@ -21,14 +22,11 @@ public class MainMenuResetButton : MonoBehaviour
 
     private void Awake()
     {
-        if (sceneSettingSaver == null)
 #if UNITY_2023_1_OR_NEWER
-            sceneSettingSaver = FindFirstObjectByType<SceneSettingSaver>(FindObjectsInactive.Include);
+        sceneSettingSaver = sceneSettingSaver ?? FindFirstObjectByType<SceneSettingSaver>(FindObjectsInactive.Include);
 #else
-            sceneSettingSaver = FindObjectOfType<SceneSettingSaver>(true);
+        sceneSettingSaver = sceneSettingSaver ?? FindObjectOfType<SceneSettingSaver>(true);
 #endif
-
-        // (선택) 자동 연결
         if (resetButton != null)
         {
             resetButton.onClick.RemoveListener(OnClickReset);
@@ -41,35 +39,27 @@ public class MainMenuResetButton : MonoBehaviour
         }
     }
 
-    public void Open()  => panelRoot.SetActive(true);
-    public void Close() => panelRoot.SetActive(false);
+    public void Open()  => panelRoot?.SetActive(true);
+    public void Close() => panelRoot?.SetActive(false);
 
-    // === 초기화/리셋 ===
-    public void OnClickReset()   // <- public, 매개변수 없음
+    public void OnClickReset()
     {
-        if (sceneSettingSaver != null)
-        {
-            try
-            {
-                sceneSettingSaver.ResetSave();
-                Debug.Log("[MainMenuResetButton] SceneSettingSaver.ResetSave 호출 완료");
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError($"[MainMenuResetButton] ResetSave 예외: {e.Message}");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("[MainMenuResetButton] SceneSettingSaver를 찾지 못했습니다. (MainMenu 씬 배치/이름 확인)");
-        }
+        SetInteractable(false);
+        SaveManager.Instance.ResetGame();
 
-        JsonResetUtility.ResetStatsHpTurnsJsonAndState();
+        Debug.Log("[MainMenuResetButton] 전체 데이터 리셋 완료 (스탯 0 / 체력 풀 / 턴 풀 / 깃발 해제)");
+        Close();
+        SetInteractable(true);
+    }
+
+    public void OnClickReject()
+    {
         Close();
     }
 
-    public void OnClickReject()   // <- public, 매개변수 없음
+    private void SetInteractable(bool v)
     {
-        Close();
+        if (resetButton)  resetButton.interactable  = v;
+        if (rejectButton) rejectButton.interactable = v;
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Diagnostics;
 
 [DefaultExecutionOrder(-900)]
 public class GameManager : MonoBehaviour
@@ -9,12 +10,18 @@ public class GameManager : MonoBehaviour
 
     [Header("턴 설정")]
     public int maxTurn = 12;
-    public int CurrentTurn { get; private set; }
+    public int CurrentTurn { get; set; }
 
-    private const string TURN_KEY = "gm_current_turn";
 
-    [SerializeField] private StageChangeAlarm stageChangeAlarm;
-    public bool nextStagePromptShown = false;
+
+    public static class TurnTrace
+    {
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+        public static void Log(string msg)
+        {
+            UnityEngine.Debug.Log($"[TurnTrace] {msg}\n{new StackTrace(1, true)}");
+        }
+    }
 
     private void Awake()
     {
@@ -28,58 +35,41 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+
     }
 
     private void OnDestroy()
     {
         if (Instance == this)
         {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+
             Instance = null; // 도메인 리로드 옵션 꺼짐 대비
         }
     }
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey(TURN_KEY))
-            CurrentTurn = Mathf.Clamp(PlayerPrefs.GetInt(TURN_KEY), 0, maxTurn);
-        else
-            CurrentTurn = maxTurn;
+        // 턴/스탯 복원은 SaveManager가 씬 변경 훅에서 처리함.
+        // 여기서는 값 초기화 절대 금지. UI만 동기화.
 
-        SaveTurn();
-        SyncUI();
 
         if (SoundManager.instance != null)
             SoundManager.instance.PlayBGM(3, false);
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == "Raising_Stage" || scene.name == "육성스테이지")
-        {
-            if (Time.timeScale == 0f) Time.timeScale = 1f;
 
-            SaveManager.Instance?.LoadGame();
-            StatManager.Instance?.LoadStatsFromJson(false);
 
-        
-            StartCoroutine(DeferredSyncUI());
-        }
-    }
+
 
     private IEnumerator DeferredSyncUI()
     {
+        // 한 프레임 대기: 다른 컴포넌트(Start) 이후 UI 최종 정합 맞춤
         yield return null;
         StatManager.Instance?.GenerateExpectedStatIncreases();
         SyncUI();
     }
 
-    private void SaveTurn()
-    {
-        PlayerPrefs.SetInt(TURN_KEY, CurrentTurn);
-        PlayerPrefs.Save();
-    }
+
 
     private void SyncUI()
     {
@@ -89,10 +79,19 @@ public class GameManager : MonoBehaviour
 
     public int GetCurrentTurn() => CurrentTurn;
 
-    public void SetCurrentTurn(int value, bool syncUI = true)
+
+
+    // SetCurrentTurn에서도 PlayerPrefs 저장 제거
+    public void SetCurrentTurn(int value, bool syncUI = true, string reason = "unknown")
     {
+        int before = CurrentTurn;
         CurrentTurn = Mathf.Clamp(value, 0, maxTurn);
-        SaveTurn();
+
+        // PlayerPrefs 저장 제거
+        // SaveTurn();
+
+        TurnTrace.Log($"SetCurrentTurn: {before} -> {CurrentTurn} / max={maxTurn}, reason={reason}");
+
         if (syncUI) SyncUI();
     }
 
@@ -103,7 +102,7 @@ public class GameManager : MonoBehaviour
         if (CurrentTurn > 0)
         {
             CurrentTurn--;
-            SaveTurn();
+
 
             StatManager.Instance?.GenerateExpectedStatIncreases();
             SyncUI();
@@ -113,34 +112,28 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[GM] 턴이 0임");
+            UnityEngine.Debug.LogWarning("[GM] 턴이 0임");
             HandleTurnsDepleted();
         }
     }
 
     private void HandleTurnsDepleted()
     {
-        // 턴이 0 이하가 됐을 때
         if (CurrentTurn <= 0)
         {
-            Debug.Log("[GameManager] 턴 소진됨");
+            UnityEngine.Debug.Log("[GameManager] 턴 소진됨");
 
-            // 기존 즉시 팝업 대신 딜레이 버전 호출
             if (StageChangeAlarm.Instance != null)
             {
-                StageChangeAlarm.Instance.PromptWhenTurnsDepleted(3f); // 3초 뒤 팝업
+                StageChangeAlarm.Instance.PromptWhenTurnsDepleted(1.5f);
             }
-
-            // 기존에 바로 팝업 띄우던 코드나 StageChangeAlarm.PromptAndRoute() 호출은 지워야 함
         }
     }
 
-
-
     public void ResetTurnsToMax(bool syncUI = true)
     {
-        SetCurrentTurn(maxTurn, syncUI);
-        Debug.Log($"[GM] Turns refilled to {CurrentTurn}");
+        SetCurrentTurn(maxTurn, syncUI, "ResetTurnsToMax");
+        UnityEngine.Debug.Log($"[GM] Turns refilled to {CurrentTurn}");
     }
 
     private void SaveCurrentStats()
@@ -150,29 +143,7 @@ public class GameManager : MonoBehaviour
             SaveManager.Instance.SaveGame();
             return;
         }
-        StatManager.Instance?.SaveStatsToJson();
-    }
-    // 턴수 0일때 다음 스테이지로 넘어갈 팝업창 함수 
-        private void ShowNextStagePromptOnce()
-    {
-        if (nextStagePromptShown) return;
-        nextStagePromptShown = true;
 
-        // 싱글턴 우선
-        if (StageChangeAlarm.Instance != null)
-        {
-            StageChangeAlarm.Instance.PromptAndRoute();
-            return;
-        }
-
-        // 인스펙터 참조(없으면 에러 로그)
-        if (stageChangeAlarm != null)
-        {
-            stageChangeAlarm.PromptAndRoute();
-            return;
-        }
-
-        Debug.LogError("[GM] StageChangeAlarm 인스턴스를 찾지 못했습니다. 씬에 배치하고 panel/Text/Button을 연결하세요.");
     }
 
 }
