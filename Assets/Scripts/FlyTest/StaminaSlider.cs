@@ -53,12 +53,10 @@ public class StaminaSlider : MonoBehaviour
             if (!playerjump.isJump)
             {
                 stamina -= data.GetStaminaDrainSpeed_Descend() * Time.deltaTime / 15f;
-                Debug.Log($"�ϰ� Ȯ�� {data.GetStaminaDrainSpeed_Descend()}");
             }
             else if (playerjump.isJump)
             {
                 stamina -= data.GetStaminaDrainSpeed_Ascend() * Time.deltaTime / 15f;
-                Debug.Log($"��� Ȯ�� {data.GetStaminaDrainSpeed_Ascend()}");
             }
             // stamina -= 5 * Time.deltaTime;
         }

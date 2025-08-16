@@ -2943,6 +2943,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1810877717}
+  gameover: {fileID: 2033001503}
+  portal: {fileID: 1314344850}
   slider: {fileID: 348692074}
   pauseScreen: {fileID: 950542700}
 --- !u!4 &451263999
@@ -3814,7 +3816,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef14ba18b0a28b4ca2aebef744631ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelRoot: {fileID: 0}
   resetButton: {fileID: 0}
 --- !u!1 &564451622
 GameObject:
@@ -7476,7 +7477,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef14ba18b0a28b4ca2aebef744631ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelRoot: {fileID: 1006161162}
   resetButton: {fileID: 1001585817}
 --- !u!1 &1006161162
 GameObject:
@@ -10154,6 +10154,7 @@ MonoBehaviour:
   col: {fileID: 0}
   gameclear: {fileID: 2132596842}
   portalState: 0
+  isgameclear: 0
 --- !u!1 &1412056225
 GameObject:
   m_ObjectHideFlags: 0

@@ -3145,6 +3145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 326195189}
+  gameover: {fileID: 1296550133}
+  portal: {fileID: 1009529512}
   slider: {fileID: 1913900678}
   pauseScreen: {fileID: 395385082}
 --- !u!4 &266894751
@@ -11125,6 +11127,7 @@ MonoBehaviour:
   col: {fileID: 0}
   gameclear: {fileID: 1436328685}
   portalState: 1
+  isgameclear: 0
 --- !u!50 &1009529513
 Rigidbody2D:
   serializedVersion: 4
@@ -14482,7 +14485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef14ba18b0a28b4ca2aebef744631ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelRoot: {fileID: 1418058823}
   resetButton: {fileID: 1285848693}
 --- !u!1 &1296550131
 GameObject:

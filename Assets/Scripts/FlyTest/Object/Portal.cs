@@ -16,8 +16,11 @@ public class Portal : MonoBehaviour
     public GameClear gameclear;
     public PortalName portalState;
 
+    public bool isgameclear = false;
+
     void Start()
     {
+        isgameclear = false;
         col = GetComponent<CapsuleCollider2D>();
     }
 
@@ -33,6 +36,7 @@ public class Portal : MonoBehaviour
             {
                 gameclear.Stage2Clear();
             }
+            isgameclear = true;
         }
     }
 }
