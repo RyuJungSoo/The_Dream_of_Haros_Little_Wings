@@ -11,6 +11,9 @@ public class FlyUIManager : MonoBehaviour
     [SerializeField]
     Player player;
 
+    [SerializeField] GameOver gameover;
+    [SerializeField] Portal portal;
+
     [SerializeField]
     StaminaSlider slider;
 
@@ -22,6 +25,29 @@ public class FlyUIManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(StartTime());
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+             ESCButtonClick();
+        }
+    }
+
+    private void ESCButtonClick()
+    {
+        if(!gameover.gameover && !portal.isgameclear)
+        {
+            if(!pauseScreen.activeSelf)
+            {
+                PauseButtonClick();
+            }
+            else if (pauseScreen.activeSelf)
+            {
+                ReturnButtonClick();
+            }
+        }
     }
     private IEnumerator StartTime()
     {
