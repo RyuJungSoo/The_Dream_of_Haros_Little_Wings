@@ -1,16 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public enum EAudioMixerType { Master, BGM, SFX}
+/// 오디오 믹서 그룹 종류
+public enum EAudioMixerType { Master, BGM, SFX }
+
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
     [SerializeField] private AudioMixer audioMixer;
 
-    private bool[] isMute = new bool[3]; // 음소거 여부
-    private float[] audioVolumes = new float[3]; // 볼륨 
+    private bool[]  isMute = new bool[3]; // 뮤트 상태
+    private float[] audioVolumes = new float[3]; // 볼륨 dB값 저장
 
     [SerializeField]
     private AudioSource BGM; // BGM
@@ -24,10 +25,10 @@ public class SoundManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-
         else
+        {
             Destroy(this.gameObject);
-            
+        }
     }
 
     private void Start()
@@ -38,68 +39,59 @@ public class SoundManager : MonoBehaviour
 
     public void SetAudioVolume(EAudioMixerType audioMixerType, float volume) // 볼륨 값 Set
     {
-        
-        // 오디오 믹서의 값은 -80 ~ 0 까지이기 때문에 0.0001 ~ 1의 Log10 * 20을 한다.
-        audioMixer.SetFloat(audioMixerType.ToString(), Mathf.Log10(volume) * 20);
+        // AudioMixer는 dB(-80~0)를 받으므로 선형값(0.0001~1)을 20*log10(volume)로 변환
+        audioMixer.SetFloat(audioMixerType.ToString(), Mathf.Log10(volume) * 20f);
     }
 
     public float GetAudioVolume(EAudioMixerType audioMixerType) // 볼륨 값 Get
     {
-        audioMixer.GetFloat(audioMixerType.ToString(), out float curVolume);
-        return Mathf.Pow(10, curVolume / 20);
+        audioMixer.GetFloat(audioMixerType.ToString(), out float curDb);
+        return Mathf.Pow(10f, curDb / 20f);
     }
 
-    public void SetAudioMute(EAudioMixerType audioMixerType) // 음소거 토글
+    public void SetAudioMute(EAudioMixerType audioMixerType) // 뮤트 토글
     {
-        int type = (int)audioMixerType; // 인덱스 가져오기
+        int type = (int)audioMixerType; // 인덱스 구분용
 
-        // 음소거
-        if (!isMute[type])
+        if (!isMute[type]) // 뮤트 ON
         {
             isMute[type] = true;
-            audioMixer.GetFloat(audioMixerType.ToString(), out float curVolume);
-            audioVolumes[type] = curVolume; // 현재 볼륨값 임시 저장
-            SetAudioVolume(audioMixerType, 0.0001f);
+            audioMixer.GetFloat(audioMixerType.ToString(), out float curDb);
+            audioVolumes[type] = curDb;       // 현재 dB 임시 저장
+            SetAudioVolume(audioMixerType, 0.0001f); // 거의 무음
         }
-        else
+        else // 뮤트 OFF
         {
             isMute[type] = false;
-            SetAudioVolume(audioMixerType, audioVolumes[type]);
+            audioMixer.SetFloat(audioMixerType.ToString(), audioVolumes[type]); // dB 복원
         }
     }
 
     public void PlayBGM(int index, bool isStage) // BGM 재생
     {
-        AudioClip Clip;
-        if (!isStage)
-            Clip = GetComponent<SoundSource>().GetBGM(index);
-        else
-            Clip = GetComponent<SoundSource>().GetStageBGM(index);
+        AudioClip clip = !isStage
+            ? GetComponent<SoundSource>().GetBGM(index)
+            : GetComponent<SoundSource>().GetStageBGM(index);
 
-        BGM.clip = Clip;
+        BGM.clip = clip;
         BGM.Play();
     }
 
-    public void StopBGM()
+    public void StopBGM() // BGM 정지
     {
         BGM.Stop();
     }
 
-    public void PlaySFX(int index, float delay) // SFX 재생
+    public void PlaySFX(int index, float delay) // SFX 재생(지연 지원)
     {
-        
         StartCoroutine(PlaySFXWithDelay(index, delay));
-        
     }
 
-    IEnumerator PlaySFXWithDelay(int index, float delay)
+    private IEnumerator PlaySFXWithDelay(int index, float delay) // SFX 코루틴
     {
-        yield return new WaitForSeconds(delay);
-        AudioClip Clip = GetComponent<SoundSource>().GetSFX(index);
-        SFX.PlayOneShot(Clip);
+        if (delay > 0f) yield return new WaitForSeconds(delay);
+        AudioClip clip = GetComponent<SoundSource>().GetSFX(index);
+        SFX.PlayOneShot(clip);
         Debug.Log("OK");
     }
 }
-
-
-

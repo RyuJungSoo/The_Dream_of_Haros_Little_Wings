@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class RestLoader : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class RestLoader : MonoBehaviour
     public Image loadingSpriteImage;
     public Sprite restSprite;
 
+    [Header("입력 잠금용(선택)")]
+    [SerializeField] private Button restButton;        // 휴식 버튼 참조(있으면 연결)
+    [SerializeField] private CanvasGroup controlsGroup; // 휴식/훈련 버튼들이 들어있는 부모 패널(있으면 연결)
+
     private float timer = 0f;
     private bool isLoading = false;
 
@@ -55,6 +60,20 @@ public class RestLoader : MonoBehaviour
             enabled = true;
             // 활성화된 같은 프레임 내에서도 계속 진행
         }
+
+                //  로딩 중 재호출 가드
+        if (isLoading) return;
+
+        //  버튼/컨테이너 입력 막기
+        if (restButton) restButton.interactable = false;
+        if (controlsGroup)
+        {
+            controlsGroup.interactable  = false; // 내부 Selectable 입력 차단
+            controlsGroup.blocksRaycasts = true; // 마우스 클릭도 막기
+        }
+
+        //  스페이스/엔터로 Submit 재클릭 방지: 현재 선택된 UI 해제
+        EventSystem.current?.SetSelectedGameObject(null);
 
         Debug.Log("[RestLoader] StartRest 호출됨");
 
@@ -109,9 +128,9 @@ public class RestLoader : MonoBehaviour
         StartCoroutine(ShowRestLog());
     }
 
-    IEnumerator ShowRestLog()
+     IEnumerator ShowRestLog()
     {
-        HideAllTexts(); // 로딩 텍스트 끄기
+        HideAllTexts();
 
         float currentStamina = StatManager.Instance.currentStamina;
         float maxStamina = StatManager.Instance.maxStamina;
@@ -119,21 +138,29 @@ public class RestLoader : MonoBehaviour
 
         int staminaLevel = GetStaminaLevel(ratio);
         HpLogManager.instance.GetLogs(staminaLevel);
-        string haroDialogue = HpLogManager.instance.GetSingleLog();
-        dialogueText.text = haroDialogue;
+        dialogueText.text = HpLogManager.instance.GetSingleLog();
 
-        // 휴식 완료 텍스트 표시
-        if (RestEndText != null)
-            RestEndText.SetActive(true);
+        if (RestEndText != null) RestEndText.SetActive(true);
 
         if (GameManager.Instance != null)
-            GameManager.Instance.UseTurn();
+            GameManager.Instance.UseTurn(); // 로딩 끝났을 때 1턴 소모
 
         yield return new WaitForSeconds(1.5f);
 
-        // 완료 후 패널 끄기
+        // 완료 후 패널 끄기 + 텍스트 숨김
         loadingPanel.SetActive(false);
         HideAllTexts();
+
+        //  입력 다시 켜기
+        if (restButton) restButton.interactable = true;
+        if (controlsGroup)
+        {
+            controlsGroup.interactable  = true;
+            controlsGroup.blocksRaycasts = true; // 보통 true 유지(뒤 클릭 막기). 필요시 false로 조절
+        }
+
+        //  상태 리셋
+        isLoading = false;
     }
 
 
