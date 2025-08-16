@@ -43,17 +43,21 @@ public class FlyUIManager : MonoBehaviour
     public void TitlePortalButtonClick()
     {
         SceneSettingManager.Instance.ChangeScene("MainMenu");
+        Time.timeScale = 1.0f;
     }
     public void RetryStageButtonClick()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1.0f;
     }
     public void NextStageButtonClick()
     {
         SceneSettingManager.Instance.ChangeScene("DialogueScene");
+        Time.timeScale = 1.0f;
     }
     public void ReCultivateButtonClick()
     {
         SceneSettingManager.Instance.ChangeScene("Raising_Stage");
+        Time.timeScale = 1.0f;
     }
 }

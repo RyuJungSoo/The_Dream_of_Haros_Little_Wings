@@ -93,6 +93,7 @@ public class QTEManager : MonoBehaviour
                             if (key == assignedKeys[i])
                             {
                                 success = true;
+                                SoundManager.instance.PlaySFX(8, 0);
                                 Debug.Log($"[{i + 1}] 입력 성공: {key}");
                                 qteImages[i].enabled = false;
                                 yield return new WaitForSecondsRealtime(0.05f);
