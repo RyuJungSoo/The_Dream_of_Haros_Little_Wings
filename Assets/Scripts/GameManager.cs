@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [Header("턴 설정")]
-    public int maxTurn = 12;
+    public int maxTurn = 15;
     public int CurrentTurn { get; set; }
 
 

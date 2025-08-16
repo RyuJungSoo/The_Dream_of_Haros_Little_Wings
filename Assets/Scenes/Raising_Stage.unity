@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7114140a94d438b45bd79945fbb7648d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTurn: 12
+  maxTurn: 15
 --- !u!114 &51299219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6337,7 +6337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "12\uD134\n"
+  m_text: "15\uD134\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: af7616705939e1d47876161a827bdbc1, type: 2}
   m_sharedMaterial: {fileID: 8140237308228266832, guid: af7616705939e1d47876161a827bdbc1, type: 2}
@@ -10405,7 +10405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingPanel: {fileID: 1539416248}
   progressBarFiller: {fileID: 98888430}
-  loadingTime: 5
+  loadingTime: 4
   Rest_loadingText: {fileID: 1671690706}
   Stamina_loadingText: {fileID: 1270429969}
   FlightPower_loadingText: {fileID: 87412163}
@@ -13301,7 +13301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dfb3f8ac54f3b8478d54717dd277490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoveryAmount: 30
+  recoveryAmount: 40
   restLoader: {fileID: 1539416253}
 --- !u!114 &1897873624
 MonoBehaviour:

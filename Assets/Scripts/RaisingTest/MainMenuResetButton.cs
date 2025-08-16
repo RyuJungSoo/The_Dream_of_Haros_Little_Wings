@@ -47,7 +47,7 @@ public class MainMenuResetButton : MonoBehaviour
         SetInteractable(false);
         SaveManager.Instance.ResetGame();
 
-        Debug.Log("[MainMenuResetButton] 전체 데이터 리셋 완료 (스탯 0 / 체력 풀 / 턴 풀 / 깃발 해제)");
+        Debug.Log("[MainMenuResetButton] 전체 데이터 리셋 완료 (스탯 0 / 체력 풀 / 턴 풀)");
         Close();
         SetInteractable(true);
     }
