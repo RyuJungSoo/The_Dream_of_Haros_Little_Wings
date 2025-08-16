@@ -9,11 +9,10 @@ public class FlyStageGoToRaising : MonoBehaviour
     public void OnClick_RetryRaising()
     {
         SaveManager.Instance.ResetGame();
+
+        Debug.Log("[MainMenuResetButton] 전체 데이터 리셋 완료 (스탯 0 / 체력 풀 / 턴 풀)");
+
         SceneManager.LoadScene("Raising_Stage");
 
-
-        // 씬 로드
-        if (!string.IsNullOrWhiteSpace(raisingStageSceneName))
-            SceneManager.LoadScene(raisingStageSceneName);
     }
 }

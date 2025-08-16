@@ -100,8 +100,8 @@ public class SaveManager : MonoBehaviour
     {
         var data = new SaveGameData
         {
-            currentTurn = 12,
-            maxTurn = 12,
+            currentTurn = 15,
+            maxTurn = 15,
             staminaStat = 0,
             flightpowerStat = 0,
             balanceStat = 0,
