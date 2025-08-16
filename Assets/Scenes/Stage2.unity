@@ -14215,7 +14215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef14ba18b0a28b4ca2aebef744631ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raisingStageSceneName: Raising_Stage
+  panelRoot: {fileID: 1418058823}
+  resetButton: {fileID: 1285848693}
 --- !u!1 &1296550131
 GameObject:
   m_ObjectHideFlags: 0

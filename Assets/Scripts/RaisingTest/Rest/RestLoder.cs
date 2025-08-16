@@ -126,10 +126,14 @@ public class RestLoader : MonoBehaviour
         if (RestEndText != null)
             RestEndText.SetActive(true);
 
+        if (GameManager.Instance != null)
+            GameManager.Instance.UseTurn();
+
         yield return new WaitForSeconds(1.5f);
 
         // 완료 후 패널 끄기
         loadingPanel.SetActive(false);
+        HideAllTexts();
     }
 
 

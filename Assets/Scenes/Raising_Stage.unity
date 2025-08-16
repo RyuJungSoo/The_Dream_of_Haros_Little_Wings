@@ -468,7 +468,7 @@ MonoBehaviour:
   chosenCheckBalance: {fileID: 39607095}
   chosenCheckAgility: {fileID: 1583774448}
   turnText: {fileID: 993137010}
-  staminaBarFiller: {fileID: 0}
+  staminaBarFiller: {fileID: 290155956}
   dialogueText: {fileID: 1257861637}
   loader: {fileID: 1539416252}
   mainIncreaseText: {fileID: 1597233993}
@@ -537,7 +537,7 @@ MonoBehaviour:
   defaultMessage: "\uD134\uC774 0\uC785\uB2C8\uB2E4.\n\uBE44\uD589 \uC2A4\uD14C\uC774\uC9C0\uB85C
     \uC774\uB3D9\uD560\uAE4C\uC694?"
   depletedPromptDelay: 1.5
-  waitWhileActive: {fileID: 0}
+  waitWhileActive: {fileID: 516173743}
 --- !u!114 &51299221
 MonoBehaviour:
   m_ObjectHideFlags: 0
