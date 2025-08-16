@@ -52,7 +52,6 @@ public class RestButtonHandler : MonoBehaviour
         restLoader.StartRest();
 
         // 턴 소모 및 UI 갱신
-        GameManager.Instance.UseTurn();
         UIManager.Instance.UpdateStatUI();
         UIManager.Instance.HideAllChosenChecks();
     }

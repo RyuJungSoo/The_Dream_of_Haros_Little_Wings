@@ -3770,7 +3770,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef14ba18b0a28b4ca2aebef744631ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raisingStageSceneName: Raising_Stage
+  panelRoot: {fileID: 0}
+  resetButton: {fileID: 0}
 --- !u!1 &564451622
 GameObject:
   m_ObjectHideFlags: 0
@@ -7387,7 +7388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef14ba18b0a28b4ca2aebef744631ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raisingStageSceneName: Raising_Stage
+  panelRoot: {fileID: 1006161162}
+  resetButton: {fileID: 1001585817}
 --- !u!1 &1006161162
 GameObject:
   m_ObjectHideFlags: 0
