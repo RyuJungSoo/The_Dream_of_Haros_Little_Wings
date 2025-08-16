@@ -280,10 +280,10 @@ public class StatManager : MonoBehaviour
         return baseDecrease * factor;
     }
 
-    // 상승 시 스태미나 감소 속도 계산 (하강 × 2.5)
+    // 상승 시 스태미나 감소 속도 계산 (하강 × 2)
     public float GetStaminaDrainSpeed_Ascend()
     {
-        return GetStaminaDrainSpeed_Descend() * 2.5f;
+        return GetStaminaDrainSpeed_Descend() * 2f;
     }
 
 
