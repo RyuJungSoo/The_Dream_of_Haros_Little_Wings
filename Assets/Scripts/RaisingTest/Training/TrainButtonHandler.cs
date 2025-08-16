@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TrainButtonHandler : MonoBehaviour
 {
+    private const float V2 = 0f;
     public StatType statType;
     public TrainingLoader loader; 
 
@@ -14,7 +15,7 @@ public class TrainButtonHandler : MonoBehaviour
         Debug.Log($"[TrainButtonHandler] {statType} 버튼 클릭됨");
     if (loader == null) { Debug.LogError("TrainingLoader 미연결"); return; }
 
-//두번 클릭 문제 관련
+        //두번 클릭 문제 관련
         // 로더/컴포넌트가 꼭 켜져 있어야 첫 클릭부터 Update()가 돌게
         if (!loader.gameObject.activeInHierarchy) loader.gameObject.SetActive(true);
         if (!loader.enabled) loader.enabled = true;

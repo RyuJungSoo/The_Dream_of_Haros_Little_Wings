@@ -49,9 +49,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // 턴/스탯 복원은 SaveManager가 씬 변경 훅에서 처리함.
-        // 여기서는 값 초기화 절대 금지. UI만 동기화.
+        //비행씬->메인->육성씬:스탯,체력 로드, 턴0
+        if (GameManager.Instance != null && GameManager.Instance.GetCurrentTurn() == 0)
+        {
+            StageChangeAlarm.Instance?.PromptAndRoute();
 
+        }
 
         if (SoundManager.instance != null)
             SoundManager.instance.PlayBGM(3, false);
