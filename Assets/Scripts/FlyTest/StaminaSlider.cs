@@ -21,7 +21,7 @@ public class StaminaSlider : MonoBehaviour
 
     public void Start()
     {
-        fullStamina = data.GetStaminaMax();
+        fullStamina = StatManager.Instance.GetStaminaMax();
         // fullStamina = 200;
         stamina = fullStamina;
     }
@@ -52,11 +52,11 @@ public class StaminaSlider : MonoBehaviour
 
             if (!playerjump.isJump)
             {
-                stamina -= data.GetStaminaDrainSpeed_Descend() * Time.deltaTime / 15f;
+                stamina -= StatManager.Instance.GetStaminaDrainSpeed_Descend() * Time.deltaTime / 15f;
             }
             else if (playerjump.isJump)
             {
-                stamina -= data.GetStaminaDrainSpeed_Ascend() * Time.deltaTime / 15f;
+                stamina -= StatManager.Instance.GetStaminaDrainSpeed_Ascend() * Time.deltaTime / 15f;
             }
             // stamina -= 5 * Time.deltaTime;
         }
