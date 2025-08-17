@@ -10343,7 +10343,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1315745923
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13133,7 +13133,6 @@ MonoBehaviour:
   onWind: 0
   isJump: 0
   rb: {fileID: 1810877714}
-  data: {fileID: 1045451285}
   jumpPower: 5
 --- !u!114 &1810877716
 MonoBehaviour:
@@ -13178,7 +13177,6 @@ MonoBehaviour:
   obstacleData: {fileID: 0}
   wallData: {fileID: 0}
   item: {fileID: 0}
-  onCollide: 0
   isInvincible: 0
   onShield: 0
   stageFactor: 12
