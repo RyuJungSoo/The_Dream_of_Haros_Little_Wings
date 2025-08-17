@@ -1,72 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
-public class BackgroundScrolling : MonoBehaviour
+public class InfiniteBackground : MonoBehaviour
 {
-    #region Inspector
-
-    public SpriteRenderer spriteRenderer;
-    public float interval;
+    [Header("배경 설정")]
+    public Transform cameraTransform;
+    public List<Transform> backgrounds;
     public float speed = 1f;
 
-    #endregion
+    private float bgWidth;
 
-    private List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
-
-    private void Awake()
+    private void Start()
     {
-        interval = spriteRenderer.bounds.size.x;
-        // 원본 이미지를 하나 더 복제한다.
-        var newSpriteRenderer = Instantiate<SpriteRenderer>(spriteRenderer);
-        newSpriteRenderer.transform.SetParent(this.transform);
-        spriteRenderers.Add(spriteRenderer);
-        spriteRenderers.Add(newSpriteRenderer);
-        SortImage();
-    }
+        bgWidth = backgrounds[0].GetComponent<SpriteRenderer>().bounds.size.x;
 
-    /// <summary>
-    /// 이미지 정렬
-    /// </summary>
-    private void SortImage()
-    {
-        for (int i = 0; i < spriteRenderers.Count; i++)
+        for (int i = 1; i < backgrounds.Count; i++)
         {
-            var spriteRenderer = spriteRenderers[i];
-            spriteRenderer.transform.localPosition = Vector3.right * interval * i;
+            backgrounds[i].position = new Vector3(backgrounds[i - 1].position.x + bgWidth, backgrounds[i - 1].position.y, backgrounds[i - 1].position.z);
         }
     }
 
     private void Update()
     {
-        UpdateMoveImages();
-    }
-
-    /// <summary>
-    /// 이미지 이동 업데이트
-    /// </summary>
-    private void UpdateMoveImages()
-    {
-        float move = Time.deltaTime * speed;
-
-        for (int i = 0; i < spriteRenderers.Count; i++)
+        foreach (var bg in backgrounds)
         {
-            var spriteRenderer = spriteRenderers[i];
-            spriteRenderer.transform.localPosition += Vector3.left * move;
+            bg.position += Vector3.left * speed * Time.deltaTime;
+        }
 
-            if (spriteRenderer.transform.localPosition.x <= -interval)
-            {
-                // 현재 가장 오른쪽에 있는 이미지 찾기
-                float maxX = float.MinValue;
-                foreach (var sr in spriteRenderers)
-                {
-                    if (sr.transform.localPosition.x > maxX)
-                        maxX = sr.transform.localPosition.x;
-                }
+        Transform leftMost = backgrounds[0];
+        Transform rightMost = backgrounds[backgrounds.Count - 1];
 
-                // 그 오른쪽에 붙이기
-                spriteRenderer.transform.localPosition = new Vector3(maxX + interval, 0f, 0f);
-            }
+        if (cameraTransform.position.x - leftMost.position.x > bgWidth)
+        {
+            leftMost.position = new Vector3(rightMost.position.x + bgWidth, leftMost.position.y, leftMost.position.z);
+
+            backgrounds.RemoveAt(0);
+            backgrounds.Add(leftMost);
         }
     }
 }
