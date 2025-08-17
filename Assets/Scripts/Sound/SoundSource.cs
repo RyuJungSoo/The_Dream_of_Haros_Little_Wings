@@ -10,6 +10,8 @@ public class SoundSource : MonoBehaviour
     List<AudioClip> StageBGM_List;
     [SerializeField]
     List<AudioClip> SFX_List;
+    [SerializeField]
+    List<AudioClip> Script_List;
 
     public AudioClip GetBGM(int index)
     {  
@@ -25,4 +27,10 @@ public class SoundSource : MonoBehaviour
     {
         return SFX_List[index];
     }
+
+    public AudioClip GetScriptSFX(int index)
+    {
+        return Script_List[index];
+    }
+
 }

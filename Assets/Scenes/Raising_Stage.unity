@@ -2082,6 +2082,7 @@ GameObject:
   - component: {fileID: 295935311}
   - component: {fileID: 295935310}
   - component: {fileID: 295935313}
+  - component: {fileID: 295935314}
   m_Layer: 5
   m_Name: Setting_Button
   m_TagString: Untagged
@@ -2164,6 +2165,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 295935314}
+        m_TargetAssemblyTypeName: UI_Highlight, Assembly-CSharp
+        m_MethodName: SetNormal_UI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &295935311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2216,6 +2229,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UI: {fileID: 1587903062}
   isOn: 1
+--- !u!114 &295935314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295935308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1638a038cb81987449badb738b3914de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Normal_UI: {fileID: 21300000, guid: 345fc2605f54fc344baf697e59a41970, type: 3}
+  Highlight_UI: {fileID: 21300000, guid: 0ff9fa910aa66804b981f7bfdfa10032, type: 3}
 --- !u!1 &299225948
 GameObject:
   m_ObjectHideFlags: 0
@@ -10391,6 +10418,8 @@ MonoBehaviour:
   flightpowerSprite: {fileID: 21300000, guid: 56a4f988366ce034bac92c74410a3060, type: 3}
   balanceSprite: {fileID: 21300000, guid: c5cd8bf208101f64cac8e7dc6a74f269, type: 3}
   agilitySprite: {fileID: 21300000, guid: ff91496a6b592f043b81585e4d054cdd, type: 3}
+  trainingButtons: []
+  controlsGroup: {fileID: 0}
 --- !u!114 &1539416253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10417,6 +10446,8 @@ MonoBehaviour:
   dialogueText: {fileID: 1257861637}
   loadingSpriteImage: {fileID: 272523196}
   restSprite: {fileID: 21300000, guid: 9766d10bfdf119444b22117c3e830a1c, type: 3}
+  restButton: {fileID: 0}
+  controlsGroup: {fileID: 0}
 --- !u!1 &1541443003
 GameObject:
   m_ObjectHideFlags: 0
