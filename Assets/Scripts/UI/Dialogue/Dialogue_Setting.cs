@@ -81,7 +81,7 @@ public class Dialogue_Setting : MonoBehaviour
         }
         if (Context_UI)
         {
-
+            
             StartCoroutine(TypeText(dialogues[Dialogue_idx].contexts[Context_idx]));
         }
         //Context_UI.text = dialogues[Dialogue_idx].contexts[Context_idx];
@@ -128,6 +128,7 @@ public class Dialogue_Setting : MonoBehaviour
     {
         foreach (char letter in texttoType)
         {
+            SoundManager.instance.PlayScriptSFX();
             if (Input.GetButton("Submit") && !isTextTypeOver)
             {
                 Context_UI.text = texttoType;
@@ -140,7 +141,7 @@ public class Dialogue_Setting : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
 
         }
-
+        SoundManager.instance.StopScriptSFX();
         Context_idx++;
         isTextTypeOver = true;
 

@@ -17,6 +17,8 @@ public class SoundManager : MonoBehaviour
     private AudioSource BGM; // BGM
     [SerializeField]
     private AudioSource SFX; // SFX
+    [SerializeField]
+    private AudioSource ScriptSound; // 스크립트 출력 효과음 재생 전용 AudioSource
 
     private void Awake()
     {
@@ -80,6 +82,25 @@ public class SoundManager : MonoBehaviour
     public void StopBGM() // BGM 정지
     {
         BGM.Stop();
+    }
+
+    public void PlayScriptSFX()
+    {
+        //if (ScriptSound.isPlaying)
+            //return;
+
+        int index = Random.Range(0, 12);
+
+        ScriptSound.pitch = Random.Range(0.95f, 1.05f);
+        ScriptSound.clip = GetComponent<SoundSource>().GetScriptSFX(index);
+        ScriptSound.Play();
+    }
+
+    public void StopScriptSFX()
+    {
+        if (!ScriptSound.isPlaying)
+            return;
+        ScriptSound.Stop();
     }
 
     public void PlaySFX(int index, float delay) // SFX 재생(지연 지원)
