@@ -55,6 +55,7 @@ public class SceneSettingManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) // 씬 전환 시 발생되는 이벤트
     {
+        SoundManager.instance.StopScriptSFX();
         PreviousSceneName = CurrentSceneName;
         CurrentSceneName = scene.name;
 
