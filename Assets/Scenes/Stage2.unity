@@ -926,6 +926,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e1a9cc68e0b1e6441b29eab97be0cf46, type: 3}
   - {fileID: 8300000, guid: 16fc8b4a27652564c94f59960153d185, type: 3}
   - {fileID: 8300000, guid: 9e13cb79ae110cc4ca2bd776fd122183, type: 3}
+  Script_List: []
 --- !u!114 &70476761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -941,6 +942,7 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: bbc8e1d5f5e692747ac2c005cb3f210b, type: 2}
   BGM: {fileID: 181122138}
   SFX: {fileID: 1681291441}
+  ScriptSound: {fileID: 0}
 --- !u!4 &70476762
 Transform:
   m_ObjectHideFlags: 0
@@ -22581,7 +22583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2012220614
 RectTransform:
   m_ObjectHideFlags: 0
