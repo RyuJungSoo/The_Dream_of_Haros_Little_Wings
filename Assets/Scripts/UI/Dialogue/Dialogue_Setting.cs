@@ -39,16 +39,12 @@ public class Dialogue_Setting : MonoBehaviour
     {
         dialogues = GetComponent<InteractionEvent>().GetDialogues();
         SpriteFolder_Name = GetComponent<InteractionEvent>().GetName();
-        //SpriteFolder_Name = GetComponent<InteractionEvent>().name;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         ShowDialogue();
-        //isTextTypeOver = false;
-        //DialogueSetting();
-        //GetUISprite("Scene_1_1");
     }
 
     private void Update()
@@ -84,7 +80,6 @@ public class Dialogue_Setting : MonoBehaviour
             
             StartCoroutine(TypeText(dialogues[Dialogue_idx].contexts[Context_idx]));
         }
-        //Context_UI.text = dialogues[Dialogue_idx].contexts[Context_idx];
 
         if (Sprite_UI)
         {
@@ -115,7 +110,6 @@ public class Dialogue_Setting : MonoBehaviour
         {
             isTextTypeOver = false;
             TalkUIUpdate(Dialogue_idx, Context_idx);
-            //Context_idx++;
         }
     }
 
