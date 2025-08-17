@@ -261,13 +261,13 @@ public class StatManager : MonoBehaviour
 
     public float GetStaminaMax()
     {
-        // (기본스태미나 + (20 + 스태미나*0.8))   ← 배율 제거
+        // (기본스태미나 + (20 + 스태미나*0.8))  
         return statData.GetBasicStamina() + (20f + Stamina_Stat * 0.8f);
     }
 
     public float GetFlightSpeed()
     {
-        // (기본상승속도 + 비상력*0.2)   ← 배율 제거
+        // (기본상승속도 + 비상력*0.2)  
         return statData.GetBasicFlightSpeed() + Flightpower_Stat * 0.2f;
     }
 
@@ -276,7 +276,7 @@ public class StatManager : MonoBehaviour
     {
         float baseDecrease = statData.GetBasicStaminaDecrease(); // 기본감소속도(예: 10)
         float factor = 0.2f + (1f - Balance_Stat / 180f);        // 0.2 ~ 1.2
-        // 기본감소속도 × 균형감 보정   ← 배율 제거
+        // 기본감소속도 × 균형감 보정  
         return baseDecrease * factor;
     }
 
@@ -286,11 +286,6 @@ public class StatManager : MonoBehaviour
         return GetStaminaDrainSpeed_Descend() * 2f;
     }
 
-
-    public float GetAgilityPassRate(float dropFactor, float stageFactor)
-    {
-        return (5f + Agility_Stat * 0.5f * dropFactor) * stageFactor;
-    }
     public string GetGrade(int stat)
     {
         if (stat >= 160) return "S";
@@ -318,16 +313,28 @@ public class StatManager : MonoBehaviour
     public (string main, string sub) GetMainAndSubStatText(string statName)
         => ($"+{expectedMainValue}", $"+{expectedSubValue}");
 
+    //민첩성 판정 통과 확률 
+    public float GetAgilityPassRate(float dropFactor, float stageFactor)
+    {
+        return (5f + Agility_Stat * 0.5f * dropFactor) * stageFactor;
+    }
+    
+    //(민첩성 통과 판정 확률과 비례하게) QTE발동 확률
     public bool ShouldTriggerQTE(float dropFactor, float stageFactor)
     {
-        float baseProbability = GetAgilityPassRate(dropFactor, stageFactor);
-        float adjustedProbability = baseProbability * statData.GetQTETriggerFactor() / 100f;
+        // 민첩성 통과확률(%) 계산 → 0~100으로 보정
+        float passPct = Mathf.Clamp(GetAgilityPassRate(dropFactor, stageFactor), 0f, 100f);
 
-        int roll = UnityEngine.Random.Range(0, 100);
-        Debug.Log($"[민첩성 판정] 계산된 확률: {adjustedProbability:F1}%, 롤값: {roll}");
+        // 2번) 0~100 중 랜덤 하나 
+        int roll = UnityEngine.Random.Range(0, 101);
 
-        return roll < adjustedProbability;
+        //  2번이 확률(%)보다 작으면 트리거
+        bool trigger = roll < passPct;
+        Debug.Log($"[민첩성 판정] 계산된 확률: {passPct:F1}%, 롤값: {roll} → {(trigger ? "TRIGGER" : "NO")}");
+
+        return trigger;
     }
+    
 
     public void ResetStatsAndSaveFullStamina()
     {
@@ -340,7 +347,7 @@ public class StatManager : MonoBehaviour
         maxStamina = Mathf.Max(100f, calcMax);
         currentStamina = maxStamina;
 
-       // SaveStatsToJson();
+        // SaveStatsToJson();
         NotifyStatsChanged();
 
         Debug.Log("[StatManager] Reset+FullStamina 저장 완료");
