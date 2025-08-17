@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,8 @@ public class QTEManager : MonoBehaviour
 {
     [SerializeField] Player player;
     [SerializeField] StatManager statManager;
+
+    [SerializeField] GameObject backGround;
 
     [SerializeField] Image First;
     [SerializeField] Image Second;
@@ -23,25 +26,23 @@ public class QTEManager : MonoBehaviour
     private Image[] arrowImages;
 
     private KeyCode[] assignedKeys = new KeyCode[4];
-    private KeyCode[] availableKeys = new KeyCode[] { KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.W };
+    private KeyCode[] availableKeys = new KeyCode[] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
+    private KeyCode[] arrowKeysAlt = new KeyCode[]  { KeyCode.UpArrow, KeyCode.LeftArrow, KeyCode.DownArrow, KeyCode.RightArrow };
 
     public bool clearQTE = false;
     public bool isQTE = false;
+
+    private bool canQTE = true;
 
     private Sprite GetSpriteForKey(KeyCode key)
     {
         switch (key)
         {
-            case KeyCode.W:
-                return arrowUp;
-            case KeyCode.S:
-                return arrowDown;
-            case KeyCode.A:
-                return arrowLeft;
-            case KeyCode.D:
-                return arrowRight;
-            default:
-                return null;
+            case KeyCode.W : return arrowUp;
+            case KeyCode.S : return arrowDown;
+            case KeyCode.A : return arrowLeft;
+            case KeyCode.D : return arrowRight;
+            default : return null;
         }
     }
 
@@ -55,9 +56,18 @@ public class QTEManager : MonoBehaviour
         }
     }
 
+    private bool shouldTriggerQTE(float dropFactor, float stageFactor)
+    {
+        float baseProbability = StatManager.Instance.GetAgilityPassRate(dropFactor, stageFactor);
+        float adjustedProbability = baseProbability / 5;
+
+        int roll = UnityEngine.Random.Range(0, 101);
+        Debug.Log($"[민첩성 판정] 계산된 확률: {adjustedProbability:F1}%, 롤값: {roll}");
+        return roll < adjustedProbability;
+    }
     public IEnumerator StartQTETime(float coefficient, int damage)
     {
-        if (!statManager.ShouldTriggerQTE(coefficient, player.stageFactor))
+        if (!shouldTriggerQTE(coefficient, player.stageFactor) || !canQTE)
         {
             player.Hit(damage);
             clearQTE = true;
@@ -67,6 +77,7 @@ public class QTEManager : MonoBehaviour
         else
         {
             isQTE = true;
+            backGround.SetActive(true);
             clearQTE = false;
             Time.timeScale = 0f; // 게임 시간 정지
 
@@ -86,23 +97,22 @@ public class QTEManager : MonoBehaviour
 
                 while (timer < maxTime)
                 {
-                    foreach (var key in availableKeys)
+                    foreach (var key in availableKeys.Concat(arrowKeysAlt))
                     {
                         if (Input.GetKeyDown(key))
                         {
-                            if (key == assignedKeys[i])
+                            KeyCode assigned = assignedKeys[i];
+                            int index = System.Array.IndexOf(availableKeys, assigned);
+
+                            if (key == availableKeys[index] || key == arrowKeysAlt[index])
                             {
                                 success = true;
-                                SoundManager.instance.PlaySFX(8, 0);
-                                Debug.Log($"[{i + 1}] 입력 성공: {key}");
                                 qteImages[i].enabled = false;
                                 yield return new WaitForSecondsRealtime(0.05f);
                                 break;
                             }
                             else
                             {
-                                Debug.Log($"[{i + 1}] 틀린 키 입력");
-                                clearQTE = true;
                                 player.Hit(damage);
                                 EndQTE();
                                 yield break;
@@ -127,14 +137,17 @@ public class QTEManager : MonoBehaviour
             clearQTE = true;
             Debug.Log("QTE 성공!");
             EndQTE();
+            yield return new WaitForSecondsRealtime(1f);
+            canQTE = true;
         }
     }
 
     private void EndQTE()
     {
         isQTE = false;
+        canQTE = false;
+        backGround.SetActive(false);
         Time.timeScale = 1f;
-
         for (int i = 0; i < arrowImages.Length; i++)
         {
             arrowImages[i].enabled = false;

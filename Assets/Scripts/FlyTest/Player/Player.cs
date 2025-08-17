@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] GameObject StartTimerUI;
+    [SerializeField] TextMeshProUGUI startTimer;
+
     [SerializeField] QTEManager qteManager;
     [SerializeField] GameObject qteScreen;
     [SerializeField] GameOver gameover;
@@ -25,7 +29,6 @@ public class Player : MonoBehaviour
 
     public static Player Instance;
 
-    public bool onCollide = false;
     public bool isInvincible = false;
     public bool onShield = false;
 
@@ -46,8 +49,15 @@ public class Player : MonoBehaviour
     }
     private IEnumerator StartTime()
     {
+        StartTimerUI.SetActive(true);
         Time.timeScale = 0f;
-        yield return new WaitForSecondsRealtime(3f);
+        startTimer.text = "3";
+        yield return new WaitForSecondsRealtime(1f);
+        startTimer.text = "2";
+        yield return new WaitForSecondsRealtime(1f);
+        startTimer.text = "1";
+        yield return new WaitForSecondsRealtime(1f);
+        StartTimerUI.SetActive(false);
         Time.timeScale = 1f;
     }
 
@@ -149,7 +159,6 @@ public class Player : MonoBehaviour
         isInvincible = true;
         yield return new WaitForSecondsRealtime(1f);
         isInvincible = false;
-        onCollide = false;
     }
     public IEnumerator HitWall(int damage, string name)
     {
@@ -158,15 +167,13 @@ public class Player : MonoBehaviour
         isInvincible = true;
         yield return new WaitForSecondsRealtime(1f);
         isInvincible = false;
-        onCollide = false;
     }
     public IEnumerator HitDuringInvincible()
     {
         SoundManager.instance.PlaySFX(9, 0);
-        yield return new WaitForSeconds(1f);
-        isInvincible = false;
+        yield return new WaitForSeconds(0.5f);
         onShield = false;
-        onCollide = false;
+        isInvincible = false;
     }
 
     public void Hit(int damage)

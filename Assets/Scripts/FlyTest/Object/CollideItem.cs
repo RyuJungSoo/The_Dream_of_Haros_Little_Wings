@@ -58,7 +58,6 @@ public class CollideItem : MonoBehaviour
 
     private IEnumerator Wind()
     {
-        Debug.Log("윈드 코루틴 실행");
         playerjump.onWind = true;
         yield return new WaitForSeconds(1f);
         playerjump.onWind = false;
