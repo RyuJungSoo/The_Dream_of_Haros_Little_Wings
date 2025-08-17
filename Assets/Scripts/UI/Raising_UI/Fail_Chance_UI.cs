@@ -11,7 +11,7 @@ public class Fail_Chance_UI : MonoBehaviour
     // ÀÎµ¦½º 3 : ³ë¶û
     // ÀÎµ¦½º 4 : ÃÊ·Ï
     // ÀÎµ¦½º 5 : ÆÄ¶û
-    string[] Colors = { "#C0504D", "#FFBA00", "#EED050", "#9BBB59", "#4F81BD"};
+    string[] Colors = { "#E42633", "#FF9E00", "#FFE341", "#9EFF7B", "#60AFFF" };
 
     public void UIUpdate(int Fail_Value)
     {
