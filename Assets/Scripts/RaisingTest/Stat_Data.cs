@@ -11,16 +11,16 @@ public class Stat_Data : ScriptableObject
     [SerializeField] private float basicFlightStaminaDecreaseSpeed = 10f; // 비행 시 스태미나 증가 감소량
 
 
-    [Header("QTE 발동 계수 (보정값)")]
-    [Range(0f, 100f)]
-    public float qteTriggerFactor = 20f; // QTE 발동 기본 확률 계수 (현재 자동 계산 방식 사용 시 미사용)
+    // [Header("QTE 발동 계수 (보정값)")]
+    // [Range(0f, 100f)]
+    // public float qteTriggerFactor = 20f; // QTE 발동 기본 확률 계수 (현재 자동 계산 방식 사용 시 미사용)
 
     // ====== Getter Methods ======
     public float GetBasicStamina() => basicStamina;
     public float GetBasicFlightSpeed() => basicFlightSpeed;
     public float GetBasicStaminaDecreaseSpeed() => basicStaminaDecreaseSpeed;
     public float GetBasicFlightStaminaDecreaseSpeed() => basicFlightStaminaDecreaseSpeed;
-    public float GetQTETriggerFactor() => qteTriggerFactor;
+    // public float GetQTETriggerFactor() => qteTriggerFactor;
     public float GetBasicStaminaDecrease() => basicStaminaDecrease;
 
 } 
