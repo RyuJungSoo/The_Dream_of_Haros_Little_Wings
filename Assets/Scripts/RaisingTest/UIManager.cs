@@ -30,6 +30,13 @@ public class UIManager : MonoBehaviour
     [Header("하로 체력")]
     public Image staminaBarFiller;
 
+    [Header("하로 이미지")]
+    public Image Haro;
+
+    [Header("하로 스프라이트")]
+    public Sprite NormalSprite;
+    public Sprite DamageSprite;
+
     [Header("하로 대사")]
     public TextMeshProUGUI dialogueText;
 
@@ -87,7 +94,13 @@ public class UIManager : MonoBehaviour
     public void UpdateStaminaBar()
     {
         if (staminaBarController != null && StatManager.Instance != null)
+        {
+            if (StatManager.Instance.currentStamina >= 50)
+                Haro.sprite = NormalSprite;
+            else
+                Haro.sprite = DamageSprite;
             staminaBarController.UpdateBar(StatManager.Instance.currentStamina, StatManager.Instance.maxStamina);
+        }
     }
 
     // ========= 클릭 =========
