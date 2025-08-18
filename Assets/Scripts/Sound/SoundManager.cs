@@ -42,6 +42,7 @@ public class SoundManager : MonoBehaviour
     public void SetAudioVolume(EAudioMixerType audioMixerType, float volume) // 볼륨 값 Set
     {
         // AudioMixer는 dB(-80~0)를 받으므로 선형값(0.0001~1)을 20*log10(volume)로 변환
+        volume = Mathf.Clamp(volume, 0.0001f, 1f);
         audioMixer.SetFloat(audioMixerType.ToString(), Mathf.Log10(volume) * 20f);
     }
 
