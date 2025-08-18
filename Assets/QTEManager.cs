@@ -139,9 +139,18 @@ public class QTEManager : MonoBehaviour
         canQTE = false;
         backGround.SetActive(false);
         Time.timeScale = 1f;
+        StartCoroutine(InvincibleTimeAfterQTE());
+
         for (int i = 0; i < arrowImages.Length; i++)
         {
             arrowImages[i].enabled = false;
         }
+    }
+
+    private IEnumerator InvincibleTimeAfterQTE()
+    {
+        player.isInvincible = true;
+        yield return new WaitForSeconds(0.7f);
+        player.isInvincible = false;
     }
 }

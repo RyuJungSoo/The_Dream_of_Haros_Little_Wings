@@ -13,6 +13,7 @@ public class FlyUIManager : MonoBehaviour
 
     [SerializeField] GameOver gameover;
     [SerializeField] Portal portal;
+    [SerializeField] QTEManager QTEManager;
 
     [SerializeField]
     StaminaSlider slider;
@@ -37,8 +38,6 @@ public class FlyUIManager : MonoBehaviour
 
     private void ESCButtonClick()
     {
-        if(!gameover.gameover && !portal.isgameclear)
-        {
             if(!pauseScreen.activeSelf)
             {
                 PauseButtonClick();
@@ -47,7 +46,6 @@ public class FlyUIManager : MonoBehaviour
             {
                 ReturnButtonClick();
             }
-        }
     }
     private IEnumerator StartTime()
     {
@@ -57,10 +55,13 @@ public class FlyUIManager : MonoBehaviour
     }
     public void PauseButtonClick()
     {
-        if (!canPause) return; // 3초 안 됐으면 무시
-        SoundManager.instance.PlaySFX(11, 0);
-        pauseScreen.SetActive(true);
-        Time.timeScale = 0f;
+        if (!gameover.gameover && !portal.isgameclear && !QTEManager.isQTE)
+        {
+            if (!canPause) return; // 3초 안 됐으면 무시
+            SoundManager.instance.PlaySFX(11, 0);
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
     public void ReturnButtonClick()
     {
