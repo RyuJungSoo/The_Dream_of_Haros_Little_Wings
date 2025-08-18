@@ -9,12 +9,17 @@ public class SaveGoMain : MonoBehaviour
     // 설정창 닫기 버튼
     public void CloseSettingUI()
     {
-        if (settingUI != null) settingUI.SetActive(false);
+        if (settingUI != null)
+        {
+            SoundManager.instance.PlaySFX(11, 0);
+            settingUI.SetActive(false);
+        }
     }
 
     // 저장 후 메인으로 이동
     public void SaveAndGoToTitle()
     {
+        SoundManager.instance.PlaySFX(11, 0);
         // 이어하기 상태로 저장 (턴/스탯/체력 전부 SaveManager가 세이브)
         if (SaveManager.Instance != null)
         {

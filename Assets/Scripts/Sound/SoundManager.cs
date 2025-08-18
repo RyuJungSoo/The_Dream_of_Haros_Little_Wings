@@ -88,9 +88,12 @@ public class SoundManager : MonoBehaviour
     public void PlayScriptSFX()
     {
         //if (ScriptSound.isPlaying)
-            //return;
-
-        int index = Random.Range(0, 12);
+        //return;
+        int index;
+        if (SceneSettingManager.Instance.CurrentSceneName == "MainMenu")
+            index = 12;
+        else
+            index = Random.Range(0, 12);
 
         ScriptSound.pitch = Random.Range(0.95f, 1.05f);
         ScriptSound.clip = GetComponent<SoundSource>().GetScriptSFX(index);
@@ -114,6 +117,5 @@ public class SoundManager : MonoBehaviour
         if (delay > 0f) yield return new WaitForSeconds(delay);
         AudioClip clip = GetComponent<SoundSource>().GetSFX(index);
         SFX.PlayOneShot(clip);
-        Debug.Log("OK");
     }
 }

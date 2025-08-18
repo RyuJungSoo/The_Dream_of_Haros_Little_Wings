@@ -7,6 +7,8 @@ public class UI_Highlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public Sprite Normal_UI;
     public Sprite Highlight_UI;
     private Image image;
+    [SerializeField]
+    private bool isSFXUse = true;
 
     void Start()
     {
@@ -15,6 +17,8 @@ public class UI_Highlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if(isSFXUse)
+            SoundManager.instance.PlaySFX(10, 0);
        image.sprite = Highlight_UI;
     }
 

@@ -160,11 +160,13 @@ public class TrainingLoader : MonoBehaviour
         bool isSuccess = rand >= failureRate;
         if (isSuccess)
         {
+            SoundManager.instance.PlaySFX(12, 0);
             successText?.SetActive(true);
             StatManager.Instance.IncreaseStat(currentStat); // 내부에서 체력 감소 포함
         }
         else
         {
+            SoundManager.instance.PlaySFX(13, 0);
             failText?.SetActive(true);
             float cost = StatManager.Instance.GetStaminaCost(currentStat);
             StatManager.Instance.DecreaseStamina(cost);

@@ -3,7 +3,8 @@ using UnityEngine.UI;
 
 public class StaminaSlider : MonoBehaviour
 {
-    public Slider slider;
+    //public Slider slider;
+    public Image StaminaBar;
     [SerializeField] PlayerJump playerjump;
 
     public float stamina;
@@ -35,7 +36,8 @@ public class StaminaSlider : MonoBehaviour
 
         if (stamina <= 0)
         {
-            slider.value = 0;
+            //slider.value = 0;
+            StaminaBar.fillAmount = 0;
             if(!gameover.gameover)
             {
                 gameover.Gameover();
@@ -44,12 +46,13 @@ public class StaminaSlider : MonoBehaviour
 
         if (playerjump.onWind && !gameover.gameover)
         {
-            slider.value = stamina / fullStamina;
+            //slider.value = stamina / fullStamina;
+            StaminaBar.fillAmount = stamina / fullStamina;
         }
         else if (stamina > 0 && !stopStaminaBar)
         {
-            slider.value = stamina / fullStamina;
-
+            //slider.value = stamina / fullStamina;
+            StaminaBar.fillAmount = stamina / fullStamina;
             if (!playerjump.isJump)
             {
                 stamina -= StatManager.Instance.GetStaminaDrainSpeed_Descend() * Time.deltaTime / 15f;

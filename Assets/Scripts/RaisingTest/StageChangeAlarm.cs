@@ -40,6 +40,7 @@ public class StageChangeAlarm : MonoBehaviour
             nextButton.onClick.AddListener(() =>
             {
                 Hide();
+                SoundManager.instance.PlaySFX(11, 0);
                 StartCoroutine(WaitAndRouteNextStage());
             });
         }
