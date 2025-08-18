@@ -12,6 +12,7 @@ public class Button_UIONOFF : MonoBehaviour
 
     public void UI_ONFF()
     {
+        SoundManager.instance.PlaySFX(11,0);
         UI.SetActive(isOn);
     }
 }

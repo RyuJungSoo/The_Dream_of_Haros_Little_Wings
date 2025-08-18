@@ -58,31 +58,37 @@ public class FlyUIManager : MonoBehaviour
     public void PauseButtonClick()
     {
         if (!canPause) return; // 3초 안 됐으면 무시
+        SoundManager.instance.PlaySFX(11, 0);
         pauseScreen.SetActive(true);
         Time.timeScale = 0f;
     }
     public void ReturnButtonClick()
     {
+        SoundManager.instance.PlaySFX(11, 0);
         pauseScreen.SetActive(false);
         Time.timeScale = 1.0f;
     }
     public void TitlePortalButtonClick()
     {
+        SoundManager.instance.PlaySFX(11, 0);
         SceneSettingManager.Instance.ChangeScene("MainMenu");
         Time.timeScale = 1.0f;
     }
     public void RetryStageButtonClick()
     {
+        SoundManager.instance.PlaySFX(11, 0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1.0f;
     }
     public void NextStageButtonClick()
     {
+        SoundManager.instance.PlaySFX(11, 0);
         SceneSettingManager.Instance.ChangeScene("DialogueScene");
         Time.timeScale = 1.0f;
     }
     public void ReCultivateButtonClick()
     {
+        SoundManager.instance.PlaySFX(11, 0);
         SceneSettingManager.Instance.ChangeScene("Raising_Stage");
         Time.timeScale = 1.0f;
     }

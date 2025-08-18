@@ -44,6 +44,7 @@ public class MainMenuResetButton : MonoBehaviour
 
     public void OnClickReset()
     {
+        SoundManager.instance.PlaySFX(11, 0);
         SetInteractable(false);
         SaveManager.Instance.ResetGame();
 

@@ -22,6 +22,7 @@ public class Prologue : MonoBehaviour
 
     public void SequenceStart()
     {
+        SoundManager.instance.PlaySFX(11, 0);
         StartButton_Object.interactable = false;
         QuitButton_Object.interactable = false;
         StartButton_Object.gameObject.SetActive(false);
