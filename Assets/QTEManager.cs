@@ -56,18 +56,9 @@ public class QTEManager : MonoBehaviour
         }
     }
 
-    private bool shouldTriggerQTE(float dropFactor, float stageFactor)
-    {
-        float baseProbability = StatManager.Instance.GetAgilityPassRate(dropFactor, stageFactor);
-        float adjustedProbability = baseProbability / 5;
-
-        int roll = UnityEngine.Random.Range(0, 101);
-        Debug.Log($"[¹ÎÃ¸¼º ÆÇÁ¤] °è»êµÈ È®·ü: {adjustedProbability:F1}%, ·Ñ°ª: {roll}");
-        return roll < adjustedProbability;
-    }
     public IEnumerator StartQTETime(float coefficient, int damage)
     {
-        if (!shouldTriggerQTE(coefficient, player.stageFactor) || !canQTE)
+        if (!StatManager.Instance.ShouldTriggerQTE(coefficient, player.stageFactor) || !canQTE)
         {
             player.Hit(damage);
             clearQTE = true;
