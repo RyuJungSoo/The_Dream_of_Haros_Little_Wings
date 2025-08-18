@@ -469,6 +469,9 @@ MonoBehaviour:
   chosenCheckAgility: {fileID: 1583774448}
   turnText: {fileID: 993137010}
   staminaBarFiller: {fileID: 290155956}
+  Haro: {fileID: 176150589}
+  NormalSprite: {fileID: 21300000, guid: 81a044e1e3e038a40891d77922ed997d, type: 3}
+  DamageSprite: {fileID: 21300000, guid: 7699853ca50e80a438fdac119c4210b8, type: 3}
   dialogueText: {fileID: 1257861637}
   loader: {fileID: 1539416252}
   mainIncreaseText: {fileID: 1597233993}
