@@ -40,11 +40,10 @@ public class MainMenuResetButton : MonoBehaviour
     }
 
     public void Open()  => panelRoot?.SetActive(true);
-    public void Close() => panelRoot?.SetActive(false);
+    public void Close() => panelRoot?.SetActive(false); 
 
     public void OnClickReset()
     {
-        SoundManager.instance.PlaySFX(11, 0);
         SetInteractable(false);
         SaveManager.Instance.ResetGame();
 
