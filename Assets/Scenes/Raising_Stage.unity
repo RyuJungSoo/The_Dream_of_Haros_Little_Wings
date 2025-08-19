@@ -469,9 +469,7 @@ MonoBehaviour:
   chosenCheckAgility: {fileID: 1583774448}
   turnText: {fileID: 993137010}
   staminaBarFiller: {fileID: 290155956}
-  Haro: {fileID: 176150589}
-  NormalSprite: {fileID: 21300000, guid: 029cab6b6eb33fc4abbc06959381cf64, type: 3}
-  DamageSprite: {fileID: 21300000, guid: 356c3d5d27f438b4f82c20db60945712, type: 3}
+  Haro_Animator: {fileID: 176150591}
   dialogueText: {fileID: 1257861637}
   loader: {fileID: 1539416252}
   mainIncreaseText: {fileID: 1597233993}
@@ -1655,6 +1653,7 @@ GameObject:
   - component: {fileID: 176150588}
   - component: {fileID: 176150590}
   - component: {fileID: 176150589}
+  - component: {fileID: 176150591}
   m_Layer: 5
   m_Name: Sprite
   m_TagString: Untagged
@@ -1719,6 +1718,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176150587}
   m_CullTransparentMesh: 1
+--- !u!95 &176150591
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176150587}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 89a01a71988e7ed418f1f4ad21b5f538, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &181310353
 GameObject:
   m_ObjectHideFlags: 0

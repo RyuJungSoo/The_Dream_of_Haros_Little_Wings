@@ -30,12 +30,8 @@ public class UIManager : MonoBehaviour
     [Header("하로 체력")]
     public Image staminaBarFiller;
 
-    [Header("하로 이미지")]
-    public Image Haro;
-
-    [Header("하로 스프라이트")]
-    public Sprite NormalSprite;
-    public Sprite DamageSprite;
+    [Header("하로 애니메이션 컨트롤러")]
+    public Animator Haro_Animator;
 
     [Header("하로 대사")]
     public TextMeshProUGUI dialogueText;
@@ -96,9 +92,9 @@ public class UIManager : MonoBehaviour
         if (staminaBarController != null && StatManager.Instance != null)
         {
             if (StatManager.Instance.currentStamina >= 50)
-                Haro.sprite = NormalSprite;
+                Haro_Animator.SetBool("isDamaged", false);
             else
-                Haro.sprite = DamageSprite;
+                Haro_Animator.SetBool("isDamaged", true);
             staminaBarController.UpdateBar(StatManager.Instance.currentStamina, StatManager.Instance.maxStamina);
         }
     }
