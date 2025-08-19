@@ -97,6 +97,7 @@ public class QTEManager : MonoBehaviour
 
                             if (key == availableKeys[index] || key == arrowKeysAlt[index])
                             {
+                                SoundManager.instance.PlaySFX(8,0);
                                 success = true;
                                 qteImages[i].enabled = false;
                                 yield return new WaitForSecondsRealtime(0.05f);
