@@ -170,7 +170,10 @@ public class Player : MonoBehaviour
     }
     public IEnumerator HitDuringInvincible()
     {
-        SoundManager.instance.PlaySFX(9, 0);
+        if (onShield)
+        {
+            SoundManager.instance.PlaySFX(9, 0);
+        }
         yield return new WaitForSeconds(0.5f);
         onShield = false;
         isInvincible = false;

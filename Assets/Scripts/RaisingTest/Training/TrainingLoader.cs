@@ -81,10 +81,22 @@ public class TrainingLoader : MonoBehaviour
         // 선택된 스탯 텍스트만 켜기
         switch (statType)
         {
-            case StatType.Stamina_Stat:     Stamina_loadingText?.SetActive(true); break;
-            case StatType.Flightpower_Stat: FlightPower_loadingText?.SetActive(true); break;
-            case StatType.Balance_Stat:     Balance_loadingText?.SetActive(true); break;
-            case StatType.Agility_Stat:     Agility_loadingText?.SetActive(true); break;
+            case StatType.Stamina_Stat:     
+                Stamina_loadingText?.SetActive(true);
+                ChangeProgressBarFillerColor("#D98333");
+                break;
+            case StatType.Flightpower_Stat: 
+                FlightPower_loadingText?.SetActive(true);
+                ChangeProgressBarFillerColor("#C647BD");
+                break;
+            case StatType.Balance_Stat:     
+                Balance_loadingText?.SetActive(true);
+                ChangeProgressBarFillerColor("#DF6035");
+                break;
+            case StatType.Agility_Stat:     
+                Agility_loadingText?.SetActive(true);
+                ChangeProgressBarFillerColor("#00CAD2");
+                break;
         }
 
         // 이미지/게이지 세팅
@@ -221,5 +233,11 @@ public class TrainingLoader : MonoBehaviour
             controlsGroup.interactable = enable;   // 내부 Selectable 입력
             controlsGroup.blocksRaycasts = true;   // 마우스 클릭 차단 유지(필요시 false로 조정)
         }
+    }
+
+    private void ChangeProgressBarFillerColor(string HexCode)
+    {
+        ColorUtility.TryParseHtmlString(HexCode, out Color newColor);
+        progressBarFiller.color = newColor;
     }
 }

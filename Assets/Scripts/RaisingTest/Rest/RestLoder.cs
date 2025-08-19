@@ -82,6 +82,8 @@ public class RestLoader : MonoBehaviour
 
         // 패널이랑 UI 세팅 중간에 리턴 하면 안됨
         HideAllTexts();                 // 모든 텍스트 비활성
+        ColorUtility.TryParseHtmlString("#A6583F", out Color newColor);
+        progressBarFiller.color = newColor;
         Rest_loadingText?.SetActive(true); // 휴식중 텍스트만 활성
 
         if (!loadingPanel.activeSelf) loadingPanel.SetActive(true);
