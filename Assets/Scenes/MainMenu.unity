@@ -7005,7 +7005,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Normal_UI: {fileID: 21300000, guid: 2e1c702c2fe05bc468cd658da3b2ba39, type: 3}
   Highlight_UI: {fileID: 21300000, guid: f8f409d80908cc642a332306525f3ad1, type: 3}
-  isSFXUse: 1
+  isSFXUse: 0
 --- !u!1 &1696502458
 GameObject:
   m_ObjectHideFlags: 0
