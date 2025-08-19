@@ -3098,11 +3098,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cbb2b96c37c42d438dd21c3f8f8476c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 0}
+  cameraTransform: {fileID: 1625571543}
   backgrounds:
   - {fileID: 1488330437}
   - {fileID: 1749842417}
-  speed: -2
+  speed: 1.5
 --- !u!4 &244195184
 Transform:
   m_ObjectHideFlags: 0
@@ -14912,7 +14912,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: 03ffc7a5aeeebc64f92a4ca5625ff594, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -17711,7 +17711,7 @@ MonoBehaviour:
   backgrounds:
   - {fileID: 1267925298}
   - {fileID: 1526778206}
-  speed: -4
+  speed: 0.5
 --- !u!4 &1496825301
 Transform:
   m_ObjectHideFlags: 0
@@ -17801,7 +17801,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: 03ffc7a5aeeebc64f92a4ca5625ff594, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -20899,11 +20899,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cbb2b96c37c42d438dd21c3f8f8476c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 0}
+  cameraTransform: {fileID: 1625571543}
   backgrounds:
   - {fileID: 532361822}
   - {fileID: 347294403}
-  speed: -3
+  speed: 1
 --- !u!4 &1782074758
 Transform:
   m_ObjectHideFlags: 0
