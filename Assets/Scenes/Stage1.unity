@@ -2036,7 +2036,7 @@ MonoBehaviour:
   backgrounds:
   - {fileID: 8266459}
   - {fileID: 1365520414}
-  speed: 0.1
+  speed: -4
 --- !u!4 &279871431
 Transform:
   m_ObjectHideFlags: 0
@@ -4036,7 +4036,7 @@ MonoBehaviour:
   backgrounds:
   - {fileID: 1974165776}
   - {fileID: 1574291580}
-  speed: 0.5
+  speed: -2
 --- !u!4 &556763626
 Transform:
   m_ObjectHideFlags: 0
@@ -10565,7 +10565,7 @@ Transform:
   m_GameObject: {fileID: 1314344844}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 383, y: -8, z: 0}
+  m_LocalPosition: {x: 383, y: -0.3, z: 0}
   m_LocalScale: {x: 24.25626, y: 24.25626, z: 24.25626}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10826,7 +10826,7 @@ PrefabInstance:
     - target: {fileID: 114469145654302392, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: a919cdb6cf7858b43a690b77c3a2b5b4, type: 3}
+      objectReference: {fileID: 21300000, guid: d238e7a7f2b2f934ea40bfce385db3d4, type: 3}
     - target: {fileID: 114860394311012990, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
       propertyPath: m_Color.b
       value: 0.32941177
@@ -10842,7 +10842,7 @@ PrefabInstance:
     - target: {fileID: 114958415113853462, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9c679849a0a90624db21563c3327badb, type: 3}
+      objectReference: {fileID: 21300000, guid: e0224656222fbce41bf37d1b1e14a417, type: 3}
     - target: {fileID: 224045155250072782, guid: c50c512aa19fa40719a893c3e8d42022, type: 3}
       propertyPath: m_SizeDelta.x
       value: 204
@@ -12727,7 +12727,7 @@ MonoBehaviour:
   backgrounds:
   - {fileID: 184017530}
   - {fileID: 2051176451}
-  speed: 0.3
+  speed: -3
 --- !u!4 &1657465824
 Transform:
   m_ObjectHideFlags: 0

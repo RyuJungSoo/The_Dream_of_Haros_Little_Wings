@@ -160,7 +160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 420, y: -277.6}
+  m_AnchoredPosition: {x: 420, y: -268}
   m_SizeDelta: {x: 81, y: 27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7373049
@@ -298,6 +298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Normal_UI: {fileID: 21300000, guid: 4a91f9df2ebe2f543961e060e519c9fa, type: 3}
   Highlight_UI: {fileID: 21300000, guid: ffc1a4caaa4aa9044bbcc686ce6ec450, type: 3}
+  isSFXUse: 1
 --- !u!1 &35102553
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1, y: 10}
+  m_AnchoredPosition: {x: 1, y: 23.999992}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &35102555
@@ -364,8 +365,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4279310395
+  m_fontColor: {r: 0.23137255, g: 0.09411765, b: 0.06666667, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -608,6 +609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Normal_UI: {fileID: 21300000, guid: 4a91f9df2ebe2f543961e060e519c9fa, type: 3}
   Highlight_UI: {fileID: 21300000, guid: ffc1a4caaa4aa9044bbcc686ce6ec450, type: 3}
+  isSFXUse: 1
 --- !u!1 &343102123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1433,7 +1435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: -12}
+  m_AnchoredPosition: {x: 75, y: 2}
   m_SizeDelta: {x: 391, y: 85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1393307096
@@ -1520,9 +1522,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CSV:
-  - {fileID: 4900000, guid: 12d6f5e01b3d2154d818543e360844f5, type: 3}
-  - {fileID: 4900000, guid: 3fac57fce8c1a47468d312fc511a7c43, type: 3}
-  - {fileID: 4900000, guid: 9821f54ba57440e47a7f0b2cb816bd0e, type: 3}
+  - {fileID: 4900000, guid: a2dbf40d68d4753449f660d58d99db3c, type: 3}
+  - {fileID: 4900000, guid: 090eabe7521803b489348ba5a5d059e5, type: 3}
+  - {fileID: 4900000, guid: bc97b0edc42c16f408e6a6d1aa8afa68, type: 3}
   Lines:
   - {x: 1, y: 12}
   - {x: 1, y: 11}
@@ -1725,7 +1727,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -472, y: -39}
+  m_AnchoredPosition: {x: -463, y: -12}
   m_SizeDelta: {x: 110, y: 107}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1577311718
